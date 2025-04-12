@@ -17,6 +17,7 @@ model Address {
   postalCode String?
   country    String
   user       User     @relation(fields: [userId], references: [id]) 
+  @@map("addresses")
 }
 
 model User {
@@ -26,6 +27,7 @@ model User {
   passwordHash String
   address      Address[]
   orders       Order[] 
+  @@map("users")
 }
 
 model Order {
@@ -36,6 +38,7 @@ model Order {
   totalAmount Float
   user        User     @relation(fields: [userId], references: [id]) 
   orderItems  OrderItem[] 
+  @@map("orders")
 }
 
 model OrderItem {
@@ -44,8 +47,9 @@ model OrderItem {
   productId       Int
   quantity        Int
   priceAtPurchase Float
-  order           Order    @relation(fields: [orderId], references: [id]) // Relacja do Order
-  product         Product  @relation(fields: [productId], references: [id]) // Relacja do Product
+  order           Order    @relation(fields: [orderId], references: [id]) 
+  product         Product  @relation(fields: [productId], references: [id]) 
+  @@map("order_items")
 }
 
 model Category {
@@ -55,6 +59,7 @@ model Category {
   image       String?
   exploreInfo String?
   products    Product[] 
+  @@map("categories")
 }
 
 model Product {
@@ -66,4 +71,6 @@ model Product {
   imageUrl    String?
   categoryId  Int
   category    Category @relation(fields: [categoryId], references: [id]) // Relacja do Category
+  orderItems  OrderItem[]
+  @@map("products") 
 }

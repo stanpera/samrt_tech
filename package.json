@@ -10,6 +10,7 @@
     "docker-start": "docker-compose up -d && npm run dev"
   },
   "dependencies": {
+    "@prisma/client": "^6.6.0",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
