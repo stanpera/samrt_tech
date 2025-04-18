@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #1c1f21;
+  --first-content: #e8b678;
+  --second-content: #5e5c53;
+  --white-content: #e7e7e7;
+  --cards: #262a2c;
+  --icons: #a3b2b7;
+  --highlights: #c49a53;
+  --special: #5c6b74;
+  --error: #d32f2f;
+  --success: #43a047;
+  --info: #2196f3;
+  --warning: #ff9800;
+  --errorIcon: #e57373;  
+  --successIcon: #81c784; 
+  --infoIcon: #64b5f6;   
+  --warningIcon: #ffb74d;
+  --font-sans: "Inter", Arial, Helvetica, sans-serif;
+  --font-size-base: 1rem;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-first-content: var(--first-content);
+  --color-second-content: var(--second-content);
+  --color-cards: var(--cards);
+  --color-icons: var(--icons);
+  --color-highlights: var(--highlights);
+  --color-hoovers: var(--hoovers);
+  --color-special: var(--special);
+  --color-white-content: var(--white-content);
+  --color-error: var(--error);
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-errorIcon: var(--errorIcon);
+  --color-successIcon: var(--successIcon);
+  --color-infoIcon: var(--infoIcon);
+  --color-warningIcon: var(--warningIcon);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
+  font-size: var(--font-size-base);
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--first-content);
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  
+
+}
+
+h2 {
+  font-size: 1.75rem;
+  color: var(--first-content);
 }
