@@ -46,6 +46,9 @@
   --font-sans: var(--font-geist-sans);
 }
 
+html {
+  height: 100%; 
+}
 body {
   font-size: var(--font-size-base);
   background: var(--background);
@@ -54,8 +57,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-self: center;
-  
-
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  gap: .5rem;
 }
 
 h2 {

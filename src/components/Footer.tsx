@@ -3,7 +3,7 @@ import GooglePay from "./icons/GooglePay";
 import MasterCard from "./icons/MasterCard";
 import PayPal from "./icons/PayPal";
 import Visa from "./icons/Visa";
-import Logo from "./ui/logo";
+import Logo from "./ui/Logo";
 
 const Footer = () => {
   return (

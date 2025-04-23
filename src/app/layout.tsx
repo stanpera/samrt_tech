@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`max-w-[1440px] w-full gap-2 `}>
+      <body >
         <SnackbarProvider>
           <Header />
           <CustomNotification />

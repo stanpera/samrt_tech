@@ -5,9 +5,8 @@ import CategoryList from "@/components/CategoryList";
 import RecommendationsList from "@/components/RecommendationsList";
 
 export default function Home() {
-
   return (
-    <main className="flex flex-col items-center justify-center pb-20 gap-25">
+    <main className="flex flex-col items-center justify-center pb-20 gap-25 flex-1">
       <Banner />
       <CategoryList />
       <RecommendationsList />

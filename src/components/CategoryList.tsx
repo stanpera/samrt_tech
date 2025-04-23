@@ -1,7 +1,7 @@
 import { Card, CardTitle } from "./ui/card";
 import useCategories from "@/hooks/useCategories";
 import LoadingSpinner from "./ui/LoadingSpinner";
-import CategoryIcons from "./icons/Mouse";
+import CategoryIcons from "./icons/CategoryIcons";
 import SadError from "./icons/sadError";
 
 const CategoryList = () => {

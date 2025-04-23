@@ -10,7 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import ShoppingCard from "./icons/ShoppingCard";
-import Logo from "./ui/logo";
+import Logo from "./ui/Logo";
 import { Separator } from "./ui/separator";
 
 const Header = () => {
@@ -19,7 +19,9 @@ const Header = () => {
       <div className="flex justify-between ">
         <Logo />
         <div className="flex items-center gap-7">
+          <Link href="/cart" passHref>
           <ShoppingCard className="text-first-content hover:text-highlights w-6 h-6" />
+          </Link>
           <Avatar className="cursor-pointer">
             <AvatarImage src="" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
@@ -36,7 +38,7 @@ const Header = () => {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/products" passHref>
+            <Link href="/product-menu" passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Product
               </NavigationMenuLink>
