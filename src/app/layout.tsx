@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { SnackbarProvider } from "@/context/SnackbarContext";
 import CustomNotification from "@/components/ui/CustomNotification";
+import { ProductsProvider } from "@/context/ProductProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,12 +23,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body >
+      <body>
         <SnackbarProvider>
-          <Header />
-          <CustomNotification />
-          {children}
-          <Footer />
+          <ProductsProvider>
+            <Header />
+            <CustomNotification />
+            {children}
+            <Footer />
+          </ProductsProvider>
         </SnackbarProvider>
       </body>
     </html>

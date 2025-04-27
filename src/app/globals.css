@@ -17,9 +17,9 @@
   --success: #43a047;
   --info: #2196f3;
   --warning: #ff9800;
-  --errorIcon: #e57373;  
-  --successIcon: #81c784; 
-  --infoIcon: #64b5f6;   
+  --errorIcon: #e57373;
+  --successIcon: #81c784;
+  --infoIcon: #64b5f6;
   --warningIcon: #ffb74d;
   --font-sans: "Inter", Arial, Helvetica, sans-serif;
   --font-size-base: 1rem;
@@ -47,7 +47,7 @@
 }
 
 html {
-  height: 100%; 
+  height: 100%;
 }
 body {
   font-size: var(--font-size-base);
@@ -60,7 +60,7 @@ body {
   height: 100%;
   width: 100%;
   max-width: 1440px;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 h2 {

@@ -93,8 +93,7 @@ export const getAllBrandsFromDb = async (
   const brands = await prisma.brand.findMany({
     select: selectValues,
   });
-
-  return brands;
+  return brands as any as Brand[];
 };
 
 export const getAllBrands = unstable_cache(

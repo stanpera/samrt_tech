@@ -1,11 +1,20 @@
+"use client";
+
+import ProductList from "@/components/ProductsList";
+import SideFilter from "@/components/SideFilter";
+
 const ProductMenu = () => {
   return (
     <main
-      className="flex flex-col flex-1 items-center bg-red-400 
+      className="flex flex-col flex-1 items-center pb-5
 "
     >
-      <div className="h-10 w-full bg-amber-400 border-b-1 border-special"></div>
-      <div> TUTAJ BĘDĄ PRODUKTY</div>{" "}
+      <div className="h-10 w-full border-b-1 border-special"></div>
+      <div className="flex w-full items-start">
+        <div></div>
+        <SideFilter />
+        <ProductList />
+      </div>
     </main>
   );
 };

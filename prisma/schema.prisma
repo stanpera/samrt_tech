@@ -77,7 +77,8 @@ model Category {
 }
 
 model Product {
-  id          Int         @id @default(autoincrement()) 
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime 
   name        String
   description String?     
   technicalSpecs String?   
