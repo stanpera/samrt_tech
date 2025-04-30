@@ -4,6 +4,7 @@ import {
   InitialCategories,
   initialImages,
   initialProducts,
+  initialStocks,
 } from "./initialData";
 
 
@@ -24,7 +25,10 @@ async function main() {
     data: initialImages,
     skipDuplicates: true,
   });
-
+  const stocks = await prisma.stock.createMany({
+    data: initialStocks,
+    skipDuplicates: true,
+  });
   console.log("Dane początkowe zostały wprowadzone.");
 }
 

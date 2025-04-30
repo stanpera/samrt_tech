@@ -83,9 +83,9 @@ model Product {
   description String?     
   technicalSpecs String?   
   price       Float
-  stock       Int
   categoryId  Int
   brandId     Int
+  stocks      Stock[]      
   category    Category     @relation(fields: [categoryId], references: [id])
   brand       Brand        @relation(fields: [brandId], references: [id])
   orderItems  OrderItem[]
@@ -99,4 +99,13 @@ model Image {
   productId Int      
   product   Product       @relation(fields: [productId], references: [id]) 
   @@map("images")
+}
+
+model Stock {
+  id        Int           @id @default(autoincrement())
+  productId Int  
+  amount    Int      
+  color     String 
+  product   Product       @relation(fields: [productId], references: [id]) 
+  @@map("stocks")
 }

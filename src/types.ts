@@ -59,17 +59,25 @@ export interface Product {
   id: number;
   name: string;
   description?: string | null;
+  technicalSpecs: string;
   price: number;
-  stock: number;
   categoryId: number;
   brandId: number;
   category?: Category;
   orderItems?: OrderItem[];
   images?: Image[];
+  stocks?: Stock[];
 }
 
 export interface Image {
   id: number;
   url: string;
   productId: number;
+}
+
+export interface Stock {
+  id: number;
+  productId: number;
+  amount: number;
+  color: string;
 }

@@ -48,7 +48,7 @@ const useProducts = () => {
         if (data.error) {
           throw new Error(data.error);
         }
-        setProducts(data.products);
+        setProducts(data.productsWithOneImage);
         setTotalProducts(data.totalCount);
       } catch (error: unknown) {
         if (error instanceof Error) {

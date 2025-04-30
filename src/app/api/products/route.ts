@@ -52,21 +52,28 @@ export async function GET(request: NextRequest) {
       select: {
         id: true,
         name: true,
-        technicalSpecs: true,
         price: true,
-        stock: true,
         categoryId: true,
         brandId: true,
         images: true,
-        category: true,
+        stocks: true,
+        category: { select: { id: true, name: true } },
       },
     });
+
+    const productsWithOneImage = products.map((product) => ({
+      ...product,
+      images: product.images.length > 0 ? [product.images[0]] : null, // Wybierz pierwszy obrazek
+    }));
 
     const totalCount = await prisma.product.count({
       where: filter,
     });
 
-    return NextResponse.json({ products, totalCount }, { status: 200 });
+    return NextResponse.json(
+      { productsWithOneImage, totalCount },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json(
       {

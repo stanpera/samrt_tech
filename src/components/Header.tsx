@@ -38,9 +38,9 @@ const Header = () => {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/product-menu" passHref>
+            <Link href="/products-menu" passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Product
+                Products
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

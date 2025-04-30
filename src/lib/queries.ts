@@ -103,3 +103,33 @@ export const getAllBrands = unstable_cache(
     tags: ["brands"],
   }
 );
+
+export const getSingleProductFromDb = async (id: number) => {
+  const products = await prisma.product.findUnique({
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      technicalSpecs: true,
+      price: true,
+      categoryId: true,
+      brandId: true,
+      images: true,
+      stocks: true, 
+      category: { select: { id: true, name: true } },
+    },
+  });
+ console.log("products", products)
+  return products;
+};
+
+export const getSingleProduct = unstable_cache(
+  getSingleProductFromDb,
+  ["singleProduct-list"],
+  {
+    tags: ["singleProduct"],
+  }
+);

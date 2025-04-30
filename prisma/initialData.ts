@@ -265,6 +265,368 @@ export const initialImages = [
   },
 ];
 
+export const initialStocks = [
+  {
+    productId: 1,
+    amount: 200,
+    color: "black",
+  },
+  {
+    productId: 1,
+    amount: 300,
+    color: "gray",
+  },
+  {
+    productId: 2,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 2,
+    amount: 50,
+    color: "gray",
+  },
+  {
+    productId: 3,
+    amount: 270,
+    color: "black",
+  },
+  {
+    productId: 3,
+    amount: 0,
+    color: "gray",
+  },
+  {
+    productId: 4,
+    amount: 200,
+    color: "black",
+  },
+  {
+    productId: 4,
+    amount: 100,
+    color: "gray",
+  },
+  {
+    productId: 5,
+    amount: 250,
+    color: "black",
+  },
+  {
+    productId: 5,
+    amount: 0,
+    color: "gray",
+  },
+  {
+    productId: 6,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 6,
+    amount: 200,
+    color: "gray",
+  },
+  {
+    productId: 6,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 6,
+    amount: 100,
+    color: "red",
+  },
+  {
+    productId: 6,
+    amount: 100,
+    color: "blue",
+  },
+  {
+    productId: 6,
+    amount: 0,
+    color: "yellow",
+  },
+  {
+    productId: 7,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 7,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 7,
+    amount: 100,
+    color: "red",
+  },
+  {
+    productId: 7,
+    amount: 0,
+    color: "blue",
+  },
+  {
+    productId: 7,
+    amount: 100,
+    color: "yellow",
+  },
+  {
+    productId: 8,
+    amount: 200,
+    color: "black",
+  },
+  {
+    productId: 8,
+    amount: 50,
+    color: "white",
+  },
+  {
+    productId: 8,
+    amount: 0,
+    color: "red",
+  },
+  {
+    productId: 8,
+    amount: 150,
+    color: "blue",
+  },
+  {
+    productId: 9,
+    amount: 100,
+    color: "black",
+  },
+  {
+    productId: 9,
+    amount: 50,
+    color: "white",
+  },
+  {
+    productId: 9,
+    amount: 100,
+    color: "red",
+  },
+  {
+    productId: 9,
+    amount: 100,
+    color: "blue",
+  },
+  {
+    productId: 10,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 10,
+    amount: 150,
+    color: "gray",
+  },
+  {
+    productId: 10,
+    amount: 150,
+    color: "white",
+  },
+  {
+    productId: 10,
+    amount: 150,
+    color: "red",
+  },
+  {
+    productId: 10,
+    amount: 150,
+    color: "blue",
+  },
+  {
+    productId: 10,
+    amount: 100,
+    color: "pink",
+  },
+  {
+    productId: 11,
+    amount: 100,
+    color: "black",
+  },
+  {
+    productId: 11,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 11,
+    amount: 100,
+    color: "orange",
+  },
+  {
+    productId: 11,
+    amount: 100,
+    color: "blue",
+  },
+  {
+    productId: 12,
+    amount: 200,
+    color: "black",
+  },
+  {
+    productId: 12,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 12,
+    amount: 100,
+    color: "orange",
+  },
+  {
+    productId: 13,
+    amount: 200,
+    color: "black",
+  },
+  {
+    productId: 13,
+    amount: 0,
+    color: "white",
+  },
+  {
+    productId: 13,
+    amount: 100,
+    color: "orange",
+  },
+  {
+    productId: 13,
+    amount: 0,
+    color: "blue",
+  },
+  {
+    productId: 14,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 14,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 14,
+    amount: 200,
+    color: "orange",
+  },
+  {
+    productId: 14,
+    amount: 0,
+    color: "blue",
+  },
+  {
+    productId: 15,
+    amount: 400,
+    color: "black",
+  },
+  {
+    productId: 15,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 15,
+    amount: 200,
+    color: "orange",
+  },
+  {
+    productId: 15,
+    amount: 0,
+    color: "blue",
+  },
+  {
+    productId: 16,
+    amount: 400,
+    color: "multicolor",
+  },
+  {
+    productId: 17,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 17,
+    amount: 50,
+    color: "gray",
+  },
+  {
+    productId: 17,
+    amount: 0,
+    color: "white",
+  },
+  {
+    productId: 18,
+    amount: 300,
+    color: "black",
+  },
+  {
+    productId: 18,
+    amount: 0,
+    color: "gray",
+  },
+  {
+    productId: 18,
+    amount: 0,
+    color: "white",
+  },
+  {
+    productId: 19,
+    amount: 100,
+    color: "black",
+  },
+  {
+    productId: 19,
+    amount: 0,
+    color: "gray",
+  },
+  {
+    productId: 19,
+    amount: 250,
+    color: "white",
+  },
+  {
+    productId: 20,
+    amount: 200,
+    color: "black",
+  },
+  {
+    productId: 20,
+    amount: 300,
+    color: "gray",
+  },
+  {
+    productId: 20,
+    amount: 100,
+    color: "white",
+  },
+  {
+    productId: 21,
+    amount: 500,
+    color: "black",
+  },
+  {
+    productId: 22,
+    amount: 500,
+    color: "black",
+  },
+  {
+    productId: 23,
+    amount: 500,
+    color: "black",
+  },
+  {
+    productId: 24,
+    amount: 500,
+    color: "silver",
+  },
+  {
+    productId: 25,
+    amount: 500,
+    color: "silver",
+  },
+];
 export const initialProducts = [
   {
     name: "AOC 24G2SPAE/BK",
@@ -274,7 +636,6 @@ export const initialProducts = [
     technicalSpecs:
       "Resolution: 1920 x 1080, Panel Type: VA, Response Time: 1 ms, Refresh Rate: 144 Hz, Brightness: 250 cd/m², Contrast: 3000:1, Viewing Angle: 178°/178°, Ports: HDMI, DisplayPort, FreeSync Technology: Yes, Ergonomics: Height, tilt, and pivot adjustment",
     price: 119.9,
-    stock: 500,
     categoryId: 2,
     brandId: 4,
   },
@@ -286,7 +647,6 @@ export const initialProducts = [
     technicalSpecs:
       "Resolution: 2560 x 1440, Panel Type: IPS, Response Time: 1 ms, Refresh Rate: 165 Hz, HDR: Yes, Brightness: 400 cd/m², Viewing Angle: 178°/178°, Ports: HDMI, DisplayPort, USB-C, FreeSync Technology: Yes",
     price: 259.0,
-    stock: 350,
     categoryId: 2,
     brandId: 4,
   },
@@ -298,7 +658,6 @@ export const initialProducts = [
     technicalSpecs:
       "Resolution: 2560 x 1440, Panel Type: VA, Response Time: 1 ms, Refresh Rate: 165 Hz, Contrast: 3000:1, Ports: HDMI, DisplayPort, Viewing Angle: 178°/178°, Flicker-Free Technology: Yes, Low Blue Light Technology: Yes, Curvature: 1500R",
     price: 199.0,
-    stock: 270,
     categoryId: 2,
     brandId: 4,
   },
@@ -310,7 +669,6 @@ export const initialProducts = [
     technicalSpecs:
       "Resolution: 1920 x 1080, Panel Type: IPS, Response Time: 1 ms, Refresh Rate: 360 Hz, HDR: Yes, Ports: HDMI, DisplayPort, G-SYNC Technology: Yes, Brightness: 400 cd/m², Contrast: 1000:1, Ergonomics: Height, tilt, and swivel adjustment",
     price: 698.0,
-    stock: 300,
     categoryId: 2,
     brandId: 1,
   },
@@ -322,7 +680,6 @@ export const initialProducts = [
     technicalSpecs:
       "Resolution: 1920 x 1080, Panel Type: TN, Response Time: 1 ms, Refresh Rate: 240 Hz, G-SYNC Technology: Yes, Ports: HDMI, DisplayPort, Brightness: 400 cd/m², Contrast: 1000:1, Ergonomics: Tilt adjustment",
     price: 230.0,
-    stock: 250,
     categoryId: 2,
     brandId: 1,
   },
@@ -334,7 +691,6 @@ export const initialProducts = [
     technicalSpecs:
       "DPI: 3200, Polling Rate: 1000 Hz, Number of Buttons: 6, RGB Lighting: Yes, Ergonomics: Right-handed design, Cable Length: 1.8 m",
     price: 39.9,
-    stock: 800,
     categoryId: 1,
     brandId: 6,
   },
@@ -346,7 +702,6 @@ export const initialProducts = [
     technicalSpecs:
       "DPI: 16000, Polling Rate: 1000 Hz, Number of Buttons: 11, RGB Lighting: Yes, Ergonomics: Right-handed design, Cable Length: 2.1 m",
     price: 44.9,
-    stock: 600,
     categoryId: 1,
     brandId: 2,
   },
@@ -358,7 +713,6 @@ export const initialProducts = [
     technicalSpecs:
       "DPI: 20000, Polling Rate: 1000 Hz, Number of Buttons: 19, RGB Lighting: Yes, Ergonomics: Right-handed design, Cable Length: 2.1 m",
     price: 99.9,
-    stock: 400,
     categoryId: 1,
     brandId: 5,
   },
@@ -370,7 +724,6 @@ export const initialProducts = [
     technicalSpecs:
       "DPI: 20000, Polling Rate: 1000 Hz, Number of Buttons: 12, RGB Lighting: Yes, Ergonomics: Right-handed design, Cable Length: 2.1 m",
     price: 129.9,
-    stock: 350,
     categoryId: 1,
     brandId: 1,
   },
@@ -382,7 +735,6 @@ export const initialProducts = [
     technicalSpecs:
       "DPI: 3200, Polling Rate: 1000 Hz, Number of Buttons: 6, RGB Lighting: Yes, Ergonomics: Right-handed design, Cable Length: 1.8 m",
     price: 29.9,
-    stock: 1000,
     categoryId: 1,
     brandId: 5,
   },
@@ -394,7 +746,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 89.9,
-    stock: 500,
     categoryId: 3,
     brandId: 3,
   },
@@ -406,7 +757,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 99.9,
-    stock: 400,
     categoryId: 3,
     brandId: 3,
   },
@@ -418,7 +768,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 129.9,
-    stock: 300,
     categoryId: 3,
     brandId: 3,
   },
@@ -430,7 +779,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 69.9,
-    stock: 600,
     categoryId: 3,
     brandId: 3,
   },
@@ -442,7 +790,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 79.9,
-    stock: 700,
     categoryId: 3,
     brandId: 3,
   },
@@ -454,7 +801,6 @@ export const initialProducts = [
     technicalSpecs:
       "Bluetooth connectivity, Customizable keys, Compact design, Battery life: Up to 3 years, Multi-device support, Ergonomic design",
     price: 99.9,
-    stock: 400,
     categoryId: 4,
     brandId: 2,
   },
@@ -466,7 +812,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 129.9,
-    stock: 300,
     categoryId: 4,
     brandId: 5,
   },
@@ -478,7 +823,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 129.9,
-    stock: 300,
     categoryId: 4,
     brandId: 5,
   },
@@ -490,7 +834,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 129.9,
-    stock: 350,
     categoryId: 4,
     brandId: 5,
   },
@@ -502,7 +845,6 @@ export const initialProducts = [
     technicalSpecs:
       "Bluetooth connectivity, Customizable keys, Compact design, Battery life: Up to 3 years, Multi-device support, Ergonomic design",
     price: 69.9,
-    stock: 600,
     categoryId: 4,
     brandId: 2,
   },
@@ -514,7 +856,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 89.9,
-    stock: 500,
     categoryId: 5,
     brandId: 2,
   },
@@ -526,7 +867,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 79.9,
-    stock: 500,
     categoryId: 5,
     brandId: 1,
   },
@@ -538,7 +878,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 89.9,
-    stock: 500,
     categoryId: 5,
     brandId: 5,
   },
@@ -550,7 +889,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 99.9,
-    stock: 650,
     categoryId: 5,
     brandId: 2,
   },
@@ -562,7 +900,6 @@ export const initialProducts = [
     technicalSpecs:
       "Dynamically tuned 40mm drivers, Active Noise Cancellation: Yes, Battery Life: Up to 35 hours, Bluetooth: Yes, Voice Assistant Support: Yes, Foldable Design: Yes",
     price: 129.9,
-    stock: 400,
     categoryId: 5,
     brandId: 2,
   },

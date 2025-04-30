@@ -7,10 +7,10 @@ import EmptyImage from "./icons/EmptyImage";
 import ShoppingCard from "./icons/ShoppingCard";
 import { cn } from "@/lib/utils";
 import CustomPagination from "./CustomPagination";
-import { TooltipContent, TooltipProvider } from "./ui/tooltip";
-import { Tooltip, TooltipTrigger } from "@radix-ui/react-tooltip";
+import { TooltipContent, TooltipProvider, Tooltip, TooltipTrigger } from "./ui/tooltip";
 import { useProductsContext } from "@/context/ProductProvider";
 import { Skeleton } from "./ui/skeleton";
+import Link from "next/link";
 
 const ProductList: React.FC = () => {
   const {
@@ -84,51 +84,58 @@ const ProductList: React.FC = () => {
       <SortProducts />
       <div className="flex flex-wrap gap-12">
         {products?.map((prod) => (
-          <Card className=" w-[300px] h-[386px] border border-special pt-4 px-4 pb-5">
-            <CardContent className=" relative flex flex-col items-start h-full w-full gap-4.5 ">
-              <div
-                className={cn(
-                  {
-                    "bg-icons": !prod.images || prod.images.length === 0,
-                    "bg-white-content":
-                      Array.isArray(prod.images) && prod.images.length > 0,
-                  },
-                  "flex justify-center items-center w-full h-[204px] rounded-md"
-                )}
-                style={{
-                  backgroundImage:
-                    prod.images && prod.images.length > 0 && prod.images[0].url
-                      ? `url("${prod.images[0].url}")`
-                      : "none",
-                  backgroundSize: "70%",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              >
-                {(!prod.images || prod.images.length === 0) && (
-                  <EmptyImage className="size-30 text-special" />
-                )}
-                <Button
-                  variant="shop"
-                  size="shop"
-                  className="absolute top-2 left-2"
+          <Card
+            key={prod.id}
+            className="relative w-[300px] h-[386px] border border-special pt-4 px-4 pb-5"
+          >
+            <Button
+              variant="shop"
+              size="shop"
+              className="absolute top-7 left-7"
+            >
+              <ShoppingCard className="text-icons w-6 h-6" />
+            </Button>
+            <CardContent className=" flex flex-col">
+              <Link href={`/products/${prod.id}`}>
+                <div
+                  className={cn(
+                    {
+                      "bg-icons": !prod.images || prod.images.length === 0,
+                      "bg-white-content":
+                        Array.isArray(prod.images) && prod.images.length > 0,
+                    },
+                    " h-[204px] rounded-md"
+                  )}
+                  style={{
+                    backgroundImage:
+                      prod.images &&
+                      prod.images.length > 0 &&
+                      prod.images[0].url
+                        ? `url("${prod.images[0].url}")`
+                        : "none",
+                    backgroundSize: "70%",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
                 >
-                  <ShoppingCard className="text-icons w-6 h-6" />
-                </Button>
-              </div>
-              <div className="py-1.5 px-2.5 bg-first-content inline-block text-cards rounded-md">
+                  {(!prod.images || prod.images.length === 0) && (
+                    <EmptyImage className="size-30 text-special" />
+                  )}
+                </div>
+              </Link>
+              <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start mt-4.5">
                 {prod.category?.name}
               </div>
-              <TooltipProvider delayDuration={500}>
+              <TooltipProvider >
                 <Tooltip>
-                  <CardTitle className="text-lg text-icons flex w-full">
+                  <CardTitle className="text-lg text-icons mt-4">
                     <>
                       {prod.name.length < 25 ? (
                         <div className="overflow-hidden whitespace-nowrap max-w-full text-ellipsis">
                           {prod.name}
                         </div>
                       ) : (
-                        <TooltipTrigger asChild className="duration-300">
+                        <TooltipTrigger asChild>
                           <div className="overflow-hidden whitespace-nowrap max-w-full text-ellipsis">
                             {prod.name}
                           </div>
@@ -136,14 +143,14 @@ const ProductList: React.FC = () => {
                       )}
                     </>
                     <TooltipContent>
-                      <p className=" text-sm bg-special text-icons px-1 py-2 rounded-md">
+                      <p className="text-sm bg-special text-icons rounded-md">
                         {prod.name}
                       </p>
                     </TooltipContent>
                   </CardTitle>
                 </Tooltip>
               </TooltipProvider>
-              <CardFooter className="p-0 text-[28px] font-semibold text-icons">{`\u20AC ${prod.price.toFixed(
+              <CardFooter className="p-0 mt-2 text-[28px] font-semibold text-icons">{`\u20AC${prod.price.toFixed(
                 2
               )}`}</CardFooter>
             </CardContent>
