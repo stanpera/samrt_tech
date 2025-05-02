@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
   const limit = parseInt(searchParams.get("limit") || "9");
   const offset = parseInt(searchParams.get("offset") || "0");
   const sortBy = searchParams.get("sortBy") || "latest";
+  const brand = searchParams.get("brand") || "all";
 
   const filter = {
     ...(categoryId != "all"
@@ -28,7 +29,18 @@ export async function GET(request: NextRequest) {
       gte: minPrice,
       ...(maxPrice ? { lte: maxPrice } : {}),
     },
+    ...(brand != "all"
+      ? {
+          brandId: {
+            in: brand
+              .split(",")
+              .map((b) => parseInt(b.trim()))
+              .filter((b) => b),
+          },
+        }
+      : {}),
   };
+console.log("FILTERS", filter)
   let orderBy = {};
   switch (sortBy) {
     case "price_asc":

@@ -15,18 +15,18 @@ import { Card } from "../ui/card";
 import ShoppingCard from "../icons/ShoppingCard";
 import { useSnackbar } from "@/context/SnackbarContext";
 
-interface CheckColorProps {
-  stocks: Stock[];
-  price: number;
-}
-interface ActiveColor {
-  id: number;
-  color: string;
-  productId: number;
-  amount: number;
+interface ConvertionProps {
+  rate: number;
+  symbol: string;
 }
 
-const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
+interface AddToCartProps {
+  stocks: Stock[] | undefined;
+  price: number;
+  convertion: ConvertionProps;
+}
+
+const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
   const [isMouseDown, setIsMouseDown] = useState<string>("none");
   const [activeStockId, setActiveStockId] = useState<number>();
   const [activeStockAmount, setActiveStockAmount] = useState<number>(0);
@@ -36,14 +36,14 @@ const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
 
   const { showSnackbar } = useSnackbar();
 
-  const productInStock: number = stocks
+  const productInStock: number | undefined = stocks
     ?.map((stock) => stock.amount)
     .reduce((acc, current) => acc + current);
 
   useEffect(() => {
     setSubtotal(price);
     setAddedProduct(1);
-    setActiveStockAmount(productInStock);
+    setActiveStockAmount(productInStock ? productInStock : 0);
   }, [price, stocks]);
 
   const handleStock = ({ id, amount }: { id: number; amount: number }) => {
@@ -128,7 +128,6 @@ const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
 
       if (cartItems) {
         let cartItemsArray = JSON.parse(cartItems);
-        console.log("cartItemsArray", cartItemsArray);
 
         cartItemsArray = [...cartItemsArray, productToCart];
         localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
@@ -213,7 +212,7 @@ const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
               variant="icon"
               size="icon"
               className={cn(
-                "w-6 h-6 flex justify-center items-cente cursor-pointer hover:text-highlightsr items-center",
+                "w-6 h-6 flex justify-center items-cente cursor-pointer hover:text-highlights items-center",
                 {
                   "cursor-auto text-special": addedProduct < 1,
                 }
@@ -230,7 +229,7 @@ const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
               variant="icon"
               size="icon"
               className={cn(
-                "w-6 h-6 flex justify-center items-cente cursor-pointer hover:text-highlightsr  items-center",
+                "w-6 h-6 flex justify-center items-cente cursor-pointer hover:text-highlights  items-center",
                 {
                   "cursor-auto text-special":
                     typeof activeStockAmount === "number" &&
@@ -255,9 +254,9 @@ const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
         {error && subtotal < price && addedProduct > 0 && (
           <p className="text-error text-sm text-center">Invalid value</p>
         )}
-        <p className="text-[28px] font-medium">{`\u20AC${subtotal.toFixed(
-          2
-        )}`}</p>
+        <p className="text-[28px] font-medium">{`${
+          convertion?.symbol
+        }${(convertion?.rate * subtotal).toFixed(2)}`}</p>
       </div>
       <Button
         onClick={handleCart}
@@ -272,4 +271,4 @@ const CheckColor: FC<CheckColorProps> = ({ stocks, price }) => {
   );
 };
 
-export default CheckColor;
+export default AddToCart;

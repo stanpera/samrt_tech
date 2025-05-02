@@ -18,7 +18,7 @@ const useProducts = () => {
   const [sortOrder, setSortOrder] = useState<string>("latest");
   const [page, setPage] = useState<number>(0);
   const [totalProducts, setTotalProducts] = useState<number>(NaN);
-
+  const [brand, setBrand] = useState<string[]>(["all"]);
   const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -28,10 +28,11 @@ const useProducts = () => {
       setErrorMessage("");
 
       const categoryToString = category?.join(",");
+      const brandToString = brand?.join(",");
 
       try {
         const response = await fetch(
-          `${BASE_URL}/api/products?category=${categoryToString}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}&offset=${
+          `${BASE_URL}/api/products?category=${categoryToString}&brand=${brandToString}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}&offset=${
             page * limit
           }&sortBy=${sortOrder}`,
           {
@@ -68,7 +69,7 @@ const useProducts = () => {
       }
     };
     fetchProducts();
-  }, [sortOrder, category, minPrice, maxPrice, page, limit]);
+  }, [sortOrder, category, minPrice, maxPrice, page, limit, brand]);
 
   return {
     products,
@@ -80,12 +81,16 @@ const useProducts = () => {
     limit,
     sortOrder,
     category,
+    minPrice,
+    maxPrice,
+    brand,
     setCategory,
     setMinPrice,
     setMaxPrice,
     setLimit,
     setSortOrder,
     setPage,
+    setBrand,
   };
 };
 

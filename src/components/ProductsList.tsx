@@ -7,12 +7,26 @@ import EmptyImage from "./icons/EmptyImage";
 import ShoppingCard from "./icons/ShoppingCard";
 import { cn } from "@/lib/utils";
 import CustomPagination from "./CustomPagination";
-import { TooltipContent, TooltipProvider, Tooltip, TooltipTrigger } from "./ui/tooltip";
+import {
+  TooltipContent,
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+} from "./ui/tooltip";
 import { useProductsContext } from "@/context/ProductProvider";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+// import { useSearchParams } from "next/navigation";
+
+interface convertionProps {
+  rate: number;
+  symbol: "\u0024" | "\u20AC" | "\u00A3";
+}
 
 const ProductList: React.FC = () => {
+
+
   const {
     products,
     totalProducts,
@@ -21,8 +35,29 @@ const ProductList: React.FC = () => {
     errorMessage,
     page,
     limit,
+    currentCurrency,
     setPage,
   } = useProductsContext();
+
+  const [convertion, setConvertion] = useState<convertionProps>({
+    rate: 1,
+    symbol: "\u0024",
+  });
+
+  useEffect(() => {
+    const currency = localStorage.getItem("currentCurrency");
+    if (currency) {
+      let currencyData = JSON.parse(currency);
+      const rate = parseFloat(currencyData[currentCurrency]);
+      const symbol =
+        currentCurrency === "USD"
+          ? "\u0024"
+          : currentCurrency === "EUR"
+          ? "\u20AC"
+          : "\u00A3";
+      setConvertion({ rate: rate, symbol: symbol });
+    }
+  }, [currentCurrency]);
 
   if (loading) {
     return (
@@ -126,7 +161,7 @@ const ProductList: React.FC = () => {
               <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start mt-4.5">
                 {prod.category?.name}
               </div>
-              <TooltipProvider >
+              <TooltipProvider>
                 <Tooltip>
                   <CardTitle className="text-lg text-icons mt-4">
                     <>
@@ -150,9 +185,9 @@ const ProductList: React.FC = () => {
                   </CardTitle>
                 </Tooltip>
               </TooltipProvider>
-              <CardFooter className="p-0 mt-2 text-[28px] font-semibold text-icons">{`\u20AC${prod.price.toFixed(
-                2
-              )}`}</CardFooter>
+              <CardFooter className="p-0 mt-2 text-[28px] font-semibold text-icons">{`${
+                convertion.symbol
+              }${(prod.price * convertion.rate).toFixed(2)}`}</CardFooter>
             </CardContent>
           </Card>
         ))}
@@ -169,3 +204,5 @@ const ProductList: React.FC = () => {
 };
 
 export default ProductList;
+
+

@@ -15,15 +15,17 @@ import { Card, CardContent, CardDescription, CardHeader } from "./ui/card";
 import FullArrowRight from "./icons/FullArrowRight";
 import { Category } from "@/types";
 import useCategories from "@/hooks/useCategories";
-import LoadingSpinner from "./ui/LoadingSpinner";
 import SadError from "./icons/sadError";
+import { useRouter } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
 
 const Banner = () => {
   const { categories, loading, error, errorMessage } = useCategories();
-
   const [carouselAPI, setCarouselAPI] = useState<CarouselApi | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const router = useRouter();
+
   const onSelect = useCallback(() => {
     if (!carouselAPI) return;
 
@@ -58,12 +60,14 @@ const Banner = () => {
   if (loading) {
     return (
       <section className="w-full flex flex-col gap-6 px-10">
-        <Card className="bg-cards h-[452px] px-30 py-20 gap-6 border border-special">
-          <LoadingSpinner />
-        </Card>
+        <Skeleton className="h-[452px] px-30 py-20 gap-6 border border-special" />
       </section>
     );
   }
+
+  const handleExploreCategory = (id: number) => {
+    router.push(`/products-menu?category=${String(id)}`);
+  };
 
   return (
     <section className="w-full flex flex-col gap-6 px-10">
@@ -103,6 +107,7 @@ const Banner = () => {
                             variant="outline"
                             size="outline"
                             className="flex gap-3.5"
+                            onClick={() => handleExploreCategory(category.id)}
                           >
                             Explore Category
                             <FullArrowRight />

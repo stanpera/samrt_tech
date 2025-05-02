@@ -12,10 +12,47 @@ import ShoppingCard from "./icons/ShoppingCard";
 import { Button } from "./ui/button";
 import EmptyImage from "./icons/EmptyImage";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+interface convertionProps {
+  rate: number;
+  symbol: "\u0024" | "\u20AC" | "\u00A3";
+}
 
 const RecommendationsList = () => {
   const { recommendedProducts, loading, error, errorMessage } =
     useRecommended();
+
+  const router = useRouter();
+
+  const [convertion, setConvertion] = useState<convertionProps>({
+    rate: 1,
+    symbol: "\u0024",
+  });
+
+  useEffect(() => {
+    const currency = localStorage.getItem("currentCurrency");
+    if (currency) {
+      let currencyData = JSON.parse(currency);
+      const currentCurrency = currencyData.currentCurrency;
+      const rate = parseFloat(currencyData[currentCurrency]);
+
+      const symbol =
+        currentCurrency === "USD"
+          ? "\u0024"
+          : currentCurrency === "EUR"
+          ? "\u20AC"
+          : "\u00A3";
+
+      setConvertion({ rate: rate, symbol: symbol });
+    }
+  }, []);
+
+  const handleProductDetails = (id: number) => {
+    router.push(`/products/${String(id)}`);
+  };
+
   return (
     <section className="w-full flex flex-col items-start gap-8 pl-10">
       <div className="w-full flex justify-between">
@@ -28,8 +65,11 @@ const RecommendationsList = () => {
             <CarouselContent className="flex gap-8">
               {recommendedProducts?.map((recProd, index) => (
                 <CarouselItem key={index}>
-                  <div className="p-1">
-                    <Card className=" w-[300px] h-[386px] border border-special pt-4 px-4 pb-5">
+                  <div
+                    onClick={() => handleProductDetails(recProd?.id)}
+                    className="p-1"
+                  >
+                    <Card className=" w-[300px] h-[386px] border border-special pt-4 px-4 pb-5 cursor-pointer">
                       <CardContent className=" relative flex flex-col items-start h-full w-full gap-4.5">
                         <div
                           className={cn(
@@ -71,7 +111,9 @@ const RecommendationsList = () => {
                         <CardTitle className="text-lg text-icons">
                           {recProd.name}
                         </CardTitle>
-                        <CardFooter className="p-0 text-[28px] font-semibold text-icons">{`\u20AC ${recProd.price.toFixed(
+                        <CardFooter className="p-0 text-[28px] font-semibold text-icons">{`${
+                          convertion.symbol
+                        } ${(recProd.price * convertion.rate).toFixed(
                           2
                         )}`}</CardFooter>
                       </CardContent>

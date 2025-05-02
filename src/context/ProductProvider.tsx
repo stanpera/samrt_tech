@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { ReactNode, createContext, useContext } from "react"; // Upewnij się, że ReactNode jest zaimportowany
+import { ReactNode, createContext, useContext, useState } from "react"; // Upewnij się, że ReactNode jest zaimportowany
 import useProducts from "@/hooks/useProducts";
 import { Product } from "@/types";
 
@@ -13,13 +13,18 @@ interface ProductsContextType {
   page: number;
   limit: number;
   sortOrder: string;
-  category: string[]
-  setCategory: (category: string[]) => void;
-  setMinPrice: (price: number) => void;
-  setMaxPrice: (price: number) => void;
+  category: string[];
+  minPrice: number;
+  maxPrice: number;
+  setCategory: React.Dispatch<React.SetStateAction<Array<string>>>;
+  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
   setLimit: (num: number) => void;
   setSortOrder: (value: string) => void;
   setPage: (page: number) => void;
+  currentCurrency: string;
+  setCurrentCurrency: (value: string) => void;
+  setBrand: React.Dispatch<React.SetStateAction<Array<string>>>;
 }
 
 interface ProductsProviderProps {
@@ -33,6 +38,7 @@ const ProductsContext = createContext<ProductsContextType | undefined>(
 export const ProductsProvider: React.FC<ProductsProviderProps> = ({
   children,
 }) => {
+  const [currentCurrency, setCurrentCurrency] = useState<string>("USD");
   const {
     products,
     totalProducts,
@@ -43,12 +49,15 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
     limit,
     sortOrder,
     category,
+    minPrice,
+    maxPrice,
     setCategory,
     setMinPrice,
     setMaxPrice,
     setLimit,
     setSortOrder,
     setPage,
+    setBrand,
   } = useProducts();
 
   const data = {
@@ -61,12 +70,17 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
     limit,
     sortOrder,
     category,
+    minPrice,
+    maxPrice,
+    currentCurrency,
     setCategory,
     setMinPrice,
     setMaxPrice,
     setLimit,
     setSortOrder,
     setPage,
+    setCurrentCurrency,
+    setBrand,
   };
 
   return (

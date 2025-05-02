@@ -5,26 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "disabled:opacity-50  shrink-0 outline-none duration-300",
+  "disabled:opacity-50 duration-300 cursor-pointer",
   {
     variants: {
       variant: {
-        default: "bg-cards text-icons shadow-xs cursor-pointer",
+        default: "bg-cards text-icons shadow-xs",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline: "border rounded-md bg-none hover:text-highlights",
+        outline:
+          "border border-first-content rounded-md bg-none hover:bg-highlights hover:text-cards hover:border-transparent",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
           "hover:bg-higlights hover:text-higlights dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline hover:text-highlights ",
-        banner:
-          "bg-first-content hover:bg-highlights text-background cursor-pointer",
-        dot: "bg-special rounded-full cursor-pointer",
-        seeAll: "border-none bg-none cursor-pointer hover:text-highlights ",
+        banner: "bg-first-content hover:bg-highlights text-background",
+        dot: "bg-special rounded-full",
+        seeAll: "border-none bg-none hover:text-highlights ",
         shop: "bg-cards hover:bg-second-content",
-        trash: "bg-none hover:bg-none cursor-pointer",
-        icon: "bg-none hover:bg-none cursor-pointer",
+        trash: "bg-none hover:bg-none",
+        icon: "bg-none hover:bg-none",
       },
       size: {
         default: "h-13.5 px-5 py-3.5 rounded-md text-base font-medium",

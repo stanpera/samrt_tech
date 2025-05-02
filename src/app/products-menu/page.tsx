@@ -10,8 +10,7 @@ const ProductMenu = () => {
 "
     >
       <div className="h-10 w-full border-b-1 border-special"></div>
-      <div className="flex w-full items-start">
-        <div></div>
+      <div className="flex w-full items-start ">
         <SideFilter />
         <ProductList />
       </div>
