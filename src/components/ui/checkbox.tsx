@@ -5,11 +5,11 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface CheckboxProps 
+interface CheckboxProps
   extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
   id: string;
   name?: string;
-  onChange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean) => void;
   isChecked?: boolean;
 }
 

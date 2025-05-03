@@ -1,6 +1,5 @@
 import { Card, CardTitle } from "./ui/card";
 import useCategories from "@/hooks/useCategories";
-import LoadingSpinner from "./ui/LoadingSpinner";
 import CategoryIcons from "./icons/CategoryIcons";
 import SadError from "./icons/sadError";
 import { useRouter } from "next/navigation";

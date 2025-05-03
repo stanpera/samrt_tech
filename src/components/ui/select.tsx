@@ -37,7 +37,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "bg-cards text-icons border border-special text-sm flex items-center justify-between px-4 py-2.5 rounded-md",
+        "bg-cards text-icons border border-special text-sm flex items-center justify-between px-4 py-2.5 rounded-md data-[placeholder]:text-special",
         className
       )}
       {...props}

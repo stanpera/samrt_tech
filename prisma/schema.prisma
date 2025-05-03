@@ -27,7 +27,7 @@ model Address {
 
 model User {
   id           Int      @id @default(autoincrement())
-  firstName    String
+  firstName    String?
   email        String   @unique
   passwordHash String
   address      Address[]

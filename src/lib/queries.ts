@@ -1,6 +1,6 @@
 "use server";
 
-import { Brand, Category } from "@/types";
+import { AddUserProps, Brand, Category } from "@/types";
 import prisma from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 
@@ -118,11 +118,11 @@ export const getSingleProductFromDb = async (id: number) => {
       categoryId: true,
       brandId: true,
       images: true,
-      stocks: true, 
+      stocks: true,
       category: { select: { id: true, name: true } },
     },
   });
- console.log("products", products)
+  console.log("products", products);
   return products;
 };
 
@@ -133,3 +133,21 @@ export const getSingleProduct = unstable_cache(
     tags: ["singleProduct"],
   }
 );
+
+export async function createUser(
+  email: string,
+  passwordHash: string
+): Promise<void> {
+  try {
+    await prisma.user.create({
+      data: {
+        email: email,
+        passwordHash: passwordHash,
+      },
+    });
+
+    revalidateTag("user");
+  } catch (error: unknown) {
+    throw new Error("Failed to save user.");
+  }
+}

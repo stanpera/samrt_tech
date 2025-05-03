@@ -81,3 +81,10 @@ export interface Stock {
   amount: number;
   color: string;
 }
+
+export interface RegisterUserProps {
+  email: string;
+  mobileNumber: string;
+  password: string;
+  country: string;
+}
