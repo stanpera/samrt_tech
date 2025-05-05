@@ -1,26 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-// import ArrowDown from "./icons/ArrowDown";
-// import ArrowUp from "./icons/ArrowUp";
-// import { Button } from "./ui/button";
+
 import useCategories from "@/hooks/useCategories";
-// import CurrencyInput from "react-currency-input-field";
 import { useProductsContext } from "@/context/ProductProvider";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-import useCurrency from "@/hooks/useCurrency";
+
 import { useSearchParams } from "next/navigation";
-import OptionsHandler from "./products-menu/OptionsHandler";
+import OptionsHandler from "../products-menu/OptionsHandler";
 import useBrands from "@/hooks/useBrands";
-import PriceHandler from "./products-menu/PriceHandler";
-import { Skeleton } from "./ui/skeleton";
+import PriceHandler from "../products-menu/PriceHandler";
+import { Skeleton } from "../ui/skeleton";
 
 const SideFilter = () => {
   const searchParams = useSearchParams();

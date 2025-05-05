@@ -1,19 +1,22 @@
 "use server";
 import { hashPassword } from "@/lib/passwordHasher";
-import { createUser } from "@/lib/queries";
+import { createAddress, createUser, getUser } from "@/lib/queries";
 import { RegisterUserProps } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    console.log("2");
 
     const { email, mobileNumber, password, country }: RegisterUserProps =
       await req.json();
-    // console.log(email);
-
     const passwordHash: string = await hashPassword(password);
-    await createUser(email, passwordHash);
+    await createUser(email, passwordHash, mobileNumber);
+
+    const userId = await getUser(email, ["id"]);
+
+    if (userId?.id) {
+      await createAddress(userId.id, country);
+    }
 
     return NextResponse.json(
       { message: "User has been successfully registered" },

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const buttonVariants = cva("disabled:opacity-50 duration-300 cursor-pointer", {
   variants: {
     variant: {
-      default: "bg-cards text-icons shadow-xs",
+      default: "text-first-content hover:text-highlights cursor-pointer",
       destructive:
         "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
       outline:
@@ -25,7 +25,7 @@ const buttonVariants = cva("disabled:opacity-50 duration-300 cursor-pointer", {
       form: "bg-first-content text-cards font-medium hover:bg-highlights duration-300 rounded-md",
     },
     size: {
-      default: "h-13.5 px-5 py-3.5 rounded-md text-base font-medium",
+      default: "text-base font-normal",
       sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
       lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
       outline: "py-3.5 px-5",

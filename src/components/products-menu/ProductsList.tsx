@@ -1,10 +1,10 @@
 "use client";
 
-import SortProducts from "./SortProducts";
-import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
-import { Button } from "./ui/button";
-import EmptyImage from "./icons/EmptyImage";
-import ShoppingCard from "./icons/ShoppingCard";
+import SortProducts from "../SortProducts";
+import { Card, CardContent, CardFooter, CardTitle } from "../ui/card";
+import { Button } from "../ui/button";
+import EmptyImage from "../icons/EmptyImage";
+import ShoppingCard from "../icons/ShoppingCard";
 import { cn } from "@/lib/utils";
 import CustomPagination from "./CustomPagination";
 import {
@@ -12,12 +12,12 @@ import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
-} from "./ui/tooltip";
+} from "../ui/tooltip";
+
 import { useProductsContext } from "@/context/ProductProvider";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// import { useSearchParams } from "next/navigation";
 
 interface convertionProps {
   rate: number;
@@ -25,8 +25,6 @@ interface convertionProps {
 }
 
 const ProductList: React.FC = () => {
-
-
   const {
     products,
     totalProducts,
@@ -204,5 +202,3 @@ const ProductList: React.FC = () => {
 };
 
 export default ProductList;
-
-

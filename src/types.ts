@@ -10,10 +10,11 @@ export interface Address {
 }
 
 export interface User {
-  id: number;
-  firstName: string;
-  email: string;
-  passwordHash: string;
+  id?: number;
+  firstName?: string;
+  email?: string;
+  passwordHash?: string;
+  mobileNumber?: String;
   address?: Address[];
   orders?: Order[];
 }

@@ -1,6 +1,6 @@
 "use server";
 
-import { AddUserProps, Brand, Category } from "@/types";
+import { Brand, Category, User } from "@/types";
 import prisma from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 
@@ -136,18 +136,68 @@ export const getSingleProduct = unstable_cache(
 
 export async function createUser(
   email: string,
-  passwordHash: string
+  passwordHash: string,
+  mobileNumber: string
 ): Promise<void> {
   try {
     await prisma.user.create({
       data: {
         email: email,
         passwordHash: passwordHash,
+        mobileNumber: mobileNumber,
       },
     });
 
     revalidateTag("user");
   } catch (error: unknown) {
-    throw new Error("Failed to save user.");
+    throw new Error("Failed to save user XXX.");
+  }
+}
+
+export async function getUser(
+  identifier: string | number,
+  values: Array<string>
+): Promise<User | null> {
+  try {
+    const selectValues: { [key: string]: boolean } = {};
+
+    values.forEach((value) => {
+      selectValues[value] = true;
+    });
+
+    const user = await prisma.user.findUnique({
+      where: {
+        ...(typeof identifier === "string" &&
+        identifier.startsWith("+") &&
+        !identifier.includes("@")
+          ? { mobileNumber: identifier.slice(1) }
+          : typeof identifier === "string"
+          ? { email: identifier }
+          : { id: identifier }),
+      },
+      select: selectValues,
+    });
+    console.log("USER", user)
+    return user;
+  } catch (error: unknown) {
+    throw new Error("Failed to upload user.");
+  }
+}
+
+export async function createAddress(
+  userId: number,
+  country: string
+): Promise<void> {
+  try {
+    await prisma.address.create({
+      data: {
+        userId: userId,
+        country: country,
+      },
+    });
+
+    revalidateTag("address");
+  } catch (error: unknown) {
+    throw new Error("Failed to save address.");
   }
 }

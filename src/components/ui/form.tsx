@@ -93,7 +93,10 @@ function FormLabel({
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn("data-[error=true]:text-destructive text-lg font-medium mb-4", className)}
+      className={cn(
+        "data-[error=true]:text-destructive text-lg font-medium mb-4",
+        className
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -132,24 +135,49 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   );
 }
 
-function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
+interface FormMessageProps {
+  isCorrect?: boolean;
+  message?: string;
+  className?: string;
+  [key: string]: any;
+}
+
+function FormMessage({
+  isCorrect,
+  isSubmited,
+  message,
+  className,
+  ...props
+}: FormMessageProps) {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? "") : props.children;
 
-  if (!body) {
+  if (!body && isCorrect) {
     return null;
   }
 
-  return (
-    <p
-      data-slot="form-message"
-      id={formMessageId}
-      className={cn("text-destructive text-sm text-error", className)}
-      {...props}
-    >
-      {body}
-    </p>
-  );
+  if (body) {
+    return (
+      <p
+        data-slot="form-message"
+        id={formMessageId}
+        className={cn("text-destructive text-sm text-error mt-2", className)}
+        {...props}
+      >
+        {body}
+      </p>
+    );
+  }
+  if (!body && !isCorrect && isSubmited) {
+    return (
+      <p
+        className={cn("text-destructive text-sm text-error mt-2", className)}
+        {...props}
+      >
+        {message}
+      </p>
+    );
+  }
 }
 
 export {

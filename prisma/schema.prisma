@@ -16,8 +16,8 @@ datasource db {
 model Address {
   id         Int      @id @default(autoincrement()) 
   userId     Int      
-  street     String
-  city       String
+  street     String?
+  city       String?
   state      String?
   postalCode String?
   country    String
@@ -30,6 +30,7 @@ model User {
   firstName    String?
   email        String   @unique
   passwordHash String
+  mobileNumber String   @unique
   address      Address[]
   orders       Order[] 
   @@map("users")

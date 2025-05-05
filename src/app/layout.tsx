@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import { SnackbarProvider } from "@/context/SnackbarContext";
 import CustomNotification from "@/components/ui/CustomNotification";
-import { ProductsProvider } from "@/context/ProductProvider";
+import Providers from "@/providers/Providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,14 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SnackbarProvider>
-          <ProductsProvider>
+        <Providers>
+          <SnackbarProvider>
             <Header />
             <CustomNotification />
             {children}
             <Footer />
-          </ProductsProvider>
-        </SnackbarProvider>
+          </SnackbarProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -21,10 +21,8 @@ import PhoneInput from "react-phone-input-2";
 
 import { useSnackbar } from "@/context/SnackbarContext";
 
-// import { useSession } from "next-auth/react";
 import { Button } from "../ui/button";
 import Logo from "../ui/Logo";
-import { useState } from "react";
 import { CountryDropdown } from "./SelectCountry";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
@@ -38,7 +36,6 @@ const formSchema = z
     mobileNumber: z
       .string()
       .min(4, { message: "Mobile number must contain at least 4 letter" }),
-    // mobilePrefix: z.string().min(1, { message: "Required" }),
     password: z
       .string()
       .min(4, { message: "This field has to be filled." })
@@ -67,7 +64,6 @@ interface formValue {
 const RegisterForm = () => {
   const { showSnackbar } = useSnackbar();
   const router = useRouter();
-  //   const { status } = useSession();
 
   const form = useForm<
     z.input<typeof formSchema>,
@@ -119,10 +115,8 @@ const RegisterForm = () => {
       }
     }
   };
-  // const onSubmit = (value) => console.log(value);
   return (
     <>
-      {status !== "authenticated" && (
         <Form {...form}>
           <div className="mt-[77px] mb-8">
             <Logo />
