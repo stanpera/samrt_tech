@@ -40,7 +40,6 @@ export async function GET(request: NextRequest) {
         }
       : {}),
   };
-console.log("FILTERS", filter)
   let orderBy = {};
   switch (sortBy) {
     case "price_asc":

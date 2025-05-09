@@ -209,6 +209,7 @@ const LoginForm = () => {
                         placeholder="Password"
                         {...field}
                         className="py-3.5 px-5 h-13.5"
+                        autoFocus
                       />
                     </FormControl>
                     <FormMessage />

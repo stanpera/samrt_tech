@@ -65,7 +65,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
               })}
             >
               <div
-                className={"w-full h-full flex justify-center"}
+                className={"w-full h-full flex justify-center items-center"}
                 style={{
                   backgroundImage: mainImage ? `url("${mainImage}")` : "none",
                   backgroundSize: "70%",

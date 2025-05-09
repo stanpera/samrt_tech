@@ -12,9 +12,11 @@ export interface Address {
 export interface User {
   id?: number;
   firstName?: string;
+  lastName?: string;
   email?: string;
   passwordHash?: string;
   mobileNumber?: String;
+  avatarUrl?: string;
   address?: Address[];
   orders?: Order[];
 }
@@ -78,9 +80,10 @@ export interface Image {
 
 export interface Stock {
   id: number;
-  productId: number;
-  amount: number;
-  color: string;
+  productId?: number;
+  amount?: number;
+  color?: string;
+  product?: Product;
 }
 
 export interface RegisterUserProps {

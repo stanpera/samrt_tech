@@ -6,9 +6,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-
     const { email, mobileNumber, password, country }: RegisterUserProps =
       await req.json();
+
     const passwordHash: string = await hashPassword(password);
     await createUser(email, passwordHash, mobileNumber);
 

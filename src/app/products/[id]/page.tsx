@@ -11,7 +11,6 @@ import {
 
 import useSingleProduct from "@/hooks/useSingleProduct";
 import { usePathname } from "next/navigation";
-// import { useEffect, useState } from "react";
 
 import AddToCart from "@/components/productDetails/AddToCart";
 import ProductInfo from "@/components/productDetails/ProductInfo";
@@ -64,10 +63,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <main
-      className="flex flex-col
-  "
-    >
+    <main className="flex flex-col">
       <div className="self-start px-10 py-2.5">
         <Breadcrumb>
           <BreadcrumbList>
@@ -87,11 +83,7 @@ const ProductDetails = () => {
           convertion={convertion}
           loading={loading}
         />
-        <AddToCart
-          stocks={product?.stocks || undefined}
-          price={product?.price || 0}
-          convertion={convertion}
-        />
+        <AddToCart product={product} convertion={convertion} />
       </div>
     </main>
   );

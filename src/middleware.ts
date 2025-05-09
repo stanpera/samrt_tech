@@ -1,3 +1,14 @@
 export { default } from "next-auth/middleware";
 
-export const config = { matcher: ["/((?!login|register|register).*)"] };
+export const config = {
+  matcher: [
+    "/",
+    "/profile/:path*",
+    "/products-menu/:path*",
+    "/products/:path*",
+    "/contact/:path*",
+    "/cart/:path*",
+    "/register/completed",
+    
+  ],
+};

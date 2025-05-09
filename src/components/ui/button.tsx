@@ -4,10 +4,10 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva("disabled:opacity-50 duration-300 cursor-pointer", {
+const buttonVariants = cva("disabled:opacity-50 disabled:cursor-auto duration-300 cursor-pointer", {
   variants: {
     variant: {
-      default: "text-first-content hover:text-highlights cursor-pointer",
+      default: "text-first-content hover:text-highlights",
       destructive:
         "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
       outline:
@@ -20,9 +20,9 @@ const buttonVariants = cva("disabled:opacity-50 duration-300 cursor-pointer", {
       dot: "bg-special rounded-full",
       seeAll: "border-none bg-none hover:text-highlights ",
       shop: "bg-cards hover:bg-second-content",
-      trash: "bg-none hover:bg-none",
+      trash: "bg-none hover:bg-none hover:text-error text-errorIcon",
       icon: "bg-none hover:bg-none",
-      form: "bg-first-content text-cards font-medium hover:bg-highlights duration-300 rounded-md",
+      form: "bg-first-content text-cards font-medium hover:bg-highlights duration-300 rounded-md disabled:hover:bg-first-content ",
     },
     size: {
       default: "text-base font-normal",

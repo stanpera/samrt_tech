@@ -117,148 +117,144 @@ const RegisterForm = () => {
   };
   return (
     <>
-        <Form {...form}>
-          <div className="mt-[77px] mb-8">
-            <Logo />
-          </div>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className={cn(
-              " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[448px] gap-8"
-            )}
-          >
-            <FormDescription className="self-start border-special border-b-1 w-full pb-5">
-              Create Account
-            </FormDescription>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="Your Email"
-                      {...field}
-                      className="py-3.5 px-5 h-13.5"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="w-full">
-              <FormLabel>Mobile Number</FormLabel>
-              <FormField
-                control={form.control}
-                name="mobileNumber"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormControl>
-                      <PhoneInput
-                        inputStyle={{
-                          width: "100%",
-                          height: "54px",
-                        }}
-                        country={"us"}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                      className="py-3.5 px-5 h-13.5"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Confirm Password"
-                      {...field}
-                      className="py-3.5 px-5 h-13.5"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="country"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Country or Region</FormLabel>
-                  <CountryDropdown
-                    defaultValue={field.value}
-                    onChange={(country) => {
-                      field.onChange(country.name);
-                    }}
+      <Form {...form}>
+        <div className="mt-[77px] mb-8">
+          <Logo />
+        </div>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className={cn(
+            " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[448px] gap-8"
+          )}
+        >
+          <FormDescription className="self-start border-special border-b-1 w-full pb-5">
+            Create Account
+          </FormDescription>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Your Email"
+                    {...field}
+                    className="py-3.5 px-5 h-13.5"
                   />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="w-full">
+            <FormLabel>Mobile Number</FormLabel>
             <FormField
               control={form.control}
-              name="agreement"
+              name="mobileNumber"
               render={({ field }) => (
-                <FormItem className=" w-full ">
-                  <div className="flex gap-4 items-center">
-                    <FormControl>
-                      <Checkbox
-                        id="agreement"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormLabel className="block text-sm m-0">
-                      By creating an account and check, you agree to the
-                      <strong className="text-highlights">
-                        {" "}
-                        Conditions of Use{" "}
-                      </strong>
-                      and{" "}
-                      <strong className="text-highlights">
-                        {" "}
-                        Privacy Notice
-                      </strong>
-                      .
-                    </FormLabel>
-                  </div>
+                <FormItem className="flex-1">
+                  <FormControl>
+                    <PhoneInput
+                      inputStyle={{
+                        width: "100%",
+                        height: "54px",
+                      }}
+                      country={"us"}
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" variant="form" size="form">
-              Create Account
-            </Button>
-          </form>
-        </Form>
-      )}
+          </div>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    {...field}
+                    className="py-3.5 px-5 h-13.5"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    {...field}
+                    className="py-3.5 px-5 h-13.5"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="country"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Country or Region</FormLabel>
+                <CountryDropdown
+                  defaultValue={field.value}
+                  onChange={(country) => {
+                    field.onChange(country.name);
+                  }}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="agreement"
+            render={({ field }) => (
+              <FormItem className=" w-full ">
+                <div className="flex gap-4 items-center">
+                  <FormControl>
+                    <Checkbox
+                      id="agreement"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="block text-sm m-0">
+                    By creating an account and check, you agree to the
+                    <strong className="text-highlights">
+                      {" "}
+                      Conditions of Use{" "}
+                    </strong>
+                    and{" "}
+                    <strong className="text-highlights"> Privacy Notice</strong>
+                    .
+                  </FormLabel>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" variant="form" size="form">
+            Create Account
+          </Button>
+        </form>
+      </Form>
     </>
   );
 };

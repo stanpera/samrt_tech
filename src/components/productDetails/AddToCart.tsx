@@ -5,7 +5,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { Stock } from "@/types";
+import { Product, Stock } from "@/types";
 import { FC, useEffect, useState } from "react";
 import Check from "../icons/Check";
 import Minus from "../icons/Minus";
@@ -21,14 +21,14 @@ interface ConvertionProps {
 }
 
 interface AddToCartProps {
-  stocks: Stock[] | undefined;
-  price: number;
+  product: Product | undefined;
   convertion: ConvertionProps;
 }
 
-const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
+const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
   const [isMouseDown, setIsMouseDown] = useState<string>("none");
   const [activeStockId, setActiveStockId] = useState<number>();
+  const [activeStockColor, serActiveStockColor] = useState<string>();
   const [activeStockAmount, setActiveStockAmount] = useState<number>(0);
   const [addedProduct, setAddedProduct] = useState<number>(1);
   const [subtotal, setSubtotal] = useState<number>(0);
@@ -36,19 +36,28 @@ const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
 
   const { showSnackbar } = useSnackbar();
 
-  const productInStock: number | undefined = stocks
+  const productInStock: number | undefined = product?.stocks
     ?.map((stock) => stock.amount)
     .reduce((acc, current) => acc + current);
 
   useEffect(() => {
-    setSubtotal(price);
+    setSubtotal(product?.price || 0);
     setAddedProduct(1);
     setActiveStockAmount(productInStock ? productInStock : 0);
-  }, [price, stocks]);
+  }, [product]);
 
-  const handleStock = ({ id, amount }: { id: number; amount: number }) => {
+  const handleStock = ({
+    id,
+    color,
+    amount,
+  }: {
+    id: number;
+    color: string;
+    amount: number;
+  }) => {
     if (amount > 0) {
       setActiveStockId(id);
+      serActiveStockColor(color);
       setActiveStockAmount(amount);
     }
   };
@@ -106,7 +115,9 @@ const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
   }, [isMouseDown]);
 
   useEffect(() => {
-    const totalAmount = parseFloat((price * addedProduct).toFixed(2));
+    const totalAmount = parseFloat(
+      (product?.price ? product?.price * addedProduct : 0).toFixed(2)
+    );
     setSubtotal(totalAmount);
   }, [addedProduct]);
 
@@ -121,7 +132,12 @@ const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
     } else {
       const productToCart = {
         stockId: activeStockId,
+        color: activeStockColor,
         quantity: addedProduct,
+        category: product?.category?.name,
+        name: product?.name,
+        price: product?.price,
+        image: product?.images ? product?.images[0]?.url : "",
       };
 
       const cartItems = localStorage.getItem("cartItems");
@@ -144,11 +160,15 @@ const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
       <div className="flex flex-col gap-3.5">
         <p className="text-lg font-medium">Colors</p>
         <div className="flex gap-4">
-          {stocks?.map((stock, index) => (
+          {product?.stocks?.map((stock, index) => (
             <div
               key={stock.id}
               onClick={() =>
-                handleStock({ id: stock.id, amount: stock.amount })
+                handleStock({
+                  id: stock.id,
+                  color: stock.color,
+                  amount: stock.amount,
+                })
               }
               className={cn(
                 "relative flex w-13 h-13 rounded-md items-center justify-center border border-special",
@@ -251,12 +271,15 @@ const AddToCart: FC<AddToCartProps> = ({ stocks, price, convertion }) => {
       </div>
       <div className="flex items-center justify-between w-full">
         <p className="text-lg font-medium">Subtotal</p>
-        {error && subtotal < price && addedProduct > 0 && (
-          <p className="text-error text-sm text-center">Invalid value</p>
-        )}
-        <p className="text-[28px] font-medium">{`${
-          convertion?.symbol
-        }${(convertion?.rate * subtotal).toFixed(2)}`}</p>
+        {error &&
+          typeof product?.price !== "undefined" &&
+          subtotal < product?.price &&
+          addedProduct > 0 && (
+            <p className="text-error text-sm text-center">Invalid value</p>
+          )}
+        <p className="text-[28px] font-medium">{`${convertion?.symbol}${(
+          convertion?.rate * subtotal
+        ).toFixed(2)}`}</p>
       </div>
       <Button
         onClick={handleCart}

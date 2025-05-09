@@ -1,6 +1,6 @@
 "use server";
 
-import { Brand, Category, User } from "@/types";
+import { Address, Brand, Category, User } from "@/types";
 import prisma from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 
@@ -19,7 +19,6 @@ export async function getAllCategoriesFromDb(
   });
   return categories as any as Category[];
 }
-
 export const getAllCategories = unstable_cache(
   getAllCategoriesFromDb,
   ["categories-list"],
@@ -27,7 +26,6 @@ export const getAllCategories = unstable_cache(
     tags: ["categories"],
   }
 );
-
 export const getAllProductsFromDb = async () => {
   const products = await prisma.product.findMany({
     include: {
@@ -37,7 +35,6 @@ export const getAllProductsFromDb = async () => {
 
   return products;
 };
-
 export const getAllProducts = unstable_cache(
   getAllProductsFromDb,
   ["products-list"],
@@ -45,7 +42,6 @@ export const getAllProducts = unstable_cache(
     tags: ["products"],
   }
 );
-
 export const getRandomProductsFromDb = async () => {
   const productsIds = await prisma.product.findMany({
     select: {
@@ -80,7 +76,6 @@ export const getRandomProductsFromDb = async () => {
 
   return randomProducts;
 };
-
 export const getAllBrandsFromDb = async (
   values: Array<string>
 ): Promise<Brand[]> => {
@@ -95,7 +90,6 @@ export const getAllBrandsFromDb = async (
   });
   return brands as any as Brand[];
 };
-
 export const getAllBrands = unstable_cache(
   getAllBrandsFromDb,
   ["brands-list"],
@@ -103,8 +97,8 @@ export const getAllBrands = unstable_cache(
     tags: ["brands"],
   }
 );
-
-export const getSingleProductFromDb = async (id: number) => {
+// FromDb
+export const getSingleProduct = async (id: number) => {
   const products = await prisma.product.findUnique({
     where: {
       id: id,
@@ -122,18 +116,17 @@ export const getSingleProductFromDb = async (id: number) => {
       category: { select: { id: true, name: true } },
     },
   });
-  console.log("products", products);
   return products;
 };
+// export const getSingleProduct = unstable_cache(
+//   getSingleProductFromDb,
 
-export const getSingleProduct = unstable_cache(
-  getSingleProductFromDb,
-  ["singleProduct-list"],
-  {
-    tags: ["singleProduct"],
-  }
-);
+//   ["singleProduct"],
 
+//   {
+//     tags: ["product"],
+//   }
+// );
 export async function createUser(
   email: string,
   passwordHash: string,
@@ -153,8 +146,7 @@ export async function createUser(
     throw new Error("Failed to save user XXX.");
   }
 }
-
-export async function getUser(
+export async function getUserFromDb(
   identifier: string | number,
   values: Array<string>
 ): Promise<User | null> {
@@ -177,13 +169,31 @@ export async function getUser(
       },
       select: selectValues,
     });
-    console.log("USER", user)
     return user;
   } catch (error: unknown) {
     throw new Error("Failed to upload user.");
   }
 }
-
+export const getUser = unstable_cache(getUserFromDb, ["singleUser"], {
+  tags: ["user"],
+});
+export async function updateUser(
+  userId: number,
+  updatedData: {
+    [key: string]: string;
+  }
+): Promise<void> {
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: updatedData,
+    });
+    revalidateTag("user");
+    return;
+  } catch (error: unknown) {
+    throw new Error("Error saving user data in database");
+  }
+}
 export async function createAddress(
   userId: number,
   country: string
@@ -197,7 +207,71 @@ export async function createAddress(
     });
 
     revalidateTag("address");
+    revalidateTag("user");
   } catch (error: unknown) {
-    throw new Error("Failed to save address.");
+    throw new Error("Error saving address data in database");
   }
 }
+
+export async function updateAddress(
+  userId: number,
+  updatedData: {
+    [key: string]: string;
+  }
+): Promise<void> {
+  try {
+    await prisma.address.update({
+      where: { userId: userId },
+      data: updatedData,
+    });
+    revalidateTag("address");
+    revalidateTag("user");
+    return;
+  } catch (error: unknown) {
+    throw new Error("Error saving address data in database");
+  }
+}
+// export async function getAddressFromDb(
+//   userId: number
+// ): Promise<Address | null> {
+//   try {
+//     const address = await prisma.address.findUnique({
+//       where: {
+//         userId: userId,
+//       },
+//     });
+//     return address;
+//   } catch (error: unknown) {
+//     throw new Error("Failed to get address.");
+//   }
+// }
+
+export const getStockProductsFromDb = async (
+  ids: Array<number>,
+  values: Array<string>
+) => {
+  try {
+    const selectValues: { [key: string]: boolean } = {};
+
+    values.forEach((value) => {
+      selectValues[value] = true;
+    });
+
+    const products = await prisma.stock.findMany({
+      where: { id: { in: ids } },
+      select: selectValues,
+    });
+
+    return products;
+  } catch (error: unknown) {
+    throw new Error("Failed to upload user.");
+  }
+};
+
+export const getStockProducts = unstable_cache(
+  getStockProductsFromDb,
+  ["stockProducts-list"],
+  {
+    tags: ["stock"],
+  }
+);

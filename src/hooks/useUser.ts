@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
-import { Product } from "@/types";
+import { User } from "@/types";
 import { BASE_URL } from "@/lib/baseURL";
 
-const useRecommended = () => {
+const useUser = (queries: string) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [recommendedProducts, setrecommendedProducts] = useState<Product[]>();
+  const [user, setUser] = useState<User>();
   const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -18,14 +18,12 @@ const useRecommended = () => {
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/products/random`, {
+        const response = await fetch(`${BASE_URL}/api/user${queries}`, {
           method: "GET",
         });
 
         if (!response.ok) {
-          throw new Error(
-            "Failed to load recommended product - no server response."
-          );
+          throw new Error("Failed to load user data - no server response.");
         }
 
         const data = await response.json();
@@ -34,13 +32,15 @@ const useRecommended = () => {
           throw new Error(data.error);
         }
 
-        setrecommendedProducts(data);
+        setUser(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          showSnackbar(error.message, "error");
+          {
+            showSnackbar(error.message, "error");
+          }
         } else {
           showSnackbar(
-            "An unexpected error occurred while retrieving recommended product data.",
+            "An unexpected error occurred while retrieving user data.",
             "error"
           );
         }
@@ -51,8 +51,8 @@ const useRecommended = () => {
       }
     };
     fetchCategories();
-  }, []);
-  return { recommendedProducts, loading, error, errorMessage };
+  }, [queries]);
+  return { user, loading, error, errorMessage };
 };
 
-export default useRecommended;
+export default useUser;

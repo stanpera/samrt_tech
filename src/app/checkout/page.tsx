@@ -1,7 +1,4 @@
-"use client";
-
-import CartProduct from "@/components/cart/CartProduct";
-import TotalProduct from "@/components/cart/TotalProduct";
+import CheckoutProductCard from "@/components/checkout/CheckoutProductCard";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,11 +7,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useState } from "react";
 
-const Cart = () => {
-  const [refresh, setRefresh] = useState<boolean>(false);
-
+const Checkout = () => {
   return (
     <main
       className="flex flex-col flex-1 items-center pb-20
@@ -28,17 +22,20 @@ const Cart = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Cart</BreadcrumbPage>
+              <BreadcrumbLink href="/cart">Cart</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Checkout</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="flex items-start gap-12 p-10">
-        <CartProduct setRefresh={setRefresh} />
-        <TotalProduct refresh={refresh} />
+      <div>
+        <CheckoutProductCard />
       </div>
     </main>
   );
 };
 
-export default Cart;
+export default Checkout;

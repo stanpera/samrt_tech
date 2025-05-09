@@ -26,10 +26,10 @@ export default function RootLayout({
       <body>
         <Providers>
           <SnackbarProvider>
-            <Header />
-            <CustomNotification />
-            {children}
-            <Footer />
+              <Header />
+              <CustomNotification />
+              {children}
+              <Footer />
           </SnackbarProvider>
         </Providers>
       </body>

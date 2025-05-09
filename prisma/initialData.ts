@@ -1,3 +1,5 @@
+import { hashPassword } from "@/lib/passwordHasher";
+
 export const initialImages = [
   { url: "https://i.ibb.co/0RLxHL9Q/aoc-24g2spaebk-1.png", productId: 1 },
   { url: "https://i.ibb.co/rR8dN1QL/aoc-24g2spaebk-2.png", productId: 1 },
@@ -264,7 +266,6 @@ export const initialImages = [
     productId: 25,
   },
 ];
-
 export const initialStocks = [
   {
     productId: 1,
@@ -904,8 +905,7 @@ export const initialProducts = [
     brandId: 2,
   },
 ];
-
-export const InitialCategories = [
+export const initialCategories = [
   {
     name: "Mouses",
     description: "Ergonomic computer mouse",
@@ -942,7 +942,7 @@ export const InitialCategories = [
       "See our high-definition webcams that provide clear video quality for video conferencing, streaming, and online classes.",
   },
 ];
-export const InitialBrands = [
+export const initialBrands = [
   {
     name: "ROG",
     description: "Ergonomic computer mouse",
@@ -972,5 +972,50 @@ export const InitialBrands = [
     name: "Rexus",
     description: "Ergonomic computer mouse",
     logoUrl: "https://i.ibb.co/ccsGkGjd/rexus.png",
+  },
+];
+export const initialUsers = [
+  {
+    firstName: "Stan",
+    email: "stan@stan.pl",
+    mobileNumber: "48111222333",
+    passwordHash: await hashPassword("Stan#1"),
+  },
+  {
+    firstName: "Hans",
+    lastName: "Solo",
+    email: "hans@hans.us",
+    mobileNumber: "1999888777",
+    passwordHash: await hashPassword("Hans#1"),
+    avatarUrl: "https://i.ibb.co/3YS5LPZv/avatar-2.png",
+  },
+  {
+    firstName: "Olga",
+    lastName: "Brick",
+    email: "olga@olga.us",
+    mobileNumber: "1222444555",
+    passwordHash: await hashPassword("Olga#1"),
+  },
+];
+export const InitialAddresses = [
+  {
+    userId: 1,
+    country: "Poland",
+  },
+  {
+    userId: 2,
+    street: "Grove Street",
+    city: "Los Santos",
+    state: "California",
+    postalCode: "00001",
+    country: "United States",
+  },
+  {
+    userId: 3,
+    street: "Maple Avenue 89",
+    city: "Oakridge",
+    state: "Nevada",
+    postalCode: "89123",
+    country: "United States",
   },
 ];

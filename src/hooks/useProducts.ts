@@ -29,7 +29,7 @@ const useProducts = () => {
 
       const categoryToString = category?.join(",");
       const brandToString = brand?.join(",");
-console.log("HEJ")
+
       try {
         const response = await fetch(
           `${BASE_URL}/api/products?category=${categoryToString}&brand=${brandToString}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}&offset=${

@@ -1,23 +1,8 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { Session } from "next-auth";
 import { verifyPassword } from "@/lib/passwordHasher";
 import { getUser } from "@/lib/queries";
-
-// declare module "next-auth" {
-//   interface User {
-//     role?: string;
-//   }
-
-//   interface Session {
-//     user: User;
-//   }
-
-//   interface JWT {
-//     role?: string;
-//   }
-// }
 
 declare module "next-auth" {
   interface Session {

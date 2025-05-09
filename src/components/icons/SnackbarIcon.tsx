@@ -22,7 +22,7 @@ const SnackbarInfo: React.FC<SnackbarInfoProps> = ({ variant, className }) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
-          className={`bg-success text-successIcon ${className}`}
+          className={`bg-success text-success ${className}`}
         >
           <path
             fill="currentColor"

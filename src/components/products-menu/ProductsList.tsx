@@ -137,7 +137,7 @@ const ProductList: React.FC = () => {
                       "bg-white-content":
                         Array.isArray(prod.images) && prod.images.length > 0,
                     },
-                    " h-[204px] rounded-md"
+                    " h-[204px] rounded-md flex items-center justify-center"
                   )}
                   style={{
                     backgroundImage:

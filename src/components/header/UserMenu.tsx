@@ -9,21 +9,13 @@ import { useSnackbar } from "@/context/SnackbarContext";
 const UserMenu = ({ isUserPanelVisible }: { isUserPanelVisible: boolean }) => {
   const router = useRouter();
 
-  const { status } = useSession();
-
   const { showSnackbar } = useSnackbar();
   const handleLogout = async () => {
     try {
       await signOut();
-      if (status === "unauthenticated") {
-        showSnackbar("You have been successfully logged out.", "success");
-        router.push("/login");
-      } else {
-        showSnackbar(
-          "Something went wrong. Please try again later or contact with support.",
-          "error"
-        );
-      }
+
+      showSnackbar("You have been successfully logged out.", "success");
+      router.push("/login");
     } catch (error: unknown) {
       if (error instanceof Error) {
         showSnackbar(error.message, "error");
@@ -41,7 +33,7 @@ const UserMenu = ({ isUserPanelVisible }: { isUserPanelVisible: boolean }) => {
       {isUserPanelVisible && (
         <div className="flex flex-col w-full absolute top-[100%] text-icons mt-2 gap-1">
           <Link
-            href="/user-profile"
+            href="/profile"
             passHref
             className="hover:text-highlights cursor-pointer bg-cards w-full text-right p-1 rounded-md hover:scale-105 duration-300"
           >
