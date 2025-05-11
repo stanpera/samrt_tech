@@ -252,7 +252,7 @@ export const getStockProductsFromDb = async (
 ) => {
   try {
     const selectValues: { [key: string]: boolean } = {};
-
+    console.log("selectValues", selectValues);
     values.forEach((value) => {
       selectValues[value] = true;
     });

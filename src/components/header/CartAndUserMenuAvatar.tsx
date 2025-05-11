@@ -8,10 +8,13 @@ import DefaultAvatar from "../icons/DefaultAvatar";
 import UserMenu from "./UserMenu";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import useUser from "@/hooks/useUser";
 
 const CartAndUserMenuAvatar = () => {
-  const [isUserPanelVisible, setIsUserPanelVisible] = useState(false);
+  const { user, loading, error, errorMessage } = useUser("?userData=avatarUrl");
 
+  const [isUserPanelVisible, setIsUserPanelVisible] = useState(false);
+  console.log("URL", user?.avatarUrl);
   const handleUserMenu = () => {
     setIsUserPanelVisible((prev) => !prev);
   };
@@ -26,10 +29,10 @@ const CartAndUserMenuAvatar = () => {
         className={cn("relative cursor-pointer hover:opacity-80 duration-300")}
         onClick={handleUserMenu}
       >
-        <AvatarImage src="" alt="avatar" />
-        <AvatarFallback>
-          <DefaultAvatar />
-        </AvatarFallback>
+        {user?.avatarUrl && (
+          <AvatarImage src={`${user?.avatarUrl}`} alt="avatar" className="" />
+        )}
+        <AvatarFallback>{!user?.avatarUrl && <DefaultAvatar />}</AvatarFallback>
       </Avatar>
       <UserMenu isUserPanelVisible={isUserPanelVisible} />
     </div>

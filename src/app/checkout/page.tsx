@@ -1,4 +1,10 @@
+"use client";
+
+import CheckoutAddressCard from "@/components/checkout/CheckoutAddressCard";
 import CheckoutProductCard from "@/components/checkout/CheckoutProductCard";
+import CheckoutTotalPriceCard from "@/components/checkout/CheckoutTotalPriceCard";
+import PaymentMethod from "@/components/checkout/PaymentMethod";
+import ShippingMethod from "@/components/checkout/ShippingMethod";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,8 +13,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useState } from "react";
 
 const Checkout = () => {
+  const [refresh, setRefresh] = useState<boolean>(false);
+
   return (
     <main
       className="flex flex-col flex-1 items-center pb-20
@@ -31,8 +40,14 @@ const Checkout = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div>
-        <CheckoutProductCard />
+      <div className="flex gap-12 mt-10">
+        <div className="flex flex-col gap-10">
+          <CheckoutProductCard setRefresh={setRefresh} />
+          <CheckoutAddressCard setRefresh={setRefresh} />
+          <ShippingMethod setRefresh={setRefresh} />
+          <PaymentMethod setRefresh={setRefresh} />
+        </div>
+        <CheckoutTotalPriceCard refresh={refresh} />
       </div>
     </main>
   );

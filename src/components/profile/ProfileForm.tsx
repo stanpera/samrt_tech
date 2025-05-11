@@ -29,8 +29,6 @@ import useUser from "@/hooks/useUser";
 import { useEffect, useState } from "react";
 import { User } from "@/types";
 
-const imgbbKey = process.env.IMGBB_KEY;
-
 const formSchema = z
   .object({
     avatar: z
@@ -117,9 +115,8 @@ const formSchema = z
     state: z
       .string()
       .optional()
-      .refine((val) => !val || (val.length >= 2 && /\d/.test(val)), {
-        message:
-          "If provided, street must be at least 2 characters and contain a digit.",
+      .refine((val) => !val || val.length >= 2, {
+        message: "If provided, state must be at least 2 characters long.",
       }),
     posteCode: z
       .string()

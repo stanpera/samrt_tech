@@ -3,9 +3,7 @@ import { getStockProducts } from "@/lib/queries";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-type Params = Promise<{ id: string }>;
-
-export async function GET(req: NextRequest, segmentData: { params: Params }) {
+export async function GET(req: NextRequest) {
   try {
     const token = await getToken({ req });
 
@@ -21,14 +19,25 @@ export async function GET(req: NextRequest, segmentData: { params: Params }) {
       return NextResponse.json({ status: 200 });
     }
 
-    let values: string[] = ["id"];
+    const values: string[] = ["id"];
+
     const amount = searchParams.get("amount");
 
-    if (amount !== "amount") {
+    if (amount && amount !== "amount") {
       return NextResponse.json({ status: 200 });
+    } else if (amount) {
+      values.push(amount);
     }
 
-    values.push(amount);
+    const product = searchParams.get("product");
+
+    if (product && product !== "product") {
+      return NextResponse.json({ status: 200 });
+    } else if (product) {
+      values.push("product");
+    }
+
+    console.log("product", product);
 
     if (stockId !== null) {
       const stockIdNumbers: Array<number> = stockId
@@ -39,7 +48,14 @@ export async function GET(req: NextRequest, segmentData: { params: Params }) {
       return NextResponse.json(stockProduct);
     }
   } catch (error: unknown) {
-    {
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        { status: 500 }
+      );
+    } else {
       return NextResponse.json(
         {
           error:

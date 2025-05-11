@@ -10,11 +10,9 @@ import Trash from "../icons/Trash";
 import { Separator } from "../ui/separator";
 import Plus from "../icons/Plus";
 import Minus from "../icons/Minus";
-// import useStockProducts from "@/hooks/useStockProducts";
 import { Textarea } from "../ui/textarea";
 import Exit from "../icons/Exit";
 import SnackbarInfo from "../icons/SnackbarIcon";
-import useStockProducts from "@/hooks/useStockProducts";
 
 interface CartItemsProps {
   stockId: number;
@@ -25,6 +23,8 @@ interface CartItemsProps {
   price: number;
   image: string;
   message?: string;
+  productProtection?: boolean;
+  totalAmount: number;
 }
 interface CurrentCurrencyProps {
   EUR: number;
@@ -56,13 +56,6 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
   const [currency, setCurrency] =
     useState<CurrentCurrencyProps>(defaultCurrency);
 
-  const { stockProducts, loading, error, errorMessage } = useStockProducts(
-    `?stockId=${
-      cartProducts.map((prod) => prod.stockId).join(",") || "null"
-    }&amount=amount`,
-    localStorageRefresh
-  );
-
   useEffect(() => {
     const storedItems = localStorage.getItem("cartItems");
     const currentCurrency = localStorage.getItem("currentCurrency");
@@ -80,28 +73,13 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
     }
 
     setRefresh((prev) => !prev);
-  }, [activeNoteId, localStorageRefresh]);
+  }, [activeNoteId, localStorageRefresh, setRefresh]);
 
   const handlePlus = (id: number) => {
     const indexOfProduct = cartProducts.findIndex((msg) => msg.stockId === id);
 
-    const indexofTotalProductAmount = Array.isArray(stockProducts)
-      ? stockProducts?.findIndex((prod) => prod.id === id)
-      : -1;
+    let totalProductAmount = cartProducts[indexOfProduct].totalAmount;
 
-    let totalProductAmount: number = 1;
-
-    if (
-      indexofTotalProductAmount !== -1 &&
-      indexofTotalProductAmount !== undefined &&
-      stockProducts
-    ) {
-      totalProductAmount = stockProducts[indexofTotalProductAmount]?.amount
-        ? stockProducts[indexofTotalProductAmount]?.amount
-        : 1;
-    }
-
-    console.log("totalAmountOfProduct", totalProductAmount);
     if (cartProducts[indexOfProduct].quantity < totalProductAmount) {
       cartProducts[indexOfProduct].quantity += 1;
 
@@ -113,8 +91,19 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
           ...cartProducts.slice(indexOfProduct + 1),
         ])
       );
-    }
+    } else {
+      cartProducts[indexOfProduct].totalAmount = totalProductAmount;
+      console.log("else", cartProducts[indexOfProduct]);
 
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify([
+          ...cartProducts.slice(0, indexOfProduct),
+          cartProducts[indexOfProduct],
+          ...cartProducts.slice(indexOfProduct + 1),
+        ])
+      );
+    }
     setlocalStorageRefresh((prev) => !prev);
   };
   const handleMinus = (id: number) => {
@@ -200,6 +189,11 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
     );
   }
 
+  // if (loading) {
+  //   return (
+  //     <Skeleton className="flex w-[839px] h-[186px] border border-special p-6 justify-center items-center" />
+  //   );
+  // }
   return (
     <section className="flex flex-col items-start gap-8 ">
       <div className="flex items-center gap-4 w-full h-6.5">
@@ -237,7 +231,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
           />
           <Card
             key={prod.stockId}
-            className="flex w-[839px] h-[186px] border border-special p-6"
+            className="flex w-[839px] h-auto border border-special p-6"
           >
             <CardContent className="relative flex gap-8">
               <div className="w-[172px] p-3 h-[138px] border-1 border-special rounded-md">
@@ -320,19 +314,13 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                         variant="icon"
                         size="icon"
                         disabled={
-                          prod.quantity >=
-                          (Array.isArray(stockProducts)
-                            ? stockProducts.find((p) => p.id === prod.stockId)
-                                ?.amount ?? 1
-                            : 1)
+                          typeof prod?.totalAmount === "number" &&
+                          prod.quantity >= prod.totalAmount
                         }
                         className={cn("text-icons hover:text-highlights ", {
                           "hover:text-icons":
-                            prod.quantity >=
-                            (Array.isArray(stockProducts)
-                              ? stockProducts.find((p) => p.id === prod.stockId)
-                                  ?.amount ?? 1
-                              : 1),
+                            typeof prod?.totalAmount === "number" &&
+                            prod.quantity >= prod.totalAmount,
                         })}
                         onClick={() => handlePlus(prod.stockId)}
                       >
@@ -341,15 +329,12 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                     </div>
                   </div>
                 </CardFooter>
-                {prod.quantity >=
-                  (Array.isArray(stockProducts)
-                    ? stockProducts.find((p) => p.id === prod.stockId)
-                        ?.amount ?? 1
-                    : 1) && (
-                  <CardFooter className="self-end text-sm text-error">
-                    You've reached the limit of available products.
-                  </CardFooter>
-                )}
+                {typeof prod?.totalAmount === "number" &&
+                  prod.quantity >= prod.totalAmount && (
+                    <CardFooter className="self-end text-sm text-error">
+                      You've reached the limit of available products.
+                    </CardFooter>
+                  )}
               </div>
               {activeNoteId === prod.stockId && (
                 <div className="  absolute flex justify-end w-[60%] h-full left-[50%] translate-x-[-50%] text-icons">

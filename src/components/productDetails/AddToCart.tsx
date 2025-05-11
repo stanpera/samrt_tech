@@ -137,6 +137,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
         category: product?.category?.name,
         name: product?.name,
         price: product?.price,
+        totalAmount: activeStockAmount,
         image: product?.images ? product?.images[0]?.url : "",
       };
 

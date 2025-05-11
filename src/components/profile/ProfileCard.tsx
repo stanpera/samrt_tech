@@ -9,18 +9,26 @@ import { Button } from "../ui/button";
 import { signOut, useSession } from "next-auth/react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 interface AvatarProps {
   avatar: string | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
   email: string | undefined;
+  error: boolean;
+  errorMessage: string;
+  loading: boolean;
 }
+
 const ProfileCard: React.FC<AvatarProps> = ({
   avatar,
   firstName,
   lastName,
   email,
+  error,
+  errorMessage,
+  loading,
 }) => {
   const router = useRouter();
 
@@ -54,6 +62,10 @@ const ProfileCard: React.FC<AvatarProps> = ({
   const handleProfileEdit = () => {
     router.push("/profile/edit");
   };
+
+  if (loading) {
+    return <Skeleton className="h-[200px] w-[320px] p-6 gap-6 border border-special" />;
+  }
 
   return (
     <Card className="flex flex-col w-[320px] p-6 gap-6 border border-special self-start">

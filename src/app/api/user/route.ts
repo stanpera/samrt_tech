@@ -29,8 +29,24 @@ export async function GET(req: NextRequest) {
         "address",
       ];
     }
+
     if (userData === "profile") {
-      values = ["id", "firstName", "lastName", "email", "avatarUrl", "orders"];
+      values = [
+        ...values,
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "avatarUrl",
+        "orders",
+      ];
+    }
+    if (userData === "avatarUrl") {
+      values = [...values, "avatarUrl"];
+    }
+    
+    if (userData === "address") {
+      values = [...values, "address", "mobileNumber"];
     }
 
     const currentUserId: number = Number(token?.userId);
@@ -68,7 +84,7 @@ export async function PUT(req: NextRequest) {
     const validDataFromClient: { [key: string]: string } = Object.fromEntries(
       Object.entries(dataFromClient)
         .filter(
-          ([key, value]) => value != null && value !== "" && value != undefined
+          ([, value]) => value != null && value !== "" && value != undefined
         )
         .map(([key, value]) => {
           if (key === "password") {

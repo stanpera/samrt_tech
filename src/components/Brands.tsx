@@ -11,6 +11,7 @@ import useBrands from "@/hooks/useBrands";
 import LoadingSpinner from "./ui/LoadingSpinner";
 import SadError from "./icons/sadError";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Brands = () => {
   const { brands, loading, error, errorMessage } = useBrands();
@@ -66,11 +67,12 @@ const Brands = () => {
                 <div onClick={() => handleBrands(brand.id)} className="p-1 ">
                   <Card className="justify-center items-center w-[220px] h-[190px] text-icons hover:text-highlights hover:border-highlights border border-special gap-7 cursor-pointer hover:scale-105 duration-300">
                     {typeof brand.logoUrl === "string" && (
-                      <img
-                        className="h-11.5"
+                      <Image
                         src={brand.logoUrl}
                         alt={`logo ${brand.name}`}
-                      ></img>
+                        width={46}
+                        height={46}
+                      />
                     )}
                     <CardTitle className="text-center text-xl">
                       {brand.name}

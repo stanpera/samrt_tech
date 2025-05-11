@@ -1,7 +1,8 @@
+import { authOptions } from "@/lib/authOptions";
 import { updateUser } from "@/lib/queries";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+
 const API_KEY = process.env.IMGBB_KEY;
 
 export async function PUT(req: NextRequest) {

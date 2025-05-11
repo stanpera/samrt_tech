@@ -13,8 +13,8 @@ import {
 import useUser from "@/hooks/useUser";
 
 const Profile = () => {
-  const { user, error, errorMessage, loading } = useUser("?userData=profile");
-  console.log("user", user);
+  const { user, error, errorMessage, loading} = useUser("?userData=profile");
+
   return (
     <main className="flex flex-col">
       <div className="self-start mx-10 my-2.5">
@@ -36,6 +36,9 @@ const Profile = () => {
           firstName={user?.firstName ?? undefined}
           lastName={user?.lastName ?? undefined}
           email={user?.email ?? undefined}
+          error={error}
+          errorMessage={errorMessage}
+          loading={loading}
         />
         <ProfileTransactions />
       </div>

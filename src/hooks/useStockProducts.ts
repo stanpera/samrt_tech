@@ -21,7 +21,7 @@ const useStockProducts = (
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [stockProducts, setStockProducts] = useState<Array<Stock>>();
   const { showSnackbar } = useSnackbar();
-console.log("WORK")
+
   useEffect(() => {
     const fetchStockProducts = async () => {
       setLoading(true);

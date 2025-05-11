@@ -3,18 +3,21 @@
 import { useEffect, useState } from "react";
 import EmptyImage from "../icons/EmptyImage";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardFooter, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardTitle,
+} from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { cn } from "@/lib/utils";
-import Trash from "../icons/Trash";
 import { Separator } from "../ui/separator";
 import Plus from "../icons/Plus";
 import Minus from "../icons/Minus";
-// import useStockProducts from "@/hooks/useStockProducts";
 import { Textarea } from "../ui/textarea";
 import Exit from "../icons/Exit";
 import SnackbarInfo from "../icons/SnackbarIcon";
-import useStockProducts from "@/hooks/useStockProducts";
 
 interface CartItemsProps {
   stockId: number;
@@ -25,6 +28,8 @@ interface CartItemsProps {
   price: number;
   image: string;
   message?: string;
+  productProtection?: boolean;
+  totalAmount: number;
 }
 interface CurrentCurrencyProps {
   EUR: number;
@@ -32,15 +37,14 @@ interface CurrentCurrencyProps {
   USD: number;
   currentCurrency: string;
 }
-// interface CartProductProps {
-//   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
-// }
-const CheckoutProductCard: React.FC = () => {
+interface CheckoutProductCardProps {
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
+  setRefresh,
+}) => {
   const [activeNoteId, setActiveNoteId] = useState<number | null>(null);
   const [note, setNote] = useState<string>("");
-  const [checkedProducts, setCheckedProducts] = useState<Array<number | "all">>(
-    []
-  );
   const [localStorageRefresh, setlocalStorageRefresh] =
     useState<boolean>(false);
 
@@ -55,13 +59,6 @@ const CheckoutProductCard: React.FC = () => {
     useState<CartItemsProps[]>(defaultProducts);
   const [currency, setCurrency] =
     useState<CurrentCurrencyProps>(defaultCurrency);
-
-  const { stockProducts, loading, error, errorMessage } = useStockProducts(
-    `?stockId=${
-      cartProducts.map((prod) => prod.stockId).join(",") || "null"
-    }&amount=amount`,
-    localStorageRefresh
-  );
 
   useEffect(() => {
     const storedItems = localStorage.getItem("cartItems");
@@ -79,27 +76,13 @@ const CheckoutProductCard: React.FC = () => {
       setCurrency(parsedItems);
     }
 
-    // setRefresh((prev) => !prev);
+    setRefresh((prev) => !prev);
   }, [activeNoteId, localStorageRefresh]);
 
   const handlePlus = (id: number) => {
     const indexOfProduct = cartProducts.findIndex((msg) => msg.stockId === id);
 
-    const indexofTotalProductAmount = Array.isArray(stockProducts)
-      ? stockProducts?.findIndex((prod) => prod.id === id)
-      : -1;
-
-    let totalProductAmount: number = 1;
-
-    if (
-      indexofTotalProductAmount !== -1 &&
-      indexofTotalProductAmount !== undefined &&
-      stockProducts
-    ) {
-      totalProductAmount = stockProducts[indexofTotalProductAmount]?.amount
-        ? stockProducts[indexofTotalProductAmount]?.amount
-        : 1;
-    }
+    let totalProductAmount = cartProducts[indexOfProduct].totalAmount;
 
     if (cartProducts[indexOfProduct].quantity < totalProductAmount) {
       cartProducts[indexOfProduct].quantity += 1;
@@ -112,8 +95,19 @@ const CheckoutProductCard: React.FC = () => {
           ...cartProducts.slice(indexOfProduct + 1),
         ])
       );
-    }
+    } else {
+      cartProducts[indexOfProduct].totalAmount = totalProductAmount;
+      console.log("else", cartProducts[indexOfProduct]);
 
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify([
+          ...cartProducts.slice(0, indexOfProduct),
+          cartProducts[indexOfProduct],
+          ...cartProducts.slice(indexOfProduct + 1),
+        ])
+      );
+    }
     setlocalStorageRefresh((prev) => !prev);
   };
   const handleMinus = (id: number) => {
@@ -152,6 +146,26 @@ const CheckoutProductCard: React.FC = () => {
     }
   };
 
+  const handleProtection = (id: number) => {
+    const indexOfProduct = cartProducts.findIndex((msg) => msg.stockId === id);
+
+    cartProducts[indexOfProduct].productProtection =
+      cartProducts[indexOfProduct].productProtection === false ||
+      !cartProducts[indexOfProduct].productProtection
+        ? (cartProducts[indexOfProduct].productProtection = true)
+        : (cartProducts[indexOfProduct].productProtection = false);
+
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify([
+        ...cartProducts.slice(0, indexOfProduct),
+        cartProducts[indexOfProduct],
+        ...cartProducts.slice(indexOfProduct + 1),
+      ])
+    );
+    setlocalStorageRefresh((prev) => !prev);
+  };
+
   if (cartProducts.length < 1) {
     return (
       <Card className="flex w-[839px] h-[186px] border border-special p-6 justify-center items-center">
@@ -160,10 +174,12 @@ const CheckoutProductCard: React.FC = () => {
     );
   }
 
+
   return (
-    <section className="flex flex-col items-start gap-8 ">
-      {cartProducts.map((prod, index) => (
-        <div key={prod.stockId} className="flex items-center gap-6">
+    <section>
+      <h3 className="mb-4 text-2xl font-medium">Your Order</h3>
+      <div className="flex flex-col items-start gap-8 ">
+        {cartProducts.map((prod, index) => (
           <Card
             key={prod.stockId}
             className="flex w-[839px] h-auto border border-special p-6"
@@ -242,19 +258,13 @@ const CheckoutProductCard: React.FC = () => {
                         variant="icon"
                         size="icon"
                         disabled={
-                          prod.quantity >=
-                          (Array.isArray(stockProducts)
-                            ? stockProducts.find((p) => p.id === prod.stockId)
-                                ?.amount ?? 1
-                            : 1)
+                          typeof prod?.totalAmount === "number" &&
+                          prod.quantity >= prod.totalAmount
                         }
                         className={cn("text-icons hover:text-highlights ", {
                           "hover:text-icons":
-                            prod.quantity >=
-                            (Array.isArray(stockProducts)
-                              ? stockProducts.find((p) => p.id === prod.stockId)
-                                  ?.amount ?? 1
-                              : 1),
+                            typeof prod?.totalAmount === "number" &&
+                            prod.quantity >= prod.totalAmount,
                         })}
                         onClick={() => handlePlus(prod.stockId)}
                       >
@@ -263,15 +273,12 @@ const CheckoutProductCard: React.FC = () => {
                     </div>
                   </div>
                 </CardFooter>
-                {prod.quantity >=
-                  (Array.isArray(stockProducts)
-                    ? stockProducts.find((p) => p.id === prod.stockId)
-                        ?.amount ?? 1
-                    : 1) && (
-                  <CardFooter className="self-end text-sm text-error">
-                    You've reached the limit of available products.
-                  </CardFooter>
-                )}
+                {typeof prod?.totalAmount === "number" &&
+                  prod.quantity >= prod.totalAmount && (
+                    <CardFooter className="self-end text-sm text-error">
+                      You've reached the limit of available products.
+                    </CardFooter>
+                  )}
               </div>
               {activeNoteId === prod.stockId && (
                 <div className="  absolute flex justify-end w-[60%] h-full left-[50%] translate-x-[-50%] text-icons">
@@ -295,15 +302,48 @@ const CheckoutProductCard: React.FC = () => {
               )}
             </CardContent>
             <Separator className="my-6" />
-            <CardContent>
-              <div>
-                <Checkbox id="selectAll" />
-                <CardTitle>Product Protection</CardTitle>
+            <CardContent className="flex gap-4 items-start">
+              <Checkbox
+                id="protection"
+                isChecked={prod?.productProtection === true}
+                onClick={() => handleProtection(prod.stockId)}
+              />
+              <div className="flex flex-col text-icons font-medium w-full  gap-1">
+                <div className="flex justify-between ">
+                  <CardTitle className="text-first-content">
+                    Product Protection
+                  </CardTitle>
+                  <p>
+                    {currency.currentCurrency === "EUR"
+                      ? `\u0024${(
+                          currency.EUR *
+                          prod.price *
+                          0.02 *
+                          prod.quantity
+                        ).toFixed(2)}`
+                      : currency.currentCurrency === "GBP"
+                      ? `\u00A3${(
+                          currency.GBP *
+                          prod.price *
+                          0.02 *
+                          prod.quantity
+                        ).toFixed(2)}`
+                      : `\u20AC${(
+                          currency.EUR *
+                          prod.price *
+                          0.02 *
+                          prod.quantity
+                        ).toFixed(2)}`}
+                  </p>
+                </div>
+                <CardDescription className="font-normal">
+                  The claim process is easy and instant, valid for 6 months
+                </CardDescription>
               </div>
             </CardContent>
           </Card>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 };

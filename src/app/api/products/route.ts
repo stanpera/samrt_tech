@@ -86,11 +86,20 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json(
-      {
-        error: "Error retrieving specific products. Please try again later.",
-      },
-      { status: 500 }
-    );
+    if (error instanceof Error) {
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        { status: 500 }
+      );
+    } else {
+      return NextResponse.json(
+        {
+          error: "Error retrieving products data. Please try again later.",
+        },
+        { status: 500 }
+      );
+    }
   }
 }

@@ -3,29 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { updateAddress } from "@/lib/queries";
 
-// export async function GET() {
-//   try {
-//     const categories = await getUserAddress([
-//       "id",
-//       "name",
-//       "description",
-//       "image",
-//       "exploreInfo",
-//     ]);
-//     return NextResponse.json(categories);
-//   } catch (error: unknown) {
-//     {
-//       return NextResponse.json(
-//         {
-//           error:
-//             "Error retrieving product category data. Please try again later.",
-//         },
-//         { status: 500 }
-//       );
-//     }
-//   }
-// }
-
 export async function PUT(req: NextRequest) {
   try {
     const token = await getToken({ req });
@@ -37,7 +14,7 @@ export async function PUT(req: NextRequest) {
 
     const validDataFromClient: { [key: string]: string } = Object.fromEntries(
       Object.entries(dataFromClient).filter(
-        ([key, value]) => value != null && value !== "" && value != undefined
+        ([, value]) => value != null && value !== "" && value != undefined
       )
     );
     if (validDataFromClient) {
