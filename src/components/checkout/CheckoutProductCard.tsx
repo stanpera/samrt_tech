@@ -77,12 +77,12 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
     }
 
     setRefresh((prev) => !prev);
-  }, [activeNoteId, localStorageRefresh]);
+  }, [activeNoteId, localStorageRefresh, setRefresh]);
 
   const handlePlus = (id: number) => {
     const indexOfProduct = cartProducts.findIndex((msg) => msg.stockId === id);
 
-    let totalProductAmount = cartProducts[indexOfProduct].totalAmount;
+    const totalProductAmount = cartProducts[indexOfProduct].totalAmount;
 
     if (cartProducts[indexOfProduct].quantity < totalProductAmount) {
       cartProducts[indexOfProduct].quantity += 1;
@@ -174,12 +174,11 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
     );
   }
 
-
   return (
     <section>
       <h3 className="mb-4 text-2xl font-medium">Your Order</h3>
       <div className="flex flex-col items-start gap-8 ">
-        {cartProducts.map((prod, index) => (
+        {cartProducts.map((prod) => (
           <Card
             key={prod.stockId}
             className="flex w-[839px] h-auto border border-special p-6"
@@ -276,7 +275,7 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
                 {typeof prod?.totalAmount === "number" &&
                   prod.quantity >= prod.totalAmount && (
                     <CardFooter className="self-end text-sm text-error">
-                      You've reached the limit of available products.
+                      You&apos;ve reached the limit of available products.
                     </CardFooter>
                   )}
               </div>

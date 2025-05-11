@@ -14,6 +14,7 @@ import EmptyImage from "./icons/EmptyImage";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
 
 interface convertionProps {
   rate: number;
@@ -34,7 +35,7 @@ const RecommendationsList = () => {
   useEffect(() => {
     const currency = localStorage.getItem("currentCurrency");
     if (currency) {
-      let currencyData = JSON.parse(currency);
+      const currencyData = JSON.parse(currency);
       const currentCurrency = currencyData.currentCurrency;
       const rate = parseFloat(currencyData[currentCurrency]);
 
@@ -52,6 +53,47 @@ const RecommendationsList = () => {
   const handleProductDetails = (id: number) => {
     router.push(`/products/${String(id)}`);
   };
+
+  if (loading) {
+    return (
+      <section className="w-full flex flex-col items-start gap-8 px-10">
+        <Carousel className="w-full ">
+          <div className="mb-8 flex justify-between items-center pr-10">
+            <h2>Recommendations</h2>
+            <SeeAll variant="seeAll" />
+          </div>
+          <CarouselContent className="flex gap-8">
+            {Array.from({ length: 5 }, (_, index) => (
+              <CarouselItem key={index}>
+                <Skeleton className=" w-[300px] h-[386px] pt-4 px-4 pb-5" />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </section>
+    );
+  }
+  if (error) {
+    return (
+      <section className="w-full flex flex-col items-start gap-8 px-10">
+        <Carousel className="w-full ">
+          <div className="mb-8 flex justify-between items-center pr-10">
+            <h2>Recommendations</h2>
+            <SeeAll variant="seeAll" />
+          </div>
+          <CarouselContent className="flex gap-8">
+            {Array.from({ length: 5 }, (_, index) => (
+              <CarouselItem key={index}>
+                <Card className=" w-[300px] h-[386px] items-center justify-center text-icons border border-special pt-4 px-4 pb-5 cursor-pointer">
+                  <p>{errorMessage}</p>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full flex flex-col items-start gap-8 pl-10">

@@ -79,7 +79,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
   const handlePlus = (id: number) => {
     const indexOfProduct = cartProducts.findIndex((msg) => msg.stockId === id);
 
-    let totalProductAmount = cartProducts[indexOfProduct].totalAmount;
+    const totalProductAmount = cartProducts[indexOfProduct].totalAmount;
 
     if (cartProducts[indexOfProduct].quantity < totalProductAmount) {
       cartProducts[indexOfProduct].quantity += 1;
@@ -216,7 +216,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
           </Button>
         )}
       </div>
-      {cartProducts.map((prod, index) => (
+      {cartProducts.map((prod) => (
         <div key={prod.stockId} className="flex items-center gap-6">
           <Checkbox
             id={String(prod?.stockId)}
@@ -329,7 +329,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                 {typeof prod?.totalAmount === "number" &&
                   prod.quantity >= prod.totalAmount && (
                     <CardFooter className="self-end text-sm text-error">
-                      You've reached the limit of available products.
+                      You&apos;ve reached the limit of available products.
                     </CardFooter>
                   )}
               </div>

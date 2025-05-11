@@ -69,7 +69,7 @@ const useProducts = () => {
       }
     };
     fetchProducts();
-  }, [sortOrder, category, minPrice, maxPrice, page, limit, brand]);
+  }, [sortOrder, category, minPrice, maxPrice, page, limit, brand, showSnackbar]);
 
   return {
     products,

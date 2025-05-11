@@ -11,7 +11,7 @@ import { useState } from "react";
 import useUser from "@/hooks/useUser";
 
 const CartAndUserMenuAvatar = () => {
-  const { user, loading, error, errorMessage } = useUser("?userData=avatarUrl");
+  const { user, loading, error } = useUser("?userData=avatarUrl");
 
   const [isUserPanelVisible, setIsUserPanelVisible] = useState(false);
   console.log("URL", user?.avatarUrl);
@@ -32,7 +32,9 @@ const CartAndUserMenuAvatar = () => {
         {user?.avatarUrl && (
           <AvatarImage src={`${user?.avatarUrl}`} alt="avatar" className="" />
         )}
-        <AvatarFallback>{!user?.avatarUrl && <DefaultAvatar />}</AvatarFallback>
+        <AvatarFallback>
+          {!user?.avatarUrl || (loading && error && <DefaultAvatar />)}
+        </AvatarFallback>
       </Avatar>
       <UserMenu isUserPanelVisible={isUserPanelVisible} />
     </div>

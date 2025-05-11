@@ -57,13 +57,8 @@ const useSingleProduct = (id: string): UseSingleProductType => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [showSnackbar, id]);
   return { product, loading, error, errorMessage };
 };
 
 export default useSingleProduct;
-
-
-
-
-

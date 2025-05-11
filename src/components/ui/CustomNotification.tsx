@@ -4,12 +4,13 @@ import { cn } from "@/lib/utils";
 import SnackbarInfo from "../icons/SnackbarIcon";
 import Exit from "../icons/Exit";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 const CustomNotification = () => {
   const { snackbar, setSnackbar } = useSnackbar();
-  const handleSnackbarClose = () => {
+  const handleSnackbarClose = useCallback(() => {
     setSnackbar((prev) => ({ ...prev, show: false }));
-  };
+  }, [setSnackbar]);
 
   useEffect(() => {
     if (snackbar.show) {
@@ -19,7 +20,7 @@ const CustomNotification = () => {
 
       return () => clearTimeout(timer);
     }
-  }, [snackbar.show]);
+  }, [snackbar.show, handleSnackbarClose]);
 
   if (!snackbar.show) return null;
 

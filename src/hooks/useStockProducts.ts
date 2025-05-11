@@ -61,7 +61,7 @@ const useStockProducts = (
       }
     };
     fetchStockProducts();
-  }, [value, refresh]);
+  }, [value, refresh, showSnackbar]);
   return { stockProducts, loading, error, errorMessage };
 };
 

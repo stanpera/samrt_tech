@@ -46,22 +46,14 @@ const LoginForm = () => {
   const [contact, setContact] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
 
-  const formContact = useForm<
-    z.input<typeof contactSchema>,
-    any,
-    z.output<typeof contactSchema>
-  >({
+  const formContact = useForm<z.infer<typeof contactSchema>>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       contact: "",
     },
   });
 
-  const formPassword = useForm<
-    z.input<typeof passwordSchema>,
-    any,
-    z.output<typeof passwordSchema>
-  >({
+  const formPassword = useForm<z.infer<typeof passwordSchema>>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
       password: "",
@@ -92,10 +84,10 @@ const LoginForm = () => {
     password: string;
   };
 
-  const onSubmit = async (value: onSubmitProps): Promise<any> => {
+  const onSubmit = async (value: onSubmitProps): Promise<void> => {
     try {
-      let password = value.password;
-      const singInToApp: any = await signIn("smarttech", {
+      const password = value.password;
+      const singInToApp = await signIn("smarttech", {
         contact,
         password,
         redirect: false,
@@ -171,7 +163,7 @@ const LoginForm = () => {
                 Continue
               </Button>
               <p>
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link
                   className="font-medium text-highlights"
                   href={"/register"}

@@ -1,10 +1,8 @@
 import * as React from "react";
-import {
-  MoreHorizontalIcon,
-} from "lucide-react";
+import { MoreHorizontalIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import FullArrowRight from "../icons/FullArrowRight";
 import FullArrowLeft from "../icons/FullArrowLeft";
 
@@ -43,7 +41,6 @@ type PaginationLinkProps = {
   React.ComponentProps<"a">;
 
 function PaginationLink({
-  className,
   isActive,
   size = "icon",
   ...props

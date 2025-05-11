@@ -115,7 +115,16 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
       const parsedItems: CurrentCurrencyProps = JSON.parse(currentCurrency);
       setCurrency(parsedItems);
     }
-  }, [refresh]);
+  }, [
+    serviceFees,
+    shippingInsurance,
+    totalProductPrice,
+    totalProductProtection,
+    refresh,
+    setServiceFees,
+    setShippingInsurance,
+    setTotalProductProtection,
+  ]);
 
   const handlePayNow = async () => {
     try {

@@ -1,15 +1,17 @@
-"use client"
+"use client";
 
 import { Address } from "@/types";
 import { CardContent } from "../ui/card";
 
 interface AddressProps {
   address?: Address;
-  mobileNumber?: String;
+  error: boolean;
+  errorMessage: string;
+  loading: boolean;
+  mobileNumber?: string;
 }
 
 const MainAddress: React.FC<AddressProps> = ({ address, mobileNumber }) => {
-
   return (
     <CardContent className="flex flex-col gap-10">
       <div className="flex flex-col gap-3">

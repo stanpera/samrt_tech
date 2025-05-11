@@ -22,4 +22,3 @@ const Check: React.FC<CheckProps> = ({ className }) => {
 };
 
 export default Check;
-Check;

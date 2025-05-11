@@ -64,9 +64,19 @@ const ProfileCard: React.FC<AvatarProps> = ({
   };
 
   if (loading) {
-    return <Skeleton className="h-[200px] w-[320px] p-6 gap-6 border border-special" />;
+    return (
+      <Skeleton className="h-[200px] w-[320px] p-6 gap-6 border border-special" />
+    );
   }
 
+  if (error) {
+    return (
+      <Card className="h-[200px] w-[320px] items-center justify-center p-6 gap-6 border border-special">
+        <p className="text-icons">{errorMessage}</p>
+      </Card>
+    );
+  }
+  
   return (
     <Card className="flex flex-col w-[320px] p-6 gap-6 border border-special self-start">
       <div className="flex justify-center items-center gap-6">

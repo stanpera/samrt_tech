@@ -5,7 +5,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { Product, Stock } from "@/types";
+import { Product } from "@/types";
 import { FC, useEffect, useState } from "react";
 import Check from "../icons/Check";
 import Minus from "../icons/Minus";
@@ -38,13 +38,13 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
 
   const productInStock: number | undefined = product?.stocks
     ?.map((stock) => stock.amount)
-    .reduce((acc, current) => acc + current);
+    ?.reduce((acc, current) => acc && current && acc + current);
 
   useEffect(() => {
     setSubtotal(product?.price || 0);
     setAddedProduct(1);
     setActiveStockAmount(productInStock ? productInStock : 0);
-  }, [product]);
+  }, [product, productInStock]);
 
   const handleStock = ({
     id,
@@ -112,14 +112,14 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [isMouseDown]);
+  }, [isMouseDown, product?.price]);
 
   useEffect(() => {
     const totalAmount = parseFloat(
       (product?.price ? product?.price * addedProduct : 0).toFixed(2)
     );
     setSubtotal(totalAmount);
-  }, [addedProduct]);
+  }, [addedProduct, product?.price]);
 
   const handleCart = () => {
     if (
@@ -150,7 +150,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
         cartItemsArray = [...cartItemsArray, productToCart];
         localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
       } else {
-        let cartItemsArray = [productToCart];
+        const cartItemsArray = [productToCart];
         localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
       }
       showSnackbar("Product added to cart", "success");
@@ -162,14 +162,14 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
       <div className="flex flex-col gap-3.5">
         <p className="text-lg font-medium">Colors</p>
         <div className="flex gap-4">
-          {product?.stocks?.map((stock, index) => (
+          {product?.stocks?.map((stock) => (
             <div
               key={stock.id}
               onClick={() =>
                 handleStock({
                   id: stock.id,
-                  color: stock.color,
-                  amount: stock.amount,
+                  color: stock?.color || "black",
+                  amount: stock?.amount || 1,
                 })
               }
               className={cn(
@@ -186,7 +186,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                   "bg-product-silver": stock.color === "silver",
                   "bg-conic-150/increasing from-violet-700 via-lime-300 to-violet-700":
                     stock.color === "multicolor",
-                  "opacity-30": stock.amount < 1,
+                  "opacity-30": stock.amount && stock.amount < 1,
                 }
               )}
             >
@@ -205,16 +205,18 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                   </div>
                 </Tooltip>
               </TooltipProvider>
-              {activeStockId === stock.id && stock.amount > 0 && (
-                <Check
-                  className={cn(
-                    "w-6 h-6 absolute text-background font-bold self-center",
-                    {
-                      "text-special": stock.color === "black",
-                    }
-                  )}
-                />
-              )}
+              {activeStockId === stock.id &&
+                stock.amount &&
+                stock.amount > 0 && (
+                  <Check
+                    className={cn(
+                      "w-6 h-6 absolute text-background font-bold self-center",
+                      {
+                        "text-special": stock.color === "black",
+                      }
+                    )}
+                  />
+                )}
             </div>
           ))}
         </div>

@@ -59,7 +59,7 @@ const useCurrency = () => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [showSnackbar]);
   return { currency, loading, error, errorMessage };
 };
 

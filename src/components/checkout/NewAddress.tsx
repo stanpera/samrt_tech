@@ -3,7 +3,6 @@ import { Address } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
 import "react-phone-input-2/lib/style.css";
 
 import {
@@ -19,11 +18,11 @@ import { Input } from "@/components/ui/input";
 
 import { CountryDropdown } from "../register/SelectCountry";
 import { Textarea } from "../ui/textarea";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface AddressProps {
   address?: Address;
-  mobileNumber?: String;
+  mobileNumber?: string;
 }
 
 const formSchema = z.object({
@@ -85,17 +84,12 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
     }
   }, []);
 
-
-  const form = useForm<
-    z.input<typeof formSchema>,
-    any,
-    z.output<typeof formSchema>
-  >({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
   });
 
-  const onSubmit = (values: formValue) => {
+  const onSubmit = useCallback((values: formValue) => {
     if (Object.keys(form.formState.errors).length > 0) return;
 
     if (activeSubmit) {
@@ -113,7 +107,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
       localStorage.removeItem("address");
     }
     setRefresh((prev) => !prev);
-  };
+  }, []);
 
   const [country, street, postCode, city, state] = form.watch([
     "country",
@@ -141,7 +135,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
         state: "",
       });
     }
-  }, [country, street, postCode, city, state, activeSubmit]);
+  }, [country, street, postCode, city, state, activeSubmit, onSubmit]);
 
   const handleSubmitAction = () => {
     setActiveSubmit((prev) => !prev);

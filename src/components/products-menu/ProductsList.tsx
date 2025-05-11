@@ -45,7 +45,7 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const currency = localStorage.getItem("currentCurrency");
     if (currency) {
-      let currencyData = JSON.parse(currency);
+      const currencyData = JSON.parse(currency);
       const rate = parseFloat(currencyData[currentCurrency]);
       const symbol =
         currentCurrency === "USD"

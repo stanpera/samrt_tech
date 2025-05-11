@@ -1,23 +1,26 @@
 "use server";
 
-import { Address, Brand, Category, Order, OrderItem, User } from "@/types";
+import { Order, OrderItem, User } from "@/types";
 import prisma from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
+import { Product } from "@prisma/client";
 
-export async function getAllCategoriesFromDb(
-  values: Array<string>
-): Promise<Category[]> {
-  const selectValues: { [key: string]: boolean } = {};
+export async function getAllCategoriesFromDb(values: Array<string>) {
+  try {
+    const selectValues: { [key: string]: boolean } = {};
 
-  values.forEach((value) => {
-    selectValues[value] = true;
-  });
+    values.forEach((value) => {
+      selectValues[value] = true;
+    });
 
-  const categories = await prisma.category.findMany({
-    orderBy: { id: "asc" },
-    select: selectValues,
-  });
-  return categories as any as Category[];
+    const categories = await prisma.category.findMany({
+      orderBy: { id: "asc" },
+      select: selectValues,
+    });
+    return categories;
+  } catch {
+    throw new Error("Failed to upload user from db.");
+  }
 }
 export const getAllCategories = unstable_cache(
   getAllCategoriesFromDb,
@@ -26,14 +29,19 @@ export const getAllCategories = unstable_cache(
     tags: ["categories"],
   }
 );
-export const getAllProductsFromDb = async () => {
-  const products = await prisma.product.findMany({
-    include: {
-      images: true,
-    },
-  });
 
-  return products;
+export const getAllProductsFromDb = async (): Promise<Product[]> => {
+  try {
+    const products = await prisma.product.findMany({
+      include: {
+        images: true,
+      },
+    });
+
+    return products;
+  } catch {
+    throw new Error("Failed to upload products from db.");
+  }
 };
 export const getAllProducts = unstable_cache(
   getAllProductsFromDb,
@@ -42,53 +50,107 @@ export const getAllProducts = unstable_cache(
     tags: ["products"],
   }
 );
-export const getRandomProductsFromDb = async () => {
-  const productsIds = await prisma.product.findMany({
-    select: {
-      id: true,
-    },
-  });
-
-  const randomProductsArrayLength = productsIds.length;
-  const countToTake = Math.min(6, randomProductsArrayLength);
-
-  const randomIndexes: Array<number> = [];
-  while (randomIndexes.length < countToTake) {
-    const randomIndex = Math.floor(Math.random() * randomProductsArrayLength);
-    if (!randomIndexes.includes(randomIndex)) {
-      randomIndexes.push(randomIndex);
-    }
-  }
-
-  const randomProductIds = randomIndexes.map((index) => productsIds[index].id);
-
-  const randomProducts = await prisma.product.findMany({
-    where: {
-      id: {
-        in: randomProductIds,
-      },
-    },
-    include: {
-      images: true,
-      category: true,
-    },
-  });
-
-  return randomProducts;
-};
-export const getAllBrandsFromDb = async (
+export const getProducts = async (
+  ids: Array<number>,
   values: Array<string>
-): Promise<Brand[]> => {
-  const selectValues: { [key: string]: boolean } = {};
+): Promise<Product[]> => {
+  try {
+    const selectValues: { [key: string]: boolean } = {};
 
-  values.forEach((value) => {
-    selectValues[value] = true;
-  });
+    values.forEach((value) => {
+      selectValues[value] = true;
+    });
 
-  const brands = await prisma.brand.findMany({
-    select: selectValues,
-  });
-  return brands as any as Brand[];
+    const products = await prisma.product.findMany({
+      where: { id: { in: ids } },
+      select: selectValues,
+    });
+
+    return products;
+  } catch {
+    throw new Error("Failed to upload products from db.");
+  }
+};
+export const getRandomProductsFromDb = async (): Promise<Product[]> => {
+  try {
+    const productsIds = await prisma.product.findMany({
+      select: {
+        id: true,
+      },
+    });
+
+    const randomProductsArrayLength = productsIds.length;
+    const countToTake = Math.min(6, randomProductsArrayLength);
+
+    const randomIndexes: Array<number> = [];
+    while (randomIndexes.length < countToTake) {
+      const randomIndex = Math.floor(Math.random() * randomProductsArrayLength);
+      if (!randomIndexes.includes(randomIndex)) {
+        randomIndexes.push(randomIndex);
+      }
+    }
+
+    const randomProductIds = randomIndexes.map(
+      (index) => productsIds[index].id
+    );
+
+    const randomProducts = await prisma.product.findMany({
+      where: {
+        id: {
+          in: randomProductIds,
+        },
+      },
+      include: {
+        images: true,
+        category: true,
+      },
+    });
+
+    return randomProducts;
+  } catch {
+    throw new Error("Failed to upload recommended products from db.");
+  }
+};
+export const getSingleProduct = async (id: number) => {
+  try {
+    const products = await prisma.product.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        technicalSpecs: true,
+        price: true,
+        categoryId: true,
+        brandId: true,
+        images: true,
+        stocks: true,
+        category: { select: { id: true, name: true } },
+      },
+    });
+    return products;
+  } catch {
+    throw new Error("Failed to upload specific product from db.");
+  }
+};
+
+export const getAllBrandsFromDb = async (values: Array<string>) => {
+  try {
+    const selectValues: { [key: string]: boolean } = {};
+
+    values.forEach((value) => {
+      selectValues[value] = true;
+    });
+
+    const brands = await prisma.brand.findMany({
+      select: selectValues,
+    });
+    return brands;
+  } catch {
+    throw new Error("Failed to upload brands from db.");
+  }
 };
 export const getAllBrands = unstable_cache(
   getAllBrandsFromDb,
@@ -97,36 +159,7 @@ export const getAllBrands = unstable_cache(
     tags: ["brands"],
   }
 );
-// FromDb
-export const getSingleProduct = async (id: number) => {
-  const products = await prisma.product.findUnique({
-    where: {
-      id: id,
-    },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      technicalSpecs: true,
-      price: true,
-      categoryId: true,
-      brandId: true,
-      images: true,
-      stocks: true,
-      category: { select: { id: true, name: true } },
-    },
-  });
-  return products;
-};
-// export const getSingleProduct = unstable_cache(
-//   getSingleProductFromDb,
 
-//   ["singleProduct"],
-
-//   {
-//     tags: ["product"],
-//   }
-// );
 export async function createUser(
   email: string,
   passwordHash: string,
@@ -140,10 +173,9 @@ export async function createUser(
         mobileNumber: mobileNumber,
       },
     });
-
     revalidateTag("user");
-  } catch (error: unknown) {
-    throw new Error("Failed to save user XXX.");
+  } catch {
+    throw new Error("Failed to save user in db.");
   }
 }
 export async function getUserFromDb(
@@ -170,11 +202,11 @@ export async function getUserFromDb(
       select: selectValues,
     });
     return user;
-  } catch (error: unknown) {
-    throw new Error("Failed to upload user.");
+  } catch {
+    throw new Error("Failed to upload user from db.");
   }
 }
-export const getUser = unstable_cache(getUserFromDb, ["singleUser"], {
+export const getUser = unstable_cache(getUserFromDb, ["user-list"], {
   tags: ["user"],
 });
 export async function updateUser(
@@ -190,10 +222,11 @@ export async function updateUser(
     });
     revalidateTag("user");
     return;
-  } catch (error: unknown) {
-    throw new Error("Error saving user data in database");
+  } catch {
+    throw new Error("Failed to update user in db");
   }
 }
+
 export async function createAddress(
   userId: number,
   country: string
@@ -208,11 +241,10 @@ export async function createAddress(
 
     revalidateTag("address");
     revalidateTag("user");
-  } catch (error: unknown) {
+  } catch {
     throw new Error("Error saving address data in database");
   }
 }
-
 export async function updateAddress(
   userId: number,
   updatedData: {
@@ -230,12 +262,12 @@ export async function updateAddress(
     revalidateTag("address");
     revalidateTag("user");
     return;
-  } catch (error: unknown) {
+  } catch {
     throw new Error("Error saving address data in database");
   }
 }
 
-export const getStockProducts = async (
+export const getStockProductsFromDb = async (
   ids: Array<number>,
   values: Array<string>
 ) => {
@@ -251,40 +283,35 @@ export const getStockProducts = async (
     });
 
     return products;
-  } catch (error: unknown) {
-    throw new Error("Failed to upload user.");
+  } catch {
+    throw new Error("Failed to upload stock from db.");
   }
 };
-
-// export const getStockProducts = unstable_cache(
-//   getStockProductsFromDb,
-//   ["stockProducts-list"],
-//   {
-//     tags: ["stock"],
-//   }
-// );
-
-export const getProducts = async (
-  ids: Array<number>,
-  values: Array<string>
-) => {
+export const getStockProducts = unstable_cache(
+  getStockProductsFromDb,
+  ["stock-list"],
+  {
+    tags: ["stock"],
+  }
+);
+export async function updateStock(values: [number, number][]): Promise<void> {
   try {
-    const selectValues: { [key: string]: boolean } = {};
-    console.log("selectValues", selectValues);
-    values.forEach((value) => {
-      selectValues[value] = true;
-    });
-
-    const products = await prisma.product.findMany({
-      where: { id: { in: ids } },
-      select: selectValues,
-    });
-
-    return products;
-  } catch (error: unknown) {
-    throw new Error("Failed to upload products.");
+    for (let i = 0; i < values.length; i++) {
+      const [id, amount] = values[i];
+      await prisma.stock.update({
+        where: { id },
+        data: {
+          amount,
+        },
+      });
+    }
+    revalidateTag("stock");
+    revalidateTag("products");
+    return;
+  } catch {
+    throw new Error("Failed to update stock in db");
   }
-};
+}
 
 export async function createOrder(
   order: Omit<Order, "id" | "createdAt">
@@ -305,14 +332,10 @@ export async function createOrder(
     });
     revalidateTag("order");
     return newOrder.id;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
-    throw new Error("Error saving order in database");
+  } catch {
+    throw new Error("Failed to save order in db");
   }
 }
-
 export async function createOrderItem(
   data: Omit<OrderItem, "id">[]
 ): Promise<number> {
@@ -321,29 +344,7 @@ export async function createOrderItem(
     revalidateTag("order");
     revalidateTag("orederItem");
     return createdItems.count;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    }
-    throw new Error("Error saving order in database");
-  }
-}
-
-export async function updateStock(values: [number, number][]): Promise<void> {
-  try {
-    for (let i = 0; i < values.length; i++) {
-      const [id, amount] = values[i];
-      await prisma.stock.update({
-        where: { id },
-        data: {
-          amount,
-        },
-      });
-    }
-    revalidateTag("stock");
-    revalidateTag("products");
-    return;
-  } catch (error: unknown) {
-    throw new Error("Error updating stock in database");
+  } catch {
+    throw new Error("Failed to save order items in db.");
   }
 }

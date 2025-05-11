@@ -38,7 +38,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
     if (!loading) {
       setMainImage(product?.images ? product?.images[0]?.url : "none");
     }
-  }, [loading]);
+  }, [loading, product?.images]);
 
   const handleImages = (imgUrl: string) => {
     setMainImage(imgUrl);

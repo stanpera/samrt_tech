@@ -3,21 +3,16 @@
 import * as React from "react";
 import Link from "next/link";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import ShoppingCard from "../icons/ShoppingCard";
 import Logo from "../ui/Logo";
 import { Separator } from "../ui/separator";
-import DefaultAvatar from "../icons/DefaultAvatar";
 import { useSession } from "next-auth/react";
-import { useSnackbar } from "@/context/SnackbarContext";
 import { cn } from "@/lib/utils";
 import CartAndUserMenuAvatar from "./CartAndUserMenuAvatar";
-import { Button } from "../ui/button";
 
 const Header = () => {
   const { status } = useSession();
@@ -29,7 +24,7 @@ const Header = () => {
           <Logo />
         </Link>
         {status === "authenticated" && <CartAndUserMenuAvatar />}
-        {status !== "authenticated" && (
+        {status === "unauthenticated" && (
           <Link
             className="py-3.5 px-5 bg-first-content text-background rounded-md hover:bg-highlights font-medium"
             href="/login"

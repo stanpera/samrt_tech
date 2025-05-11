@@ -53,7 +53,7 @@ const useCategories = () => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [showSnackbar]);
   return { categories, loading, error, errorMessage };
 };
 

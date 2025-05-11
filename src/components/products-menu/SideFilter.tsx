@@ -10,13 +10,14 @@ import OptionsHandler from "../products-menu/OptionsHandler";
 import useBrands from "@/hooks/useBrands";
 import PriceHandler from "../products-menu/PriceHandler";
 import { Skeleton } from "../ui/skeleton";
+import { Card } from "../ui/card";
 
 const SideFilter = () => {
   const searchParams = useSearchParams();
   const paramsCategory = searchParams.get("category");
   const paramsBrand = searchParams.get("brand");
 
-  const { categories, loading, error } = useCategories();
+  const { categories, loading, error, errorMessage } = useCategories();
   const { brands } = useBrands();
 
   const {
@@ -35,13 +36,13 @@ const SideFilter = () => {
     const localStorageCurrency = localStorage.getItem("currentCurrency");
 
     if (localStorageCurrency) {
-      let currencyData = JSON.parse(localStorageCurrency);
+      const currencyData = JSON.parse(localStorageCurrency);
 
       const currentCurrency = currencyData.currentCurrency;
 
       setCurrentCurrency(currentCurrency);
     }
-  }, []);
+  }, [setCurrentCurrency]);
 
   const [isCheckAllCategory, setIsCheckAllCategory] = useState(true);
   const [isCheckCategory, setIsCheckCategory] = useState<Array<string>>([]);
@@ -51,7 +52,7 @@ const SideFilter = () => {
   useEffect(() => {
     setMinPrice(10);
     setMaxPrice(NaN);
-  }, [currentCurrency]);
+  }, [currentCurrency, setMaxPrice, setMinPrice]);
 
   useEffect(() => {
     if (isCheckAllCategory) {
@@ -61,7 +62,7 @@ const SideFilter = () => {
       setCategory(isCheckCategory);
       setPage(0);
     }
-  }, [isCheckAllCategory, isCheckCategory]);
+  }, [isCheckAllCategory, isCheckCategory, setCategory, setPage]);
 
   useEffect(() => {
     if (isCheckAllBrand) {
@@ -71,7 +72,7 @@ const SideFilter = () => {
       setBrand(isCheckBrand);
       setPage(0);
     }
-  }, [isCheckAllBrand, isCheckBrand]);
+  }, [isCheckAllBrand, isCheckBrand, setBrand, setPage]);
 
   useEffect(() => {
     if (paramsCategory) {
@@ -85,14 +86,29 @@ const SideFilter = () => {
       setIsCheckBrand([paramsBrand]);
       setBrand([paramsBrand]);
     }
-  }, []);
+  }, [paramsBrand, paramsCategory, setBrand, setCategory]);
 
-  if (0 === 10) {
+  if (loading) {
     return (
-      <div className="flex flex-col bg-amber-950 w-[463px] h-full p-10 gap-13 border-r border-special">
-        <Skeleton className="h-50 max-w-[283px]" />
-        <Skeleton className="h-50 max-w-[283px]" />
-        <Skeleton className="h-50 max-w-[283px]" />
+      <div className="flex flex-col w-[463px] h-full p-10 gap-13 border-r border-special">
+        <Skeleton className="h-50 w-[283px]" />
+        <Skeleton className="h-50 w-[283px]" />
+        <Skeleton className="h-50 w-[283px]" />
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="flex flex-col w-[463px] h-full p-10 gap-13 border-r border-special">
+        <Card className="h-50 w-[283px] justify-center items-center text-icons">
+          {errorMessage}
+        </Card>
+        <Card className="h-50 w-[283px] justify-center items-center text-icons">
+          {errorMessage}
+        </Card>
+        <Card className="h-50 w-[283px] justify-center items-center text-icons">
+          {errorMessage}
+        </Card>
       </div>
     );
   }

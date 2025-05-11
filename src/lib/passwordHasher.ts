@@ -10,7 +10,7 @@ export const hashPassword = async (password: string): Promise<string> => {
     const salt: string = await bcrypt.genSalt(saltRounds);
     const hash: string = await bcrypt.hash(password, salt);
     return hash;
-  } catch (error) {
+  } catch {
     throw new Error("Your password is not secure. Please contact helpdesk.");
   }
 };

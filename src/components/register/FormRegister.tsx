@@ -65,11 +65,7 @@ const RegisterForm = () => {
   const { showSnackbar } = useSnackbar();
   const router = useRouter();
 
-  const form = useForm<
-    z.input<typeof formSchema>,
-    any,
-    z.output<typeof formSchema>
-  >({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -77,7 +73,6 @@ const RegisterForm = () => {
       confirmPassword: "",
       mobileNumber: "",
       country: "United States",
-      agreement: false as any as true,
     },
   });
 

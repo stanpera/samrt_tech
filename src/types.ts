@@ -15,7 +15,7 @@ export interface User {
   lastName?: string;
   email?: string;
   passwordHash?: string;
-  mobileNumber?: String;
+  mobileNumber?: string;
   avatarUrl?: string;
   address?: Address[];
   orders?: Order[];

@@ -51,7 +51,7 @@ const useUser = (queries: string) => {
       }
     };
     fetchCategories();
-  }, [queries]);
+  }, [queries, showSnackbar]);
   return { user, loading, error, errorMessage };
 };
 

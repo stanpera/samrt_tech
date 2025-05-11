@@ -139,7 +139,7 @@ interface FormMessageProps {
   isCorrect?: boolean;
   message?: string;
   className?: string;
-  [key: string]: any;
+  [key: string]: string | boolean | undefined;
 }
 
 function FormMessage({

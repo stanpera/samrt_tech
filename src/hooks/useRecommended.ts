@@ -51,7 +51,7 @@ const useRecommended = () => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [showSnackbar]);
   return { recommendedProducts, loading, error, errorMessage };
 };
 

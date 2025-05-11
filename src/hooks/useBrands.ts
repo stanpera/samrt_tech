@@ -50,7 +50,7 @@ const useBrands = () => {
       }
     };
     fetchBrands();
-  }, []);
+  }, [showSnackbar]);
   return { brands, loading, error, errorMessage };
 };
 

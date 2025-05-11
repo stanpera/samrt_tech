@@ -1,7 +1,6 @@
 "use server";
-import { authOptions } from "@/lib/authOptions";
+
 import { getStockProducts, updateStock } from "@/lib/queries";
-import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -150,16 +150,12 @@ interface formValue {
 }
 
 const ProfileForm = () => {
-  const { user, error, errorMessage, loading } = useUser("?userData=editForm");
+  const { user } = useUser("?userData=editForm");
 
   const { showSnackbar } = useSnackbar();
   const router = useRouter();
 
-  const form = useForm<
-    z.input<typeof formSchema>,
-    any,
-    z.output<typeof formSchema>
-  >({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
@@ -239,6 +235,7 @@ const ProfileForm = () => {
           showSnackbar(data.error, "error");
         }
       }
+      router.push("/profile");
     } catch (error: unknown) {
       if (error instanceof Error) {
         showSnackbar(error.message, "error");
