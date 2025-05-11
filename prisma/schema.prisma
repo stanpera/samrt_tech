@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+  }
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Address {
+  id         Int      @id @default(autoincrement()) 
+  userId     Int      @unique
+  street     String?
+  city       String?
+  state      String?
+  postCode String?
+  country    String
+  user       User     @relation(fields: [userId], references: [id]) 
+  @@map("addresses")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  firstName    String?
+  lastName     String?
+  email        String   @unique
+  passwordHash String
+  mobileNumber String   @unique
+  avatarUrl    String?
+  address      Address[]
+  orders       Order[] 
+  @@map("users")
+}
+
+model Order {
+  id                    Int      @id @default(autoincrement())
+  orderNumber           String
+  userId                Int
+  createdAt             DateTime @default(now())
+  status                String
+  totalAmount           Float
+  paymentMethod         String
+  shippingMethod        String
+  shippingPrice         Float
+  shippingInsurance     Float
+  serviceFees           Float
+  user                  User     @relation(fields: [userId], references: [id]) 
+  orderItems            OrderItem[] 
+  @@map("orders")
+}
+
+model OrderItem {
+  id              Int      @id @default(autoincrement()) 
+  orderId         Int
+  productId       Int
+  stockId         Int
+  quantity        Int
+  priceAtPurchase Float
+  productProtection Float
+  message         String
+  order           Order    @relation(fields: [orderId], references: [id]) 
+  product         Product  @relation(fields: [productId], references: [id])
+  stock           Stock    @relation(fields: [stockId], references: [id])
+  @@map("order_items")
+}
+
+model Brand {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  logoUrl     String?
+  products    Product[] 
+  @@map("brands")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement()) 
+  name        String
+  description String?
+  image       String?
+  exploreInfo String?
+  products    Product[] 
+  @@map("categories")
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime 
+  name        String
+  description String?     
+  technicalSpecs String?   
+  price       Float
+  categoryId  Int
+  brandId     Int
+  stocks      Stock[]      
+  category    Category     @relation(fields: [categoryId], references: [id])
+  brand       Brand        @relation(fields: [brandId], references: [id])
+  orderItems  OrderItem[]
+  images      Image[]      
+  @@map("products") 
+}
+
+model Image {
+  id        Int           @id @default(autoincrement())
+  url       String   
+  productId Int      
+  product   Product       @relation(fields: [productId], references: [id]) 
+  @@map("images")
+}
+
+model Stock {
+  id        Int           @id @default(autoincrement())
+  productId Int  
+  amount    Int      
+  color     String 
+  product   Product       @relation(fields: [productId], references: [id]) 
+  orderItems  OrderItem[]
+  @@map("stocks")
+}
