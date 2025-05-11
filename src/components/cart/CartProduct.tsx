@@ -16,6 +16,7 @@ import SnackbarInfo from "../icons/SnackbarIcon";
 
 interface CartItemsProps {
   stockId: number;
+  productId: number;
   color: string;
   quantity: number;
   category: string;
@@ -189,11 +190,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
     );
   }
 
-  // if (loading) {
-  //   return (
-  //     <Skeleton className="flex w-[839px] h-[186px] border border-special p-6 justify-center items-center" />
-  //   );
-  // }
+
   return (
     <section className="flex flex-col items-start gap-8 ">
       <div className="flex items-center gap-4 w-full h-6.5">
@@ -274,10 +271,10 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                 <CardFooter className="flex justify-between p-0 text-2xl font-medium text-icons">
                   <div>
                     {currency.currentCurrency === "EUR"
-                      ? `\u0024${(currency.EUR * prod.price).toFixed(2)}`
+                      ? `\u20AC${(currency.EUR * prod.price).toFixed(2)}`
                       : currency.currentCurrency === "GBP"
                       ? `\u00A3${(currency.GBP * prod.price).toFixed(2)}`
-                      : `\u20AC${(currency.EUR * prod.price).toFixed(2)}`}
+                      : `\u0024${(currency.USD * prod.price).toFixed(2)}`}
                   </div>
                   <div className="flex items-center gap-6">
                     <Button

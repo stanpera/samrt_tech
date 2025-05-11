@@ -1007,7 +1007,7 @@ export const InitialAddresses = [
     street: "Grove Street",
     city: "Los Santos",
     state: "California",
-    postalCode: "00001",
+    postCode: "00001",
     country: "United States",
   },
   {
@@ -1015,7 +1015,7 @@ export const InitialAddresses = [
     street: "Maple Avenue 89",
     city: "Oakridge",
     state: "Nevada",
-    postalCode: "89123",
+    postCode: "89123",
     country: "United States",
   },
 ];

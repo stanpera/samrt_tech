@@ -2,11 +2,11 @@ import { Separator } from "@radix-ui/react-separator";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardFooter, CardTitle } from "../ui/card";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 interface CartItemsProps {
   stockId: number;
+  productId: number;
   color: string;
   quantity: number;
   category: string;
@@ -85,14 +85,14 @@ const TotalProduct: React.FC<TotalProductProps> = ({ refresh }) => {
             <p>{prod.name}</p>
             <p className="text-lg">
               {currency.currentCurrency === "EUR"
-                ? `\u0024${(currency.EUR * prod.price * prod.quantity).toFixed(
+                ? `\u20AC${(currency.EUR * prod.price * prod.quantity).toFixed(
                     2
                   )}`
                 : currency.currentCurrency === "GBP"
                 ? `\u00A3${(currency.GBP * prod.price * prod.quantity).toFixed(
                     2
                   )}`
-                : `\u20AC${(currency.EUR * prod.price * prod.quantity).toFixed(
+                : `\u0024${(currency.USD * prod.price * prod.quantity).toFixed(
                     2
                   )}`}
             </p>
@@ -104,10 +104,10 @@ const TotalProduct: React.FC<TotalProductProps> = ({ refresh }) => {
         <div className="text-lg">Subtotal</div>
         <div className="text-[28px]">
           {currency.currentCurrency === "EUR"
-            ? `\u0024${(currency.EUR * totalProductPrice).toFixed(2)}`
+            ? `\u20AC${(currency.EUR * totalProductPrice).toFixed(2)}`
             : currency.currentCurrency === "GBP"
             ? `\u00A3${(currency.GBP * totalProductPrice).toFixed(2)}`
-            : `\u20AC${(currency.EUR * totalProductPrice).toFixed(2)}`}
+            : `\u0024${(currency.USD * totalProductPrice).toFixed(2)}`}
         </div>
       </CardFooter>
       <Button

@@ -218,10 +218,10 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
                 <CardFooter className="flex justify-between p-0 text-2xl font-medium text-icons">
                   <div>
                     {currency.currentCurrency === "EUR"
-                      ? `\u0024${(currency.EUR * prod.price).toFixed(2)}`
+                      ? `\u20AC${(currency.EUR * prod.price).toFixed(2)}`
                       : currency.currentCurrency === "GBP"
                       ? `\u00A3${(currency.GBP * prod.price).toFixed(2)}`
-                      : `\u20AC${(currency.EUR * prod.price).toFixed(2)}`}
+                      : `\u0024${(currency.USD * prod.price).toFixed(2)}`}
                   </div>
                   <div className="flex items-center gap-6">
                     <Button

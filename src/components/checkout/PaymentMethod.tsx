@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Stripe from "../icons/Stripe";
 import { Card, CardTitle } from "../ui/card";
 import ApplePay from "../icons/ApplePay";
@@ -18,6 +18,10 @@ interface PaymentMethodProps {
 const PaymentMethod: React.FC<PaymentMethodProps> = ({ setRefresh }) => {
   const [paymentMethod, setPaymentMethod] = useState<Payment>("stripe");
 
+  useEffect(() => {
+    localStorage.setItem("paymentMethod", "stripe");
+  }, []);
+  
   const handlePaymentMethod = (method: Payment) => {
     setPaymentMethod(method);
     localStorage.setItem("paymentMethod", method);

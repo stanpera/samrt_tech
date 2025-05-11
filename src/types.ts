@@ -23,24 +23,32 @@ export interface User {
 
 export interface Order {
   id: number;
+  orderNumber: string;
   userId: number;
   createdAt: Date;
   status: string;
   totalAmount: number;
+  paymentMethod: string;
+  shippingMethod: string;
+  shippingPrice: number;
+  shippingInsurance: number;
+  serviceFees: number;
   user?: User;
   orderItems?: OrderItem[];
 }
-
 export interface OrderItem {
   id: number;
   orderId: number;
   productId: number;
+  stockId: number;
   quantity: number;
   priceAtPurchase: number;
+  productProtection: number;
+  message: string;
   order?: Order;
   product?: Product;
+  stock?: Stock;
 }
-
 export interface Category {
   id: number;
   name: string;

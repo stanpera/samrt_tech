@@ -1,22 +1,27 @@
 "use client";
 
 import Quality from "../icons/Quality";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardTitle } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { cn } from "@/lib/utils";
 
-type Shipping = "courier" | "parcelLocker";
+type Shipping = "smartTechCourier" | "smartParcelLocker";
 
 interface ShippingMethodProps {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ShippingMethod: React.FC<ShippingMethodProps> = ({ setRefresh }) => {
-  const [shippingMethod, setShippingMethod] = useState<Shipping>("courier");
+  const [shippingMethod, setShippingMethod] =
+    useState<Shipping>("smartTechCourier");
+
+  useEffect(() => {
+    localStorage.setItem("shipping", "smartTechCourier");
+  }, []);
 
   const handlePaymentMethod = (method: Shipping) => {
-    if (method !== "parcelLocker") {
+    if (method !== "smartParcelLocker") {
       setShippingMethod(method);
       localStorage.setItem("shipping", method);
       setRefresh((prev) => !prev);
@@ -31,10 +36,10 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({ setRefresh }) => {
           className={cn(
             "flex gap-3 items-center py-6 pl-6 pr-4 cursor-pointer hover:bg-highlights hover:text-cards",
             {
-              "bg-highlights text-cards": shippingMethod === "courier",
+              "bg-highlights text-cards": shippingMethod === "smartTechCourier",
             }
           )}
-          onClick={() => handlePaymentMethod("courier")}
+          onClick={() => handlePaymentMethod("smartTechCourier")}
         >
           <Quality className="w-6 h-6" />
           <CardTitle className="text-lg font-medium">
@@ -46,7 +51,7 @@ const ShippingMethod: React.FC<ShippingMethodProps> = ({ setRefresh }) => {
           className={cn(
             "relative flex gap-3 items-center py-6 pl-6 pr-4 opacity-40"
           )}
-          onClick={() => handlePaymentMethod("parcelLocker")}
+          onClick={() => handlePaymentMethod("smartParcelLocker")}
         >
           <Quality className="w-6 h-6" />
           <CardTitle className="text-lg font-medium">

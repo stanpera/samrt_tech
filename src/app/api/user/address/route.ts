@@ -5,6 +5,7 @@ import { updateAddress } from "@/lib/queries";
 
 export async function PUT(req: NextRequest) {
   try {
+    
     const token = await getToken({ req });
 
     if (!token) {
@@ -17,6 +18,7 @@ export async function PUT(req: NextRequest) {
         ([, value]) => value != null && value !== "" && value != undefined
       )
     );
+
     if (validDataFromClient) {
       const currentUserId: number = Number(token?.userId);
 

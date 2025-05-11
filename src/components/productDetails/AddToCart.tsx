@@ -132,6 +132,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
     } else {
       const productToCart = {
         stockId: activeStockId,
+        productId: product?.id,
         color: activeStockColor,
         quantity: addedProduct,
         category: product?.category?.name,

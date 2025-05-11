@@ -16,9 +16,6 @@ import {
 import { Checkbox } from "../ui/checkbox";
 
 import { Input } from "@/components/ui/input";
-// import PhoneInput from "react-phone-input-2";
-
-import { useSnackbar } from "@/context/SnackbarContext";
 
 import { CountryDropdown } from "../register/SelectCountry";
 import { Textarea } from "../ui/textarea";
@@ -88,7 +85,6 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
     }
   }, []);
 
-  console.log("localAddress", localAddress);
 
   const form = useForm<
     z.input<typeof formSchema>,

@@ -1,6 +1,6 @@
 "use server";
 
-import { Address, Brand, Category, User } from "@/types";
+import { Address, Brand, Category, Order, OrderItem, User } from "@/types";
 import prisma from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 
@@ -220,6 +220,9 @@ export async function updateAddress(
   }
 ): Promise<void> {
   try {
+    console.log("userId", userId);
+    console.log("updatedData", updatedData);
+
     await prisma.address.update({
       where: { userId: userId },
       data: updatedData,
@@ -231,28 +234,13 @@ export async function updateAddress(
     throw new Error("Error saving address data in database");
   }
 }
-// export async function getAddressFromDb(
-//   userId: number
-// ): Promise<Address | null> {
-//   try {
-//     const address = await prisma.address.findUnique({
-//       where: {
-//         userId: userId,
-//       },
-//     });
-//     return address;
-//   } catch (error: unknown) {
-//     throw new Error("Failed to get address.");
-//   }
-// }
 
-export const getStockProductsFromDb = async (
+export const getStockProducts = async (
   ids: Array<number>,
   values: Array<string>
 ) => {
   try {
     const selectValues: { [key: string]: boolean } = {};
-    console.log("selectValues", selectValues);
     values.forEach((value) => {
       selectValues[value] = true;
     });
@@ -268,10 +256,94 @@ export const getStockProductsFromDb = async (
   }
 };
 
-export const getStockProducts = unstable_cache(
-  getStockProductsFromDb,
-  ["stockProducts-list"],
-  {
-    tags: ["stock"],
+// export const getStockProducts = unstable_cache(
+//   getStockProductsFromDb,
+//   ["stockProducts-list"],
+//   {
+//     tags: ["stock"],
+//   }
+// );
+
+export const getProducts = async (
+  ids: Array<number>,
+  values: Array<string>
+) => {
+  try {
+    const selectValues: { [key: string]: boolean } = {};
+    console.log("selectValues", selectValues);
+    values.forEach((value) => {
+      selectValues[value] = true;
+    });
+
+    const products = await prisma.product.findMany({
+      where: { id: { in: ids } },
+      select: selectValues,
+    });
+
+    return products;
+  } catch (error: unknown) {
+    throw new Error("Failed to upload products.");
   }
-);
+};
+
+export async function createOrder(
+  order: Omit<Order, "id" | "createdAt">
+): Promise<number> {
+  try {
+    const newOrder = await prisma.order.create({
+      data: {
+        orderNumber: order.orderNumber,
+        userId: order.userId,
+        status: order.status,
+        totalAmount: order.totalAmount,
+        paymentMethod: order.paymentMethod,
+        shippingMethod: order.shippingMethod,
+        shippingPrice: order.shippingPrice,
+        shippingInsurance: order.shippingInsurance,
+        serviceFees: order.serviceFees,
+      },
+    });
+    revalidateTag("order");
+    return newOrder.id;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Error saving order in database");
+  }
+}
+
+export async function createOrderItem(
+  data: Omit<OrderItem, "id">[]
+): Promise<number> {
+  try {
+    const createdItems = await prisma.orderItem.createMany({ data });
+    revalidateTag("order");
+    revalidateTag("orederItem");
+    return createdItems.count;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Error saving order in database");
+  }
+}
+
+export async function updateStock(values: [number, number][]): Promise<void> {
+  try {
+    for (let i = 0; i < values.length; i++) {
+      const [id, amount] = values[i];
+      await prisma.stock.update({
+        where: { id },
+        data: {
+          amount,
+        },
+      });
+    }
+    revalidateTag("stock");
+    revalidateTag("products");
+    return;
+  } catch (error: unknown) {
+    throw new Error("Error updating stock in database");
+  }
+}

@@ -26,8 +26,6 @@ import Logo from "../ui/Logo";
 import { cn } from "@/lib/utils";
 import { CountryDropdown } from "../register/SelectCountry";
 import useUser from "@/hooks/useUser";
-import { useEffect, useState } from "react";
-import { User } from "@/types";
 
 const formSchema = z
   .object({
@@ -118,7 +116,7 @@ const formSchema = z
       .refine((val) => !val || val.length >= 2, {
         message: "If provided, state must be at least 2 characters long.",
       }),
-    posteCode: z
+    postCode: z
       .string()
       .optional()
       .refine((val) => !val || (val.length >= 1 && /\d/.test(val)), {
@@ -148,7 +146,7 @@ interface formValue {
   city?: string;
   street?: string;
   state?: string;
-  posteCode?: string;
+  postCode?: string;
 }
 
 const ProfileForm = () => {
@@ -219,7 +217,7 @@ const ProfileForm = () => {
         }
       }
 
-      if (value.country || value.city || value.street || value.posteCode) {
+      if (value.country || value.city || value.street || value.postCode) {
         const response = await fetch("/api/user/address", {
           method: "PUT",
           headers: {
@@ -229,7 +227,7 @@ const ProfileForm = () => {
             country: value.country,
             city: value.city,
             street: value.street,
-            posteCode: value.posteCode,
+            postCode: value.postCode,
           }),
         });
 
@@ -472,7 +470,7 @@ const ProfileForm = () => {
           />
           <FormField
             control={form.control}
-            name="posteCode"
+            name="postCode"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Poste Code</FormLabel>

@@ -13,7 +13,7 @@ model Address {
   street     String?
   city       String?
   state      String?
-  postalCode String?
+  postCode String?
   country    String
   user       User     @relation(fields: [userId], references: [id]) 
   @@map("addresses")
@@ -33,13 +33,19 @@ model User {
 }
 
 model Order {
-  id          Int      @id @default(autoincrement()) 
-  userId      Int
-  createdAt   DateTime @default(now())
-  status      String
-  totalAmount Float
-  user        User     @relation(fields: [userId], references: [id]) 
-  orderItems  OrderItem[] 
+  id                    Int      @id @default(autoincrement())
+  orderNumber           String
+  userId                Int
+  createdAt             DateTime @default(now())
+  status                String
+  totalAmount           Float
+  paymentMethod         String
+  shippingMethod        String
+  shippingPrice         Float
+  shippingInsurance     Float
+  serviceFees           Float
+  user                  User     @relation(fields: [userId], references: [id]) 
+  orderItems            OrderItem[] 
   @@map("orders")
 }
 
@@ -47,10 +53,14 @@ model OrderItem {
   id              Int      @id @default(autoincrement()) 
   orderId         Int
   productId       Int
+  stockId         Int
   quantity        Int
   priceAtPurchase Float
+  productProtection Float
+  message         String
   order           Order    @relation(fields: [orderId], references: [id]) 
-  product         Product  @relation(fields: [productId], references: [id]) 
+  product         Product  @relation(fields: [productId], references: [id])
+  stock           Stock    @relation(fields: [stockId], references: [id])
   @@map("order_items")
 }
 
@@ -104,5 +114,6 @@ model Stock {
   amount    Int      
   color     String 
   product   Product       @relation(fields: [productId], references: [id]) 
+  orderItems  OrderItem[]
   @@map("stocks")
 }
