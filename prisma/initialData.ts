@@ -631,7 +631,6 @@ export const initialStocks = [
 export const initialProducts = [
   {
     name: "AOC 24G2SPAE/BK",
-    createdAt: "2025-01-01T08:00:00Z",
     description:
       "The AOC 24G2SPAE/BK monitor is the ideal choice for gamers who value quality and performance. With a VA panel and Full HD resolution, users experience vibrant colors and deep blacks. The fast 144 Hz refresh rate and 1 ms response time allow for smooth rendering of dynamic images, which is crucial in action games. The monitor is also equipped with AMD FreeSync technology, eliminating screen tearing. Additionally, the ergonomic design with height and tilt adjustments provides comfort during long-term use.",
     technicalSpecs:
@@ -642,7 +641,6 @@ export const initialProducts = [
   },
   {
     name: "AOC Agon PRO AG276QZD2",
-    createdAt: "2025-01-15T14:30:00Z",
     description:
       "The AOC Agon PRO AG276QZD2 is a professional gaming monitor designed for maximum performance. With nearly borderless edges, it offers a large workspace and excellent color reproduction. The monitor supports QHD resolution, meaning images are detailed and clear. The 165 Hz refresh rate and fast 1 ms response time provide amazing gaming experiences. Additionally, the built-in HDR technology makes images significantly more realistic and colors more vivid.",
     technicalSpecs:
@@ -653,7 +651,6 @@ export const initialProducts = [
   },
   {
     name: "AOC C27G4ZXU",
-    createdAt: "2025-01-15T14:30:00Z",
     description:
       "The AOC C27G4ZXU monitor is a curved display that combines sleek design with modern technologies. Offering QHD resolution, it provides excellent image quality and comfort for prolonged use. A response time of 1 ms and a 165 Hz refresh rate elevate the gaming experience to a new level. The monitor is equipped with various technologies to enhance user comfort, including Flicker-Free and Low Blue Light, which reduce eye strain. Its versatility makes it an excellent fit for both gaming and office work.",
     technicalSpecs:
@@ -664,7 +661,6 @@ export const initialProducts = [
   },
   {
     name: "ROG Swift PG259QN",
-    createdAt: "2025-01-15T14:30:00Z",
     description:
       "The ROG Swift PG259QN is a monitor built for professional gamers who demand the highest quality images and fluidity. Its Full HD resolution combined with an unprecedented 360 Hz refresh rate and 1 ms response time makes it one of the best devices on the market. Thanks to G-SYNC technology, it eliminates screen tearing and stuttering, providing an unparalleled competitive advantage. Ergonomically designed, this monitor allows for height, tilt, and swivel adjustments, ensuring optimal viewing comfort.",
     technicalSpecs:
@@ -675,7 +671,6 @@ export const initialProducts = [
   },
   {
     name: "ROG Strix XG259",
-    createdAt: "2025-02-01T06:45:00Z",
     description:
       "The ROG Strix XG259 monitor is an excellent choice for gamers. Equipped with Adaptive Sync technology, the monitor ensures smooth and seamless visuals. With a fast 240 Hz refresh rate and 1 ms response time, it is tailored for competitive gaming. The monitor’s design includes customizable RGB lighting that enhances the gaming atmosphere. It also features various gaming modes and an intuitive on-screen display to easily adjust settings according to user preference.",
     technicalSpecs:
@@ -686,7 +681,6 @@ export const initialProducts = [
   },
   {
     name: "Rexus Mouse Gaming Xierra X16",
-    createdAt: "2025-02-20T11:15:00Z",
     description:
       "The Rexus Xierra X16 is a gaming mouse designed for gamers who value precision and comfort. With a high DPI of up to 3200, it allows for quick and accurate movements. The ergonomic design ensures comfort during long gaming sessions. The mouse is equipped with customizable RGB lighting, allowing users to personalize its appearance. Additionally, the X16 features programmable buttons that can be tailored to individual gaming needs.",
     technicalSpecs:
@@ -697,7 +691,6 @@ export const initialProducts = [
   },
   {
     name: "Logitech G502 HERO",
-    createdAt: "2025-03-05T16:00:00Z",
     description:
       "The Logitech G502 HERO is a gaming mouse that combines advanced technology with ergonomic design. It features a HERO sensor with a DPI of up to 16000, providing exceptional precision. The mouse has customizable RGB lighting and programmable buttons, allowing users to tailor it to their gaming style. Its adjustable weight system lets users find the perfect balance for their needs. The G502 HERO is designed for both comfort and performance, making it an excellent choice for gamers.",
     technicalSpecs:
@@ -708,7 +701,6 @@ export const initialProducts = [
   },
   {
     name: "Razer Naga V2 Pro",
-    createdAt: "2025-03-10T09:10:00Z",
     description:
       "The Razer Naga V2 Pro is a gaming mouse designed for MMO gamers. It features a high-precision optical sensor with a DPI of up to 20000, ensuring exceptional accuracy. The mouse has customizable RGB lighting and programmable buttons, allowing users to tailor it to their gaming style. Its ergonomic design provides comfort during long gaming sessions. The Naga V2 Pro also includes a wireless mode for added convenience.",
     technicalSpecs:
@@ -719,7 +711,6 @@ export const initialProducts = [
   },
   {
     name: "ROG Spatha X",
-    createdAt: "2025-04-01T07:25:00Z",
     description:
       "The ROG Spatha X is a premium gaming mouse designed for MMO gamers. It features a high-precision optical sensor with a DPI of up to 20000, ensuring exceptional accuracy. The mouse has customizable RGB lighting and programmable buttons, allowing users to tailor it to their gaming style. Its ergonomic design provides comfort during long gaming sessions. The Spatha X also includes a wireless mode for added convenience.",
     technicalSpecs:
@@ -730,7 +721,6 @@ export const initialProducts = [
   },
   {
     name: "Razer Cobra",
-    createdAt: "2025-04-15T20:35:00Z",
     description:
       "The Razer Cobra is a gaming mouse designed for gamers who value precision and comfort. With a high DPI of up to 3200, it allows for quick and accurate movements. The ergonomic design ensures comfort during long gaming sessions. The mouse is equipped with customizable RGB lighting, allowing users to personalize its appearance. Additionally, the Cobra features programmable buttons that can be tailored to individual gaming needs.",
     technicalSpecs:
@@ -741,7 +731,6 @@ export const initialProducts = [
   },
   {
     name: "JBL Tune 770NC",
-    createdAt: "2025-04-27T12:34:56Z",
     description:
       "The JBL Tune 770NC headphones are designed for music lovers who value quality sound and comfort. They feature active noise cancellation technology, allowing users to enjoy their favorite music without distractions. The headphones have a long battery life, providing up to 35 hours of playback time. The ergonomic design ensures comfort during long listening sessions. Additionally, the JBL Tune 770NC supports voice assistants, making it easy to control music and calls.",
     technicalSpecs:
@@ -752,7 +741,6 @@ export const initialProducts = [
   },
   {
     name: "JBL Live 770NC",
-    createdAt: "2025-02-25T14:30:00Z",
     description:
       "The JBL Live 770NC headphones are designed for music lovers who value quality sound and comfort. They feature active noise cancellation technology, allowing users to enjoy their favorite music without distractions. The headphones have a long battery life, providing up to 35 hours of playback time. The ergonomic design ensures comfort during long listening sessions. Additionally, the JBL Live 770NC supports voice assistants, making it easy to control music and calls.",
     technicalSpecs:
@@ -763,7 +751,6 @@ export const initialProducts = [
   },
   {
     name: "JBL Quantum ONE",
-    createdAt: "2025-03-11T14:30:00Z",
     description:
       "The JBL Quantum ONE headphones are designed for gamers who value quality sound and comfort. They feature active noise cancellation technology, allowing users to enjoy their favorite music without distractions. The headphones have a long battery life, providing up to 35 hours of playback time. The ergonomic design ensures comfort during long listening sessions. Additionally, the JBL Quantum ONE supports voice assistants, making it easy to control music and calls.",
     technicalSpecs:
@@ -774,7 +761,6 @@ export const initialProducts = [
   },
   {
     name: "JBL Tune Flex",
-    createdAt: "2025-01-11T14:30:00Z",
     description:
       "The JBL Tune Flex headphones are designed for music lovers who value quality sound and comfort. They feature active noise cancellation technology, allowing users to enjoy their favorite music without distractions. The headphones have a long battery life, providing up to 35 hours of playback time. The ergonomic design ensures comfort during long listening sessions. Additionally, the JBL Tune Flex supports voice assistants, making it easy to control music and calls.",
     technicalSpecs:
@@ -785,7 +771,6 @@ export const initialProducts = [
   },
   {
     name: "JBL Live Beam 3",
-    createdAt: "2024-11-15T14:30:00Z",
     description:
       "The JBL Live Beam 3 headphones are designed for music lovers who value quality sound and comfort. They feature active noise cancellation technology, allowing users to enjoy their favorite music without distractions. The headphones have a long battery life, providing up to 35 hours of playback time. The ergonomic design ensures comfort during long listening sessions. Additionally, the JBL Live Beam 3 supports voice assistants, making it easy to control music and calls.",
     technicalSpecs:
@@ -796,7 +781,6 @@ export const initialProducts = [
   },
   {
     name: "Logitech POP Keys",
-    createdAt: "2024-12-15T14:30:00Z",
     description:
       "The POP Keys Logitech keyboard is a compact and stylish device designed for users who value both aesthetics and functionality. It features a retro design with customizable keys, allowing users to personalize their typing experience. The keyboard is equipped with Bluetooth connectivity, making it easy to connect to various devices. Additionally, the POP Keys Logitech supports multiple device connections, enabling seamless switching between devices.",
     technicalSpecs:
@@ -807,7 +791,6 @@ export const initialProducts = [
   },
   {
     name: "Razer Huntsman Elite Clicky Optical Switch",
-    createdAt: "2025-03-30T14:30:00Z",
     description:
       "The Razer Huntsman Elite is a mechanical keyboard designed for gamers who value speed and precision. It features Razer's proprietary optical switches, providing fast response times and durability. The keyboard has customizable RGB lighting, allowing users to tailor it to their gaming style. Its ergonomic design ensures comfort during long gaming sessions. The Huntsman Elite also includes programmable keys and a detachable wrist rest for added convenience.",
     technicalSpecs:
@@ -818,7 +801,6 @@ export const initialProducts = [
   },
   {
     name: "Razer DeathStalker V2 Clicky Optical Switch",
-    createdAt: "2025-02-04T14:30:00Z",
     description:
       "The Razer DeathStalker V2 is a mechanical keyboard designed for gamers who value speed and precision. It features Razer's proprietary optical switches, providing fast response times and durability. The keyboard has customizable RGB lighting, allowing users to tailor it to their gaming style. Its ergonomic design ensures comfort during long gaming sessions. The DeathStalker V2 also includes programmable keys and a detachable wrist rest for added convenience.",
     technicalSpecs:
@@ -829,7 +811,6 @@ export const initialProducts = [
   },
   {
     name: "Razer BlackWidow V4 75% White",
-    createdAt: "2025-01-19T14:30:00Z",
     description:
       "The Razer BlackWidow V4 75% White is a mechanical keyboard designed for gamers who value speed and precision. It features Razer's proprietary optical switches, providing fast response times and durability. The keyboard has customizable RGB lighting, allowing users to tailor it to their gaming style. Its ergonomic design ensures comfort during long gaming sessions. The BlackWidow V4 also includes programmable keys and a detachable wrist rest for added convenience.",
     technicalSpecs:
@@ -840,7 +821,6 @@ export const initialProducts = [
   },
   {
     name: "Logitech K380s Pebble Keys 2",
-    createdAt: "2025-01-25T14:30:00Z",
     description:
       "The Logitech K380s Pebble Keys 2 is a compact and stylish keyboard designed for users who value both aesthetics and functionality. It features a retro design with customizable keys, allowing users to personalize their typing experience. The keyboard is equipped with Bluetooth connectivity, making it easy to connect to various devices. Additionally, the K380s Pebble Keys 2 supports multiple device connections, enabling seamless switching between devices.",
     technicalSpecs:
@@ -851,7 +831,6 @@ export const initialProducts = [
   },
   {
     name: "Logitech C920 Full HD",
-    createdAt: "2025-01-26T14:30:00Z",
     description:
       "The Logitech C920 is a high-definition webcam designed for video conferencing and streaming. It features Full HD 1080p resolution, providing clear and sharp images. The webcam has built-in dual microphones for stereo audio capture, ensuring high-quality sound. Its compact design makes it easy to set up and use with various devices. The C920 also includes automatic light correction technology, enhancing image quality in different lighting conditions.",
     technicalSpecs:
@@ -862,7 +841,6 @@ export const initialProducts = [
   },
   {
     name: "ROG Eye S,",
-    createdAt: "2025-01-27T14:30:00Z",
     description:
       "The ROG Eye S is a high-definition webcam designed for video conferencing and streaming. It features Full HD 1080p resolution, providing clear and sharp images. The webcam has built-in dual microphones for stereo audio capture, ensuring high-quality sound. Its compact design makes it easy to set up and use with various devices. The ROG Eye S also includes automatic light correction technology, enhancing image quality in different lighting conditions.",
     technicalSpecs:
@@ -873,7 +851,6 @@ export const initialProducts = [
   },
   {
     name: "Razer Kiyo Pro ",
-    createdAt: "2025-04-23T14:30:00Z",
     description:
       "The Razer Kiyo Pro is a high-definition webcam designed for video conferencing and streaming. It features Full HD 1080p resolution, providing clear and sharp images. The webcam has built-in dual microphones for stereo audio capture, ensuring high-quality sound. Its compact design makes it easy to set up and use with various devices. The Kiyo Pro also includes automatic light correction technology, enhancing image quality in different lighting conditions.",
     technicalSpecs:
@@ -884,7 +861,6 @@ export const initialProducts = [
   },
   {
     name: "Logitech MeetUp Konferenzkamera 4K",
-    createdAt: "2025-04-22T14:30:00Z",
     description:
       "The Logitech MeetUp is a 4K conference camera designed for video conferencing and streaming. It features Full HD 1080p resolution, providing clear and sharp images. The camera has built-in dual microphones for stereo audio capture, ensuring high-quality sound. Its compact design makes it easy to set up and use with various devices. The MeetUp also includes automatic light correction technology, enhancing image quality in different lighting conditions.",
     technicalSpecs:
@@ -895,7 +871,6 @@ export const initialProducts = [
   },
   {
     name: "Logitech MX Brio 705",
-    createdAt: "2025-01-10T14:30:00Z",
     description:
       "The Logitech MX Brio 705 is a high-definition webcam designed for video conferencing and streaming. It features Full HD 1080p resolution, providing clear and sharp images. The webcam has built-in dual microphones for stereo audio capture, ensuring high-quality sound. Its compact design makes it easy to set up and use with various devices. The MX Brio 705 also includes automatic light correction technology, enhancing image quality in different lighting conditions.",
     technicalSpecs:

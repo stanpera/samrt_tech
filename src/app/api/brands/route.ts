@@ -3,7 +3,7 @@ import { getAllBrands } from "@/lib/queries";
 
 export async function GET() {
   try {
-    const brands = await getAllBrands(["id", "name", "logoUrl"]);
+    const brands = await getAllBrands();
     return NextResponse.json(brands);
   } catch (error: unknown) {
     if (error instanceof Error) {

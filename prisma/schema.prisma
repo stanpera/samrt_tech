@@ -13,7 +13,7 @@ model Address {
   street     String?
   city       String?
   state      String?
-  postCode String?
+  postCode    String?
   country    String
   user       User     @relation(fields: [userId], references: [id]) 
   @@map("addresses")
@@ -85,7 +85,7 @@ model Category {
 
 model Product {
   id          Int         @id @default(autoincrement())
-  createdAt   DateTime 
+  createdAt   DateTime    @default(now())
   name        String
   description String?     
   technicalSpecs String?   

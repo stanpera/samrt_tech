@@ -61,16 +61,17 @@ export interface Category {
 export interface Brand {
   id: number;
   name: string;
-  description?: string;
-  logoUrl?: string;
+  description?: string | null;
+  logoUrl?: string | null;
   products?: Product[];
 }
 
 export interface Product {
   id: number;
+  createdAt: Date;
   name: string;
   description?: string | null;
-  technicalSpecs: string;
+  technicalSpecs?: string | null;
   price: number;
   categoryId: number;
   brandId: number;

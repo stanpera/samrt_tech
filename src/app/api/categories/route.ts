@@ -4,13 +4,7 @@ import { getAllCategories } from "@/lib/queries";
 
 export async function GET() {
   try {
-    const categories = await getAllCategories([
-      "id",
-      "name",
-      "description",
-      "image",
-      "exploreInfo",
-    ]);
+    const categories = await getAllCategories();
     return NextResponse.json(categories);
   } catch (error: unknown) {
     if (error instanceof Error) {

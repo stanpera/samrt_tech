@@ -3,6 +3,7 @@
 import ProductList from "@/components/products-menu/ProductsList";
 import SideFilter from "@/components/products-menu/SideFilter";
 import { ProductsProvider } from "@/context/ProductProvider";
+import { Suspense } from "react";
 
 const ProductMenu = () => {
   return (
@@ -10,7 +11,9 @@ const ProductMenu = () => {
       <main className="flex flex-col flex-1 items-center pb-5">
         <div className="h-10 w-full border-b-1 border-special"></div>
         <div className="flex w-full items-start ">
-          <SideFilter />
+          <Suspense fallback={null}>
+            <SideFilter />
+          </Suspense>
           <ProductList />
         </div>
       </main>

@@ -1,25 +1,25 @@
 "use server";
 
-import { Order, OrderItem, User } from "@/types";
+import {
+  Order,
+  OrderItem,
+  User,
+  Product,
+  Category,
+  Brand,
+  Stock,
+} from "@/types";
 import prisma from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
-import { Product } from "@prisma/client";
 
-export async function getAllCategoriesFromDb(values: Array<string>) {
+export async function getAllCategoriesFromDb(): Promise<Category[]> {
   try {
-    const selectValues: { [key: string]: boolean } = {};
-
-    values.forEach((value) => {
-      selectValues[value] = true;
-    });
-
     const categories = await prisma.category.findMany({
       orderBy: { id: "asc" },
-      select: selectValues,
     });
     return categories;
   } catch {
-    throw new Error("Failed to upload user from db.");
+    throw new Error("Failed to upload categories from db.");
   }
 }
 export const getAllCategories = unstable_cache(
@@ -29,31 +29,32 @@ export const getAllCategories = unstable_cache(
     tags: ["categories"],
   }
 );
+// export const getAllProductsFromDb = async (): Promise<Product[]> => {
+//   try {
+//     const products = await prisma.product.findMany({
+//       include: {
+//         images: true,
+//       },
+//     });
 
-export const getAllProductsFromDb = async (): Promise<Product[]> => {
-  try {
-    const products = await prisma.product.findMany({
-      include: {
-        images: true,
-      },
-    });
+//     return products;
+//   } catch {
+//     throw new Error("Failed to upload products from db.");
+//   }
+// };
 
-    return products;
-  } catch {
-    throw new Error("Failed to upload products from db.");
-  }
-};
-export const getAllProducts = unstable_cache(
-  getAllProductsFromDb,
-  ["products-list"],
-  {
-    tags: ["products"],
-  }
-);
+// export const getAllProducts = unstable_cache(
+//   getAllProductsFromDb,
+//   ["products-list"],
+//   {
+//     tags: ["products"],
+//   }
+// );
+
 export const getProducts = async (
   ids: Array<number>,
   values: Array<string>
-): Promise<Product[]> => {
+): Promise<Partial<Product>[]> => {
   try {
     const selectValues: { [key: string]: boolean } = {};
 
@@ -71,7 +72,9 @@ export const getProducts = async (
     throw new Error("Failed to upload products from db.");
   }
 };
-export const getRandomProductsFromDb = async (): Promise<Product[]> => {
+export const getRandomProductsFromDb = async (): Promise<
+  Partial<Product>[]
+> => {
   try {
     const productsIds = await prisma.product.findMany({
       select: {
@@ -111,20 +114,15 @@ export const getRandomProductsFromDb = async (): Promise<Product[]> => {
     throw new Error("Failed to upload recommended products from db.");
   }
 };
-export const getSingleProduct = async (id: number) => {
+export const getSingleProduct = async (
+  id: number
+): Promise<Partial<Product> | null> => {
   try {
     const products = await prisma.product.findUnique({
       where: {
         id: id,
       },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        technicalSpecs: true,
-        price: true,
-        categoryId: true,
-        brandId: true,
+      include: {
         images: true,
         stocks: true,
         category: { select: { id: true, name: true } },
@@ -136,17 +134,10 @@ export const getSingleProduct = async (id: number) => {
   }
 };
 
-export const getAllBrandsFromDb = async (values: Array<string>) => {
+export const getAllBrandsFromDb = async (): Promise<Brand[]> => {
   try {
-    const selectValues: { [key: string]: boolean } = {};
+    const brands = await prisma.brand.findMany();
 
-    values.forEach((value) => {
-      selectValues[value] = true;
-    });
-
-    const brands = await prisma.brand.findMany({
-      select: selectValues,
-    });
     return brands;
   } catch {
     throw new Error("Failed to upload brands from db.");
@@ -267,10 +258,14 @@ export async function updateAddress(
   }
 }
 
+type PartialStock = {
+  [key in keyof Stock]?: Stock[key];
+};
+
 export const getStockProductsFromDb = async (
   ids: Array<number>,
   values: Array<string>
-) => {
+): Promise<PartialStock[]> => {
   try {
     const selectValues: { [key: string]: boolean } = {};
     values.forEach((value) => {

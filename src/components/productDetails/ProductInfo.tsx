@@ -144,7 +144,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
               <div className={cn("text-icons text-base mt-5")}>
                 <p className="mb-2 font-semibold">Technical specifications:</p>
                 <ul className="list-disc ">
-                  {product?.technicalSpecs.split(",").map((point, index) => (
+                  {product?.technicalSpecs?.split(",").map((point, index) => (
                     <li key={index}>{point}</li>
                   ))}
                 </ul>

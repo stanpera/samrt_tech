@@ -107,7 +107,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
       localStorage.removeItem("address");
     }
     setRefresh((prev) => !prev);
-  }, []);
+  }, [activeSubmit, form.formState.errors, setRefresh]);
 
   const [country, street, postCode, city, state] = form.watch([
     "country",
