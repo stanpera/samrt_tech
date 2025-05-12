@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/baseURL";
 
 interface OrderItemType {
   stockId: number;
