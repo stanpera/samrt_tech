@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { useSnackbar } from "@/context/SnackbarContext";
 
 import { Button } from "../ui/button";
-import Logo from "../ui/Lggo";
+import Logo from "../ui/Logo";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
