@@ -6,9 +6,9 @@ services:
     container_name: smart_tech_postgres
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: smart_tech123
-      POSTGRES_DB: smart_tech_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${SMART_TECH_PASSWORD_DOCKER_COMPOSE}
+      POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST_AUTH_METHOD: scram-sha-256
     ports:
       - "5432:5432"
@@ -28,7 +28,7 @@ services:
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@smarttech.com
-      PGADMIN_DEFAULT_PASSWORD: smart_tech123
+      PGADMIN_DEFAULT_PASSWORD: ${SMART_TECH_DOCKER_COMPOSE}
     ports:
       - "8080:80"
     volumes:
