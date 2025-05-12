@@ -79,6 +79,9 @@ export const authOptions: AuthOptions = {
       }
       return token;
     },
+    redirect: async ({ url, baseUrl }) => {
+      return url.startsWith(baseUrl) ? url : "/";
+    },
     session: async ({ session, token }) => {
       if (token.userId && session.user) {
         session.user.id = String(token.userId);

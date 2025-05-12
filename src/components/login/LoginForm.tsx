@@ -90,12 +90,12 @@ const LoginForm = () => {
       const singInToApp = await signIn("smarttech", {
         contact,
         password,
-        redirect: false,
+        redirect: true,
+        callbackUrl: "/",
       });
 
-      if (singInToApp) {
+      if (!singInToApp?.error) {
         showSnackbar("You have been successfully logged in.", "success");
-        router.push("/");
       } else {
         showSnackbar(
           "Unexpected error when logging in. Please try again later or contact with support.",
