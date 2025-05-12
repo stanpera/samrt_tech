@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
 import "react-phone-input-2/lib/style.css";
 
 import {
@@ -41,7 +40,6 @@ const passwordSchema = z.object({
 
 const LoginForm = () => {
   const { showSnackbar } = useSnackbar();
-  const router = useRouter();
   const [step, setStep] = useState<number>(1);
   const [contact, setContact] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
