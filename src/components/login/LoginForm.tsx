@@ -221,7 +221,10 @@ const LoginForm = () => {
                           onCheckedChange={field.onChange}
                         />
                       </FormControl>
-                      <FormLabel className="flex justify-between m-0 text-sm w-full">
+                      <FormLabel
+                        htmlFor="savePassword"
+                        className="flex justify-between m-0 text-sm w-full"
+                      >
                         <div>Save password</div>
                         <div className="text-highlights">
                           Forgot your password?
