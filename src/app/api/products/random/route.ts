@@ -5,6 +5,7 @@ import { getRandomProductsFromDb } from "@/lib/queries";
 export async function GET() {
   try {
     const randomProducts = await getRandomProductsFromDb();
+
     return NextResponse.json(randomProducts);
   } catch (error: unknown) {
     if (error instanceof Error) {

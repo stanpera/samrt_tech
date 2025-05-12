@@ -29,27 +29,6 @@ export const getAllCategories = unstable_cache(
     tags: ["categories"],
   }
 );
-// export const getAllProductsFromDb = async (): Promise<Product[]> => {
-//   try {
-//     const products = await prisma.product.findMany({
-//       include: {
-//         images: true,
-//       },
-//     });
-
-//     return products;
-//   } catch {
-//     throw new Error("Failed to upload products from db.");
-//   }
-// };
-
-// export const getAllProducts = unstable_cache(
-//   getAllProductsFromDb,
-//   ["products-list"],
-//   {
-//     tags: ["products"],
-//   }
-// );
 
 export const getProducts = async (
   ids: Array<number>,
@@ -76,11 +55,13 @@ export const getRandomProductsFromDb = async (): Promise<
   Partial<Product>[]
 > => {
   try {
+    console.log("1 dasda")
     const productsIds = await prisma.product.findMany({
       select: {
         id: true,
       },
     });
+    console.log("2")
 
     const randomProductsArrayLength = productsIds.length;
     const countToTake = Math.min(6, randomProductsArrayLength);

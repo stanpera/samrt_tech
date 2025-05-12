@@ -33,11 +33,6 @@ export const authOptions: AuthOptions = {
         const contact = credentials.contact.trim();
 
         let user = null;
-        console.log(
-          "credentialsdsad",
-          credentials.contact,
-          credentials?.password
-        );
 
         if (
           contact.startsWith("+") ||
