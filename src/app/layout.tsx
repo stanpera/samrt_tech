@@ -5,8 +5,7 @@ import Header from "@/components/header/Header";
 import { SnackbarProvider } from "@/context/SnackbarContext";
 import CustomNotification from "@/components/ui/CustomNotification";
 import Providers from "@/providers/Providers";
-
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Smart Tech",
@@ -23,12 +22,13 @@ export default function RootLayout({
       <body>
         <Providers>
           <SnackbarProvider>
-              <Header />
-              <CustomNotification />
-              {children}
-              <Footer />
+            <Header />
+            <CustomNotification />
+            {children}
+            <Footer />
           </SnackbarProvider>
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
