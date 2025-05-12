@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Category } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 const useCategories = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +17,7 @@ const useCategories = () => {
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/categories`, {
+        const response = await fetch(`/api/categories`, {
           method: "GET",
         });
 

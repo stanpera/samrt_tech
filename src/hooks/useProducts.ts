@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Product } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 const useProducts = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +31,7 @@ const useProducts = () => {
 
       try {
         const response = await fetch(
-          `${BASE_URL}/api/products?category=${categoryToString}&brand=${brandToString}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}&offset=${
+          `/api/products?category=${categoryToString}&brand=${brandToString}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}&offset=${
             page * limit
           }&sortBy=${sortOrder}`,
           {

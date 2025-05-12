@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Product } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 const useRecommended = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +17,7 @@ const useRecommended = () => {
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/products/random`, {
+        const response = await fetch(`/api/products/random`, {
           method: "GET",
         });
 

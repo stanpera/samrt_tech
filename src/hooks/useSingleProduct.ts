@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Product } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 interface UseSingleProductType {
   product: Product | undefined;
@@ -25,7 +24,7 @@ const useSingleProduct = (id: string): UseSingleProductType => {
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/products/${id}`, {
+        const response = await fetch(`/api/products/${id}`, {
           method: "GET",
         });
         if (!response.ok) {

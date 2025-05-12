@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/baseURL";
 
 interface StockType {
   stockId: number;
@@ -14,7 +13,7 @@ export async function updateStock(
   showSnackbar: Snackbar
 ) {
   try {
-    const response = await fetch(`${BASE_URL}/api/stock`, {
+    const response = await fetch(`/api/stock`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

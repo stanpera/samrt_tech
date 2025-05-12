@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Brand } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 const useBrands = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +17,7 @@ const useBrands = () => {
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/brands`, {
+        const response = await fetch(`/api/brands`, {
           method: "GET",
         });
 

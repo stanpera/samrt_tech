@@ -19,7 +19,7 @@ export async function postOrder(
   showSnackbar: Snackbar
 ) {
   try {
-    const response = await fetch(`${BASE_URL}/api//orderItem`, {
+    const response = await fetch(`/api//orderItem`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

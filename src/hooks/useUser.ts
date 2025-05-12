@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { User } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 const useUser = (queries: string) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +17,7 @@ const useUser = (queries: string) => {
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/user${queries}`, {
+        const response = await fetch(`/api/user${queries}`, {
           method: "GET",
         });
 

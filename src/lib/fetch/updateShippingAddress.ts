@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/lib/baseURL";
 
 interface AddressUpdateProps {
   country: string;
@@ -18,7 +17,7 @@ export async function updateShippingAddress(
   showSnackbar: Snackbar
 ) {
   try {
-    const response = await fetch(`${BASE_URL}/api/user/address`, {
+    const response = await fetch(`/api/user/address`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

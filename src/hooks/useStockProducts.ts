@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Stock } from "@/types";
-import { BASE_URL } from "@/lib/baseURL";
 
 interface UseStockProducts {
   stockProducts: Stock[] | null | undefined;
@@ -28,7 +27,7 @@ const useStockProducts = (
       setError(false);
       setErrorMessage("");
       try {
-        const response = await fetch(`${BASE_URL}/api/stock${value}`, {
+        const response = await fetch(`/api/stock${value}`, {
           method: "GET",
         });
         const data = await response.json();
