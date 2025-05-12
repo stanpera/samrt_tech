@@ -12,7 +12,7 @@ import { Separator } from "../ui/separator";
 import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import CartAndUserMenuAvatar from "./CartAndUserMenuAvatar";
-import Logo from "../ui/Logo";
+import Logo from "../ui/Lggo";
 
 const Header = () => {
   const { status } = useSession();

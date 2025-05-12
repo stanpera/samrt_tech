@@ -22,7 +22,7 @@ import PhoneInput from "react-phone-input-2";
 import { useSnackbar } from "@/context/SnackbarContext";
 
 import { Button } from "../ui/button";
-import Logo from "../ui/Logo";
+import Logo from "../ui/Lggo";
 import { cn } from "@/lib/utils";
 import { CountryDropdown } from "../register/SelectCountry";
 import useUser from "@/hooks/useUser";
