@@ -8,11 +8,11 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import Logo from "../ui/Logo";
 import { Separator } from "../ui/separator";
 import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import CartAndUserMenuAvatar from "./CartAndUserMenuAvatar";
+import Logo from "../ui/Logo";
 
 const Header = () => {
   const { status } = useSession();
