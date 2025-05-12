@@ -14,7 +14,7 @@ const CartAndUserMenuAvatar = () => {
   const { user, loading, error } = useUser("?userData=avatarUrl");
 
   const [isUserPanelVisible, setIsUserPanelVisible] = useState(false);
-  console.log("URL", user?.avatarUrl);
+
   const handleUserMenu = () => {
     setIsUserPanelVisible((prev) => !prev);
   };
