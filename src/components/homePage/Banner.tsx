@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { Card, CardContent, CardDescription, CardHeader } from "./ui/card";
-import FullArrowRight from "./icons/FullArrowRight";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
+import FullArrowRight from "../icons/FullArrowRight";
 import { Category } from "@/types";
 import useCategories from "@/hooks/useCategories";
-import SadError from "./icons/sadError";
+import SadError from "../icons/sadError";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 const Banner = () => {
   const { categories, loading, error, errorMessage } = useCategories();
@@ -60,7 +60,7 @@ const Banner = () => {
   if (loading) {
     return (
       <section className="w-full flex flex-col gap-6 px-10">
-        <Skeleton className="h-[452px] px-30 py-20 gap-6 border border-special" />
+        <Skeleton className="h-[452px] px-30 py-20 gap-6" />
       </section>
     );
   }

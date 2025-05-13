@@ -27,6 +27,7 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
   const [isRestCategoriesVisible, setIsRestCategoriesVisible] = useState(false);
 
   const handleCategories = () => {
+    console.log("RRR", categories);
     setIsCategoryVisible((prev) => !prev);
   };
   const handleMoreCategories = () => {
@@ -39,12 +40,13 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
   };
 
   const handleClick = (id: string) => {
+    console.log("raz");
     setIsCheck((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
     setIsCheckAll(false);
   };
-  
+
   return (
     <div className="flex flex-col px-2.5 gap-4">
       <div className="flex items-center justify-between">
@@ -72,13 +74,13 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
               All
             </label>
           </div>
-
           {categories?.slice(0, 4).map(({ id, name }) => (
             <div className="flex items-center gap-4" key={id}>
               <Checkbox
                 id={id.toString()}
                 name={name}
-                onChange={() => handleClick(id.toString())}
+                // onChange={}
+                onCheckedChange={() => handleClick(id.toString())}
                 isChecked={isCheck.includes(id.toString())}
               />
               <label htmlFor={id.toString()} className="font-medium">
@@ -92,7 +94,7 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
                 <Checkbox
                   id={id.toString()}
                   name={name}
-                  onChange={() => handleClick(id.toString())}
+                  onCheckedChange={() => handleClick(id.toString())}
                   isChecked={isCheck.includes(id.toString())}
                 />
                 <label htmlFor={id.toString()} className="font-medium">

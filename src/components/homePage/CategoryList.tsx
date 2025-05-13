@@ -1,9 +1,11 @@
-import { Card, CardTitle } from "./ui/card";
+"use client"
+
+import { Card, CardTitle } from "../ui/card";
 import useCategories from "@/hooks/useCategories";
-import CategoryIcons from "./icons/CategoryIcons";
-import SadError from "./icons/sadError";
+import CategoryIcons from "../icons/CategoryIcons";
+import SadError from "../icons/sadError";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 const CategoryList = () => {
   const { categories, loading, error, errorMessage } = useCategories();
@@ -19,7 +21,7 @@ const CategoryList = () => {
         <h2>Categories</h2>
         <div className="w-full flex justify-between">
           {Array.from({ length: 5 }, (_, index) => (
-            <Skeleton key={index} className=" w-[220px] h-[190px] border border-special"></Skeleton>
+            <Skeleton key={index} className=" w-[220px] h-[190px]"></Skeleton>
           ))}
         </div>
       </section>

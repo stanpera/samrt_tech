@@ -1,10 +1,10 @@
-"use client";
-import Banner from "@/components/Banner";
-import Brands from "@/components/Brands";
-import CategoryList from "@/components/CategoryList";
-import RecommendationsList from "@/components/RecommendationsList";
 
-export default function Home() {
+import Brands from "@/components/homePage/Brands";
+import CategoryList from "@/components/homePage/CategoryList";
+import RecommendationsList from "@/components/homePage/RecommendationsList";
+import Banner from "@/components/homePage/Banner";
+
+export default async function Home() {
   return (
     <main className="flex flex-col items-center justify-center pb-20 gap-25 flex-1">
       <Banner />

@@ -1,4 +1,3 @@
-
 interface OrderItemType {
   stockId: number;
   productId: number;

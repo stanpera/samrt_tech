@@ -65,7 +65,7 @@ const ProductList: React.FC = () => {
           {Array.from({ length: limit || 9 }, (_, index) => (
             <Skeleton
               key={index}
-              className="w-[300px] h-[386px] border border-special gap-6"
+              className="w-[300px] h-[386px] gap-6"
             ></Skeleton>
           ))}
         </div>

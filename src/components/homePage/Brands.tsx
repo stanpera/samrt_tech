@@ -6,12 +6,12 @@ import {
   CarouselItem,
   SeeAll,
 } from "@/components/ui/carousel";
-import { Card, CardTitle } from "./ui/card";
+import { Card, CardTitle } from "../ui/card";
 import useBrands from "@/hooks/useBrands";
-import LoadingSpinner from "./ui/LoadingSpinner";
-import SadError from "./icons/sadError";
+import SadError from "../icons/sadError";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Skeleton } from "../ui/skeleton";
 
 const Brands = () => {
   const { brands, loading, error, errorMessage } = useBrands();
@@ -34,15 +34,18 @@ const Brands = () => {
               {Array.from({ length: 6 }, (_, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <Card className="justify-center items-center w-[220px] h-[190px] hover:text-highlights hover:border-highlights hover:scale-105 border border-special gap-6">
-                      {(error && (
+                    {loading && (
+                      <Skeleton className="justify-center items-center w-[220px] h-[190px] hover:text-highlights hover:border-highlights hover:scale-105 gap-6" />
+                    )}
+                    {error && (
+                      <Card className="justify-center items-center w-[220px] h-[190px] hover:text-highlights hover:border-highlights hover:scale-105 border border-special gap-6">
                         <SadError className="size-12 text-special" />
-                      )) ||
-                        (loading && <LoadingSpinner />)}
-                      <CardTitle className="text-center text-xl text-special ">
-                        {error && errorMessage}
-                      </CardTitle>
-                    </Card>
+
+                        <CardTitle className="text-center text-xl text-special ">
+                          {error && errorMessage}
+                        </CardTitle>
+                      </Card>
+                    )}
                   </div>
                 </CarouselItem>
               ))}
@@ -52,7 +55,6 @@ const Brands = () => {
       </section>
     );
   }
-
   return (
     <section className="w-full flex flex-col items-start gap-8 pl-10">
       <div className="w-full flex justify-between">

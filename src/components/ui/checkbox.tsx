@@ -9,14 +9,14 @@ interface CheckboxProps
   extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
   id: string;
   name?: string;
-  onCheckedChange?: (checked: boolean) => void;
+  onCheckedChange?: (checked: boolean | "indeterminate") => void;
   isChecked?: boolean;
 }
 
 const Checkbox = ({
   id,
   name,
-  // onChange,
+  onCheckedChange,
   isChecked = false,
   className,
   ...props
@@ -26,7 +26,7 @@ const Checkbox = ({
       id={id}
       name={name}
       checked={isChecked}
-      // onCheckedChange={onChange}
+      onCheckedChange={onCheckedChange}
       className={cn(
         "peer h-6 w-6 shrink-0 rounded-[6px] border border-special bg-cards shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-highlights data-[state=checked]:border-highlights",
         className

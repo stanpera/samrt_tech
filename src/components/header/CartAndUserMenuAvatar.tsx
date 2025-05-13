@@ -18,6 +18,11 @@ const CartAndUserMenuAvatar = () => {
   const handleUserMenu = () => {
     setIsUserPanelVisible((prev) => !prev);
   };
+
+  if (error || loading) {
+    return;
+  }
+  
   return (
     <div className="relative flex items-center gap-7">
       <Link href="/cart" passHref>
@@ -29,12 +34,13 @@ const CartAndUserMenuAvatar = () => {
         className={cn("relative cursor-pointer hover:opacity-80 duration-300")}
         onClick={handleUserMenu}
       >
-        {user?.avatarUrl && (
+        {user?.avatarUrl ? (
           <AvatarImage src={`${user?.avatarUrl}`} alt="avatar" className="" />
+        ) : (
+          <AvatarFallback>
+            <DefaultAvatar />
+          </AvatarFallback>
         )}
-        <AvatarFallback>
-          {!user?.avatarUrl || (loading && error && <DefaultAvatar />)}
-        </AvatarFallback>
       </Avatar>
       <UserMenu isUserPanelVisible={isUserPanelVisible} />
     </div>

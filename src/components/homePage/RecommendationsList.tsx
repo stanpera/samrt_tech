@@ -6,15 +6,15 @@ import {
   CarouselItem,
   SeeAll,
 } from "@/components/ui/carousel";
-import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
+import { Card, CardContent, CardFooter, CardTitle } from "../ui/card";
 import useRecommended from "@/hooks/useRecommended";
-import ShoppingCard from "./icons/ShoppingCard";
-import { Button } from "./ui/button";
-import EmptyImage from "./icons/EmptyImage";
+import ShoppingCard from "../icons/ShoppingCard";
+import { Button } from "../ui/button";
+import EmptyImage from "../icons/EmptyImage";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 interface convertionProps {
   rate: number;
