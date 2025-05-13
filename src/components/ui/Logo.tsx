@@ -3,7 +3,7 @@
 const Logo = () => {
   return (
     <div
-      className="w-45 h-11 bg-cover bg-left"
+      className="w-30 sm:w-45 h-11 bg-cover bg-left"
       style={{
         backgroundImage: "url('https://i.ibb.co/Ng6S4nDw/logo-smart.png')",
         margin: 0,
@@ -12,8 +12,7 @@ const Logo = () => {
         justifyContent: "flex-start",
       }}
       aria-label="Smart Tech logo"
-    >
-    </div>
+    ></div>
   );
 };
 

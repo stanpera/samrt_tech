@@ -24,7 +24,7 @@ const CartAndUserMenuAvatar = () => {
   }
   
   return (
-    <div className="relative flex items-center gap-7">
+    <div className="relative flex items-center gap-3 sm:gap-7">
       <Link href="/cart" passHref>
         <ShoppingCard
           className={cn("text-first-content hover:text-highlights w-6 h-6")}

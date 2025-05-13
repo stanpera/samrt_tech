@@ -49,18 +49,20 @@ const Banner = () => {
   }, [carouselAPI, onSelect]);
 
   if (error) {
-    <section className="w-full flex flex-col gap-6 px-10">
-      <Card className="bg-cards flex flex-col items-center justify-center h-[452px] px-30 py-20 gap-6 border border-special">
-        <SadError className="size-12 text-special" />
-        <div className="text-xl text-special">{errorMessage}</div>
-      </Card>
-    </section>;
+    return (
+      <section className="w-full flex flex-col gap-6 px-0 sm:px-10">
+        <Card className="bg-cover items-center justify-center h-[150px] sm:h-[170px] md:h-[252px] lg:h-[352px] xl:max-h-[452px] px-3 sm:px-30 py-2 sm:py-20 gap-1 sm:gap-6">
+          <SadError className="size-8 sm:size-12 text-special" />
+          <div className="text-lg sm:text-xl text-special">{errorMessage}</div>
+        </Card>
+      </section>
+    );
   }
 
   if (loading) {
     return (
-      <section className="w-full flex flex-col gap-6 px-10">
-        <Skeleton className="h-[452px] px-30 py-20 gap-6" />
+      <section className="w-full flex flex-col gap-6 px-0 sm:px-10">
+        <Skeleton className="bg-cover bg-[position:left] h-[150px] sm:h-[170px] md:h-[252px] lg:h-[352px] xl:h-[452px] px-3 sm:px-30 py-2 sm:py-20 gap-1 sm:gap-6" />
       </section>
     );
   }
@@ -70,15 +72,15 @@ const Banner = () => {
   };
 
   return (
-    <section className="w-full flex flex-col gap-6 px-10">
+    <section className="w-full flex flex-col gap-2 sm:gap-6 px-0 sm:px-10">
       <>
         <Carousel
-          className="bg-background border border-special rounded-md overflow-hidden"
+          className="bg-background border-y-1 sm:border border-special sm:rounded-md overflow-hidden"
           plugins={[Autoplay({ delay: 6000 })]}
           opts={{ loop: true, align: "center" }}
           setApi={setCarouselAPI}
         >
-          <CarouselContent className=" max-h-[452px]">
+          <CarouselContent className="max-h-[150px] sm:max-h-[170px] md:max-h-[252px] lg:max-h-[352px] xl:max-h-[452px]">
             {categories?.map((category: Category, index) => (
               <CarouselItem
                 key={index}
@@ -87,18 +89,18 @@ const Banner = () => {
                 <div>
                   <Card
                     style={{ backgroundImage: `url("${category.image}")` }}
-                    className="bg-cover bg-[position:left] max-h-[452px] px-30 py-20 gap-6"
+                    className="bg-cover bg-[position:left] max-h-[150px] sm:max-h-[170px] md:max-h-[252px] lg:max-h-[352px] xl:max-h-[452px] px-3 sm:px-30 py-2 sm:py-20 gap-1 sm:gap-6"
                   >
-                    <CardContent className="h-[452px] flex flex-col justify-center">
-                      <div className="w-[433px] flex flex-col gap-10">
-                        <div className="flex flex-col items-start gap-6">
-                          <CardHeader className="text-[32px] text-icons">
+                    <CardContent className="max-h-[150px] sm:max-h-[170px] md:max-h-[252px] lg:max-h-[352px] xl:max-h-[452px] flex flex-col justify-center">
+                      <div className="max-h-[150px] sm:max-h-[170px] md:max-h-[252px] lg:max-h-[352px] xl:max-h-[452px] flex flex-col gap-5 sm:gap-10">
+                        <div className="flex flex-col items-start gap-2 sm:gap-6">
+                          <CardHeader className="text-xl sm:text-[32px] text-icons">
                             {category.name}
                           </CardHeader>
                           <CardDescription className="text-icons">
                             {category.description}
                           </CardDescription>
-                          <CardDescription className="text-icons">
+                          <CardDescription className="text-icons  hidden sm:block">
                             {category.exploreInfo}
                           </CardDescription>
                         </div>
@@ -106,7 +108,7 @@ const Banner = () => {
                           <Button
                             variant="outline"
                             size="outline"
-                            className="flex gap-3.5"
+                            className="flex items-center gap-1 sm:gap-3.5"
                             onClick={() => handleExploreCategory(category.id)}
                           >
                             Explore Category

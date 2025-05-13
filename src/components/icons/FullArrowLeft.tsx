@@ -11,7 +11,7 @@ const FullArrowLeft: React.FC<FullArrowLeftProps> = ({ className }) => {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      className={cn("size-6", className)}
+      className={cn("size-4 sm:size-6", className)}
     >
       <path
         strokeLinecap="round"

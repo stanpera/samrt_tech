@@ -9,6 +9,7 @@ import ArrowRight from "../icons/ArrowRight";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import FullArrowRight from "../icons/FullArrowRight";
+import FullArrowLeft from "../icons/FullArrowLeft";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -137,10 +138,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div
-      ref={carouselRef}
-      data-slot="carousel-content"
-    >
+    <div ref={carouselRef} data-slot="carousel-content">
       <div
         className={cn(
           "flex",
@@ -240,7 +238,11 @@ function SeeAll({
       api.scrollTo(api.scrollSnapList().length - 1);
     }
   };
-
+  const scrollToStart = () => {
+    if (api) {
+      api.scrollTo(api.scrollSnapList().length - api.scrollSnapList().length);
+    }
+  };
   return (
     <>
       {canScrollNext && (
@@ -248,14 +250,29 @@ function SeeAll({
           variant={variant}
           size={size}
           className={cn(
-            `flex gap-3.5`,
+            `flex gap-2 sm:gap-3.5 justify-end items-end pr-2 sm:pr-0 sm:items-center self-end sm:self-center`,
             className
           )}
           onClick={scrollToEnd}
           {...props}
         >
-          <span>See All</span>
+          <span className="text-xs sm:text-base">See All</span>
           <FullArrowRight className="text-highlights " />
+        </Button>
+      )}
+      {!canScrollNext && (
+        <Button
+          variant={variant}
+          size={size}
+          className={cn(
+            `flex sm:gap-3.5 gap-2 justify-end items-end sm:items-center pr-2 sm:pr-0 self-end sm:self-center`,
+            className
+          )}
+          onClick={scrollToStart}
+          {...props}
+        >
+          <FullArrowLeft className="text-highlights " />
+          <span className="text-xs sm:text-base">Back</span>
         </Button>
       )}
     </>
