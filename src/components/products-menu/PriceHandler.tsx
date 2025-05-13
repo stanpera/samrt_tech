@@ -96,7 +96,6 @@ const PriceHandler: FC<PriceHandlerProps> = ({
                   ? "\u0024 Min Price"
                   : "\u00A3 Min Price"
               }
-              // defaultValue={minPrice}
               decimalsLimit={2}
               prefix={
                 currentCurrency === "EUR"

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useState } from "react"; // Upewnij się, że ReactNode jest zaimportowany
+import { ReactNode, createContext, useContext, useState } from "react"; 
 import useProducts from "@/hooks/useProducts";
 import { Product } from "@/types";
 

@@ -55,13 +55,11 @@ export const getRandomProductsFromDb = async (): Promise<
   Partial<Product>[]
 > => {
   try {
-    console.log("1 dasda")
     const productsIds = await prisma.product.findMany({
       select: {
         id: true,
       },
     });
-    console.log("2")
 
     const randomProductsArrayLength = productsIds.length;
     const countToTake = Math.min(6, randomProductsArrayLength);
@@ -224,9 +222,6 @@ export async function updateAddress(
   }
 ): Promise<void> {
   try {
-    console.log("userId", userId);
-    console.log("updatedData", updatedData);
-
     await prisma.address.update({
       where: { userId: userId },
       data: updatedData,

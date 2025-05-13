@@ -39,7 +39,6 @@ export async function PUT(req: NextRequest) {
       const data = await response.json();
 
       await updateUser(activeUserId, { avatarUrl: data?.data.url });
-      console.log("hhh", data.data.url);
 
       return NextResponse.json(
         { message: "Image loaded successfully" },

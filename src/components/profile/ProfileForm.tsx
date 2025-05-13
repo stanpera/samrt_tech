@@ -41,7 +41,6 @@ const formSchema = z
       )
       .refine((file) => file.size <= 300 * 1024, {
         message: "Maximum file size is 300KB.",
-        // był 2MB — nieaktualne
       })
       .optional(),
     firstName: z

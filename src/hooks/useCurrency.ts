@@ -39,7 +39,6 @@ const useCurrency = () => {
         if (data.error) {
           throw new Error(data.error);
         }
-        console.log("data", data);
         setCurrency(data);
       } catch (error: unknown) {
         if (error instanceof Error) {

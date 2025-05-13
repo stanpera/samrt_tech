@@ -97,7 +97,6 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
       );
     } else {
       cartProducts[indexOfProduct].totalAmount = totalProductAmount;
-      console.log("else", cartProducts[indexOfProduct]);
 
       localStorage.setItem(
         "cartItems",

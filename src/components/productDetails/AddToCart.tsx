@@ -125,7 +125,6 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
     if (
       !activeStockId ||
       addedProduct < 1 ||
-      // subtotal < price * addedProduct ||
       typeof subtotal !== "number"
     ) {
       setError(true);

@@ -79,7 +79,6 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
               <Checkbox
                 id={id.toString()}
                 name={name}
-                // onChange={}
                 onCheckedChange={() => handleClick(id.toString())}
                 isChecked={isCheck.includes(id.toString())}
               />

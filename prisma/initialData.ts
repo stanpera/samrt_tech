@@ -880,7 +880,6 @@ export const initialProducts = [
     brandId: 2,
   },
 ];
-export const initialCategories = [
   {
     name: "Mouses",
     description: "Ergonomic computer mouse",

@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
 
     const productsWithOneImage = products.map((product) => ({
       ...product,
-      images: product.images.length > 0 ? [product.images[0]] : null, // Wybierz pierwszy obrazek
+      images: product.images.length > 0 ? [product.images[0]] : null,
     }));
 
     const totalCount = await prisma.product.count({

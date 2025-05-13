@@ -93,7 +93,6 @@ export async function PUT(req: NextRequest) {
           return [key, value];
         })
     );
-    console.log("validDataFromClient", validDataFromClient);
     if (validDataFromClient) {
       if (validDataFromClient.passwordHash) {
         validDataFromClient.passwordHash = await hashPassword(
