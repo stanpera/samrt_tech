@@ -11,7 +11,7 @@ import {
 const EditProfile = () => {
 
   return (
-    <main className="flex flex-col items-center pb-5">
+    <main className="flex flex-col items-center pb-5 w-full max-w-[1440px]">
       <div className="self-start mx-10 my-2.5">
         <Breadcrumb>
           <BreadcrumbList>

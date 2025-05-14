@@ -322,7 +322,26 @@ export const getOrder = async (id: number): Promise<Order | null> => {
 
     return order;
   } catch {
-    throw new Error("Failed to upload specific product from db.");
+    throw new Error("Failed to upload specific order from db.");
+  }
+};
+
+export const getOrders = async (userId: number): Promise<Partial<Order>[]> => {
+  try {
+    const orders = await prisma.order.findMany({
+      where: { userId: userId },
+      include: {
+        orderItems: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+
+    return orders;
+  } catch {
+    throw new Error("Failed to upload orders with orders items from db.");
   }
 };
 

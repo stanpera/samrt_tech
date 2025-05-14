@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
     if (userData === "avatarUrl") {
       values = [...values, "avatarUrl"];
     }
-    
+
     if (userData === "address") {
       values = [...values, "address", "mobileNumber"];
     }

@@ -90,7 +90,15 @@ const Banner = () => {
                 <div>
                   <Card className="relative bg-gradient-to-r from-background to-cards px-3 sm:px-15 lg:px-20 xl:px-30 py-2 sm:py-5 lg:py-10 xl:py-20 gap-1 sm:gap-6">
                     <div className="absolute w-[180px] h-[180px] sm:w-[300px] sm:h-[300px] md:w-[300px] md:h-[300px] lg:w-[452px] lg:h-[452px] top-1/2 -translate-y-1/2 right-3 sm:top-0 sm:-translate-y-0 md:right-10 lg:right-15">
-                      <Image src={category?.image || ""} alt={category?.name} />
+                      <Image
+                        src={category.image || ""}
+                        alt={category.name || "category name"}
+                        width={452}
+                        height={452}
+                        className="w-full h-full object-contain"
+                        priority={true}
+                        sizes="(max-width: 640px) 180px, (max-width: 768px) 300px, 452px"
+                      />
                     </div>
                     <CardContent className="h-[200px] sm:h-[300px] lg:h-[452px] flex flex-coljustify-center z-1000">
                       <div className="h-[200px] sm:h-[300px] lg:h-[452px] flex flex-col gap-2 sm:gap-4 lg:gap-10 justify-around sm:justify-start pb-5 sm:pb-0">

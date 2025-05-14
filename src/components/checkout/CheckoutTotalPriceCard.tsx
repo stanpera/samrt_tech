@@ -162,7 +162,7 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
       localStorage.removeItem("cartItems");
       localStorage.removeItem("paymentMethod");
       localStorage.removeItem("shipping");
-      router.push(`/checkout/success/${orderId}`);
+      router.push(`/checkout/success`);
     } catch {
       return;
     }
