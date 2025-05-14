@@ -1,3 +1,5 @@
+"use server"
+
 import CheckoutSuccessCard from "@/components/checkoutSuccess/CheckoutSuccessCard";
 
 const CheckoutSuccess = () => {

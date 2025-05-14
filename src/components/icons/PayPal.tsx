@@ -1,8 +1,6 @@
-interface PayPalProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const PayPal: React.FC<PayPalProps> = ({ className }) => {
+const PayPal: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

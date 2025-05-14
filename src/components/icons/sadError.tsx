@@ -1,8 +1,6 @@
-interface SadErrorProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const SadError: React.FC<SadErrorProps> = ({ className }) => {
+const SadError: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

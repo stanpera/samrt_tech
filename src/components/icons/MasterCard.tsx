@@ -1,8 +1,6 @@
-interface MasterCardProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const MasterCard: React.FC<MasterCardProps> = ({ className }) => {
+const MasterCard: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

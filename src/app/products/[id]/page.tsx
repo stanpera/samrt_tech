@@ -63,8 +63,8 @@ const ProductDetails = () => {
   }
 
   return (
-    <main className="flex flex-col w-full max-w-[1440px]">
-      <div className="self-start px-10 py-2.5">
+    <main className="flex flex-col w-full max-w-[1440px] ">
+      <div className="self-center sm:self-start px-5 sm:px-10 py-2.5">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -77,7 +77,7 @@ const ProductDetails = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="flex gap-8 p-10 items-start">
+      <div className="flex flex-col xl:flex-row gap-8 p-5 sm:p-10 items-center lx:items-start">
         <ProductInfo
           product={product}
           convertion={convertion}

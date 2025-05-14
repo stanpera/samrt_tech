@@ -1,9 +1,7 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
+import { IconProps } from "@/types";
 
-interface BagProps {
-  className?: string;
-}
-const Bag: React.FC<BagProps> = ({ className }) => {
+const Bag: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

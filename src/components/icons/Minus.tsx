@@ -1,8 +1,6 @@
-interface MinusProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const Minus: React.FC<MinusProps> = ({ className }) => {
+const Minus: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

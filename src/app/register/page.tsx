@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import RegisterForm from "@/components/register/FormRegister";
 

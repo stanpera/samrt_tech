@@ -1,3 +1,5 @@
+"use client";
+
 import { Separator } from "@radix-ui/react-separator";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardFooter, CardTitle } from "../ui/card";
@@ -75,7 +77,7 @@ const TotalProduct: React.FC<TotalProductProps> = ({ refresh }) => {
   };
 
   return (
-    <Card className="w-[423px] h-auto border border-special p-6 m-0 font-medium text-icons">
+    <Card className="w-full sm:w-[423px] h-auto border border-special p-6 m-0 font-medium text-icons">
       <CardTitle className="text-lg mb-4 text-highlights">
         Total Product
       </CardTitle>

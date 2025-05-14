@@ -1,8 +1,6 @@
-interface QualityProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const Quality: React.FC<QualityProps> = ({ className }) => {
+const Quality: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

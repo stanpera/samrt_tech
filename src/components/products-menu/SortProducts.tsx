@@ -8,9 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 import { useProductsContext } from "@/context/ProductProvider";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 const SortProducts: React.FC = () => {
   const { loading, error, limit, sortOrder, setPage, setLimit, setSortOrder } =
@@ -33,10 +33,10 @@ const SortProducts: React.FC = () => {
   if (error) {
     return;
   }
-  
+
   return (
-    <div className="flex gap-15">
-      <div className="flex gap-4">
+    <div className="flex gap-5 sm:gap-15 justify-center sm:justify-start">
+      <div className="flex flex-col sm:flex-row gap-4">
         <Label className="text-xl">Sort by</Label>
         <Select
           value={sortOrder}
@@ -54,7 +54,7 @@ const SortProducts: React.FC = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <Label className="text-xl">Show</Label>
         <Select
           value={String(limit)}

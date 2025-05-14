@@ -1,8 +1,6 @@
-interface StripeProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const Stripe: React.FC<StripeProps> = ({ className }) => {
+const Stripe: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

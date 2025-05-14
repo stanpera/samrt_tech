@@ -1,3 +1,5 @@
+"use server"
+
 import Check from "@/components/icons/Check";
 import Link from "next/link";
 

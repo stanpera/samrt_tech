@@ -1,8 +1,7 @@
-interface ArrowUpProps {
-  className?: string;
-}
+import { IconProps } from "@/types";
 
-const ArrowUp: React.FC<ArrowUpProps> = ({ className }) => {
+
+const ArrowUp: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

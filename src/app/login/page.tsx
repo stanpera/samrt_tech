@@ -1,3 +1,5 @@
+"use server"
+
 import LoginForm from "@/components/login/LoginForm";
 
 const Login = () => {

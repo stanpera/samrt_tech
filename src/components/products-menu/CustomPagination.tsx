@@ -82,7 +82,7 @@ function CustomPagination({
 
   return (
     <Pagination>
-      <PaginationContent className="flex justify-between w-full">
+      <PaginationContent className="flex flex-col sm:flex-row justify-between w-full">
         <div className="flex">{renderPageNumbers()}</div>
         <div className="flex gap-8">
           <PaginationItem

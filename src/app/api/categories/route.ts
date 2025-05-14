@@ -1,9 +1,15 @@
 "use server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getAllCategories } from "@/lib/queries";
+import { getToken } from "next-auth/jwt";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const token = await getToken({ req });
+
+    if (!token) {
+      return NextResponse.json({ error: "No authorization" }, { status: 403 });
+    }
     const categories = await getAllCategories();
     return NextResponse.json(categories);
   } catch (error: unknown) {
@@ -25,4 +31,3 @@ export async function GET() {
     }
   }
 }
-

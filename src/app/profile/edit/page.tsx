@@ -1,3 +1,5 @@
+"use server"
+
 import ProfileForm from "@/components/profile/ProfileForm";
 import {
   Breadcrumb,

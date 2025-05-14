@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardAction,
@@ -49,13 +51,15 @@ const ProductInfo: FC<ProductInfoProps> = ({
   };
 
   return (
-    <Card className="flex-row bg-transparent gap-12 rounded-none border-b border-special pb-12">
+    <Card className="flex-col lg:flex-row  bg-transparent gap-12 rounded-none border-b border-special pb-12">
       <div className="flex flex-col gap-8">
-        {loading && <Skeleton className="w-[422px] h-[341px]" />}
+        {loading && (
+          <Skeleton className="w-full h-[300px] sm:w-[422px] sm:h-[341px] " />
+        )}
         {!loading && (
           <Card
             className={cn(
-              "w-[422px] h-[341px] p-3 bg-cards border border-special"
+              "w- h-[300px] sm:w-[422px] sm:h-[341px] p-3 bg-cards border border-special"
             )}
           >
             <CardContent
@@ -74,7 +78,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
                 }}
               >
                 {!mainImage && (
-                  <EmptyImage className="size-30 text-special self-center " />
+                  <EmptyImage className="size-20 sm:size-30 text-special self-center " />
                 )}
               </div>
             </CardContent>
@@ -90,7 +94,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
               <>
                 <Card
                   key={product.id}
-                  className={cn("w-[130px] h-[99px]")}
+                  className={cn("w-[100px] h-[70px] sm:w-[130px] sm:h-[99px]")}
                   onClick={() => handleImages(img.url)}
                 >
                   <CardContent
@@ -111,7 +115,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
                       }}
                     ></div>
                     {!img.url && (
-                      <EmptyImage className="size-30 text-special" />
+                      <EmptyImage className="sm:size-30 size-20 text-special" />
                     )}
                   </CardContent>
                 </Card>
@@ -119,15 +123,15 @@ const ProductInfo: FC<ProductInfoProps> = ({
             ))}
         </div>
       </div>
-      <Card className="bg-transparent justify-start items-start w-[427]">
+      <Card className="bg-transparent justify-center sm:justify-start items-start w-full sm:w-[427]">
         <CardContent className="flex flex-col gap-8 ">
-          <CardTitle className="flex flex-col text-[28px] text-icons font-medium gap-5">
+          <CardTitle className="flex flex-col text-xl sm:text-[28px] text-icons font-medium gap-5">
             <div className="leading-tight">{product?.name}</div>
             <div className="text-sm py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start ">
               {product?.category?.name}
             </div>
           </CardTitle>
-          <CardTitle className={cn("text-icons text-[32px] font-medium")}>
+          <CardTitle className={cn("text-icons text-xl sm:text-[32px] font-medium")}>
             {`${convertion?.symbol}${
               product?.price ? (product.price * convertion?.rate).toFixed(2) : 0
             }`}
@@ -143,7 +147,7 @@ const ProductInfo: FC<ProductInfoProps> = ({
             {viewMore && (
               <div className={cn("text-icons text-base mt-5")}>
                 <p className="mb-2 font-semibold">Technical specifications:</p>
-                <ul className="list-disc ">
+                <ul className="list-disc pl-5 sm:pl-0">
                   {product?.technicalSpecs?.split(",").map((point, index) => (
                     <li key={index}>{point}</li>
                   ))}

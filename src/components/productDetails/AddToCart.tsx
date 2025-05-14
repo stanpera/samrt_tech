@@ -1,3 +1,5 @@
+"use client";
+
 import {
   TooltipContent,
   TooltipProvider,
@@ -157,7 +159,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
   };
 
   return (
-    <Card className="flex flex-col items-start w-[423px]  min-h-[430px] gap-8 p-6 border border-special text-icons">
+    <Card className="flex flex-col items-start w-full h-auto sm:w-[423px]  sm:min-h-[430px] gap-3 sm:gap-8 p-6 border border-special text-icons">
       <div className="flex flex-col gap-3.5">
         <p className="text-lg font-medium">Colors</p>
         <div className="flex gap-4">
@@ -172,7 +174,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                 })
               }
               className={cn(
-                "relative flex w-13 h-13 rounded-md items-center justify-center border border-special",
+                "relative flex w-10 h-10 sm:w-13 sm:h-13 rounded-md items-center justify-center border border-special",
                 {
                   "bg-product-black": stock.color === "black",
                   "bg-product-gray": stock.color === "gray",

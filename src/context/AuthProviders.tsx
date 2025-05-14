@@ -4,7 +4,7 @@ import { SessionProvider } from "next-auth/react";
 
 
 
-const Providers = ({
+const AuthProvider = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -12,4 +12,4 @@ const Providers = ({
   return <SessionProvider>{children} </SessionProvider>;
 };
 
-export default Providers;
+export default AuthProvider;

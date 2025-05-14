@@ -1,10 +1,7 @@
 import { cn } from "@/lib/utils";
+import { IconProps } from "@/types";
 
-interface ArrowRightProps {
-  className?: string;
-}
-
-const FullArrowRight: React.FC<ArrowRightProps> = ({ className }) => {
+const FullArrowRight: React.FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

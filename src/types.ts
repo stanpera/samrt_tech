@@ -102,3 +102,7 @@ export interface RegisterUserProps {
   password: string;
   country: string;
 }
+
+export interface IconProps {
+  className?: string;
+}

@@ -8,7 +8,7 @@ export const config = {
     "/products/:path*",
     "/contact/:path*",
     "/cart/:path*",
+    "/checkout/:path*",
     "/register/completed",
-    
   ],
 };

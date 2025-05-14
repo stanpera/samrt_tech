@@ -1,6 +1,6 @@
 "use client";
 
-import SortProducts from "../SortProducts";
+import SortProducts from "./SortProducts";
 import { Card, CardContent, CardFooter, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import EmptyImage from "../icons/EmptyImage";
@@ -113,9 +113,9 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col p-10 gap-10">
+    <div className="flex flex-col p-5 sm:p-10 gap-10">
       <SortProducts />
-      <div className="flex flex-wrap gap-12">
+      <div className="flex flex-wrap gap-12 justify-center sm:justify-end">
         {products?.map((prod) => (
           <Card
             key={prod.id}

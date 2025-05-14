@@ -1,3 +1,5 @@
+"use client";
+
 import { Address } from "@/types";
 
 import { zodResolver } from "@hookform/resolvers/zod";

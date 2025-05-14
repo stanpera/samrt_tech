@@ -192,7 +192,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
 
 
   return (
-    <section className="flex flex-col items-start gap-8 ">
+    <section className="flex flex-col items-center sm:items-start gap-8 ">
       <div className="flex items-center gap-4 w-full h-6.5">
         <Checkbox
           id="selectAll"
@@ -228,10 +228,10 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
           />
           <Card
             key={prod.stockId}
-            className="flex w-[839px] h-auto border border-special p-6"
+            className="flex w-full sm:w-[839px] h-auto border border-special p-6"
           >
-            <CardContent className="relative flex gap-8">
-              <div className="w-[172px] p-3 h-[138px] border-1 border-special rounded-md">
+            <CardContent className="relative flex flex-col sm:flex-row gap-8">
+              <div className="w-full sm:w-[172px] p-3 h-[138px] border-1 border-special rounded-md">
                 <div
                   className={cn(
                     {
@@ -254,7 +254,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col flex-1 gap-4">
+              <div className="flex flex-col sm:flex-1 gap-4">
                 <CardTitle className="text-[20px] font-medium text-icons flex justify-between">
                   {prod.name}
                   <Button
