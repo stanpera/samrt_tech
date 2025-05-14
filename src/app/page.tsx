@@ -6,7 +6,7 @@ import Banner from "@/components/homePage/Banner";
 
 export default async function Home() {
   return (
-    <main className="flex flex-col w-[100%] max-w-[1440px] items-center justify-center pb-10 sm:pb-20 gap-10 sm:gap-25 flex-1">
+    <main className="flex flex-col w-full max-w-[1440px] items-center justify-center pb-10 sm:pb-20 gap-10 sm:gap-25 flex-1">
       <Banner />
       <CategoryList />
       <RecommendationsList />

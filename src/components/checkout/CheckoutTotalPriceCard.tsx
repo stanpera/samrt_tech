@@ -141,7 +141,9 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
         shippingMethod: shippingItem ?? "",
       }));
 
-      await postOrder(productsOrder, showSnackbar);
+      const orderId = await postOrder(productsOrder, showSnackbar);
+
+      localStorage.setItem("orderId", orderId);
 
       const productsAmount = cartProducts?.map((p) => ({
         stockId: p.stockId,
@@ -160,14 +162,14 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
       localStorage.removeItem("cartItems");
       localStorage.removeItem("paymentMethod");
       localStorage.removeItem("shipping");
-      router.push("/checkout/success");
+      router.push(`/checkout/success/${orderId}`);
     } catch {
       return;
     }
   };
 
   return (
-    <Card className="self-start  flex-1 h-auto border border-special p-6 font-medium text-icons">
+    <Card className="self-start w-full h-auto border border-special p-6 font-medium text-icons">
       <CardTitle className="text-lg mb-4 text-highlights">
         Total Product
       </CardTitle>

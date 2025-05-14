@@ -19,11 +19,11 @@ const CategoryList = () => {
     return (
       <section className="w-full flex flex-col items-center sm:items-start gap-5 sm:gap-8 px-5  sm:px-10">
         <h2 className="text-xl sm:text-[28px]">Categories</h2>
-        <div className="w-full flex flex-wrap sm:flex-nowrap justify-between gap-5 sm:gap-0 sm:justify-between">
+        <div className="w-full flex flex-wrap sm:flex-nowrap justify-center gap-5 sm:gap-0 sm:justify-between">
           {Array.from({ length: 5 }, (_, index) => (
             <Skeleton
               key={index}
-              className="w-[150px] h-[100px] sm:w-[220px] sm:h-[190px]"
+              className="w-[125px] h-[100px] sm:w-[220px] sm:h-[190px]"
             ></Skeleton>
           ))}
         </div>
@@ -35,11 +35,11 @@ const CategoryList = () => {
     return (
       <section className="w-full flex flex-col items-center sm:items-start gap-5 sm:gap-8 px-5  sm:px-10">
         <h2 className="text-xl sm:text-[28px]">Categories</h2>
-        <div className="w-full flex flex-wrap sm:flex-nowrap justify-between gap-5 sm:gap-0 sm:justify-between">
+        <div className="w-full flex flex-wrap sm:flex-nowrap justify-center gap-5 sm:gap-0 sm:justify-between">
           {Array.from({ length: 5 }, (_, index) => (
             <Card
               key={index}
-              className="justify-center items-center w-[150px] h-[100px] sm:w-[220px] sm:h-[190px] text-icons hover:text-highlights hover:border-highlights hover:scale-105 cursor-pointer border border-special gap-2 sm:gap-6"
+              className="justify-center items-center w-[125px] h-[100px] sm:w-[220px] sm:h-[190px] text-icons hover:text-highlights hover:border-highlights hover:scale-105 cursor-pointer border border-special gap-2 sm:gap-6"
             >
               <SadError className="size-6 sm:size-12 text-special" />
               <CardTitle className="text-center text-lg text-special ">
@@ -56,18 +56,18 @@ const CategoryList = () => {
     <section className="w-full flex flex-col items-center sm:items-start gap-5 sm:gap-8 px-5 sm:px-10">
       <>
         <h2 className="text-xl sm:text-[28px]">Categories</h2>
-        <div className="w-full flex flex-wrap sm:flex-nowrap justify-between gap-5 sm:gap-0 sm:justify-between">
+        <div className="w-full flex flex-wrap sm:flex-nowrap justify-center gap-3  sm:gap-0 sm:justify-between">
           {categories?.map((category) => (
             <Card
               onClick={() => handleExploreCategory(category.id)}
               key={category.id}
-              className="justify-center items-center w-[150px] h-[100px] sm:w-[220px] sm:h-[190px] text-icons hover:text-highlights hover:border-highlights hover:scale-105 cursor-pointer border border-special gap-2 sm:gap-6"
+              className="justify-center items-center w-[125px] h-[100px] sm:w-[220px] sm:h-[190px] text-icons hover:text-highlights hover:border-highlights hover:scale-105 cursor-pointer border border-special gap-2 sm:gap-6"
             >
               <CategoryIcons
-                className="w-10 h-10 sm:w-20 sm:h-20"
+                className="w-8 h-8 sm:w-20 sm:h-20"
                 variant={category.name}
               />
-              <CardTitle className="text-center text-lg sm:text-xl ">
+              <CardTitle className="text-center text-base sm:text-xl ">
                 {category?.name}
               </CardTitle>
             </Card>

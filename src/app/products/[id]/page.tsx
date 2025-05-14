@@ -63,7 +63,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col w-full max-w-[1440px]">
       <div className="self-start px-10 py-2.5">
         <Breadcrumb>
           <BreadcrumbList>

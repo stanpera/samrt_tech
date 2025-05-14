@@ -19,10 +19,7 @@ const Checkout = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
 
   return (
-    <main
-      className="flex flex-col flex-1 items-center pb-20
-    "
-    >
+    <main className="flex flex-col items-center pb-20 w-full max-w-[1440px]">
       <div className="self-start px-10 py-2.5">
         <Breadcrumb>
           <BreadcrumbList>
@@ -40,7 +37,7 @@ const Checkout = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="flex gap-12 mt-10">
+      <div className="flex gap-12 mt-10 w-[1360px]">
         <div className="flex flex-col gap-10">
           <CheckoutProductCard setRefresh={setRefresh} />
           <CheckoutAddressCard setRefresh={setRefresh} />

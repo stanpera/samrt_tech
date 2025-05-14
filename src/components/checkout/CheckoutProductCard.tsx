@@ -180,7 +180,7 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
         {cartProducts.map((prod) => (
           <Card
             key={prod.stockId}
-            className="flex w-[839px] h-auto border border-special p-6"
+            className="flex w-full h-auto border border-special p-6"
           >
             <CardContent className="relative flex gap-8">
               <div className="w-[172px] p-3 h-[138px] border-1 border-special rounded-md">

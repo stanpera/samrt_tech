@@ -70,7 +70,7 @@ function PaginationPrevious({
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn("flex items-center", className)}
+      className={cn("py-2.5 px-5 flex items-center gap-3.5 hover:text-highlights", className)}
       {...props}
     >
       <FullArrowLeft />
@@ -87,7 +87,7 @@ function PaginationNext({
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn("", className)}
+      className={cn("py-2.5 px-5 flex items-center gap-3.5 hover:text-highlights", className)}
       {...props}
     >
       <span className="text-sm">Next</span>

@@ -1,10 +1,6 @@
 "use server";
 import { authOptions } from "@/lib/authOptions";
-import {
-  createOrder,
-  createOrderItem,
-  getProducts,
-} from "@/lib/queries";
+import { createOrder, createOrderItem, getProducts } from "@/lib/queries";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
@@ -107,6 +103,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
+        orderId: orderId,
         message: `Order successfully completed - items amount: ${itemsAmount}`,
       },
       { status: 200 }

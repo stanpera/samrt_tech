@@ -27,22 +27,22 @@ const CustomNotification = () => {
   return (
     <div
       className={cn(
-        ` flex justify-between items-center p-4.5 my-3 mx-10 transform transition-opacity duration-300 bg-${snackbar.variant} text-white rounded-md`,
+        `w-full max-w-[1360px] flex justify-between items-center p-1 sm:p-4.5 my-1 mx-0 sm:my-3 sm:mx-10 transform transition-opacity duration-300 bg-${snackbar.variant} text-white rounded-none sm:rounded-md`,
         {
           "opacity-100 visible": snackbar.show,
           "opacity-0 invisible": !snackbar.show,
         }
       )}
     >
-      <div className="flex gap-6">
+      <div className="flex gap-2 items-center">
         <SnackbarInfo className="size-7.5" variant={snackbar.variant} />
-        <p className="text-xl font-medium text-white">{snackbar.message}</p>
+        <p className="text-xs sm:text-xl font-medium text-white-content">{snackbar.message}</p>
       </div>
       <div
         className="hover:bg-black/20 rounded-full cursor-pointer"
         onClick={handleSnackbarClose}
       >
-        <Exit className="size-7.5 text-white-content" />
+        <Exit className=" size-4 sm:size-7.5 text-white-content" />
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ const buttonVariants = cva("disabled:opacity-50 disabled:cursor-auto duration-30
       default: "text-base font-normal",
       sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
       lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-      outline: "py-1 px-2 sm:py-3.5 sm:px-5 text-sm sm:text-base",
+      outline: "py-1 px-2 md:py-3.5 md:px-5 text-sm sm:text-base",
       seeAll: "w-[91px] h-[26px]",
       banner: "w-6 h-[50px] sm:w-11 sm:h-[74px]",
       icon: "w-auto h-auto p-0",

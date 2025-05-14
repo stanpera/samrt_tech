@@ -35,6 +35,7 @@ export interface Order {
   serviceFees: number;
   user?: User;
   orderItems?: OrderItem[];
+  products?: Product[];
 }
 export interface OrderItem {
   id: number;

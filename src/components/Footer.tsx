@@ -22,7 +22,7 @@ const Footer = () => {
             <GooglePay className="h-8 text-icons" />
           </div>
         </div>
-        <div className="flex  flex-wrap sm:flex-nowrap gap-x-10 gap-y-0 sm:gap-x-0 sm:gap-y-5 text-second-content justify-start px-4 sm:px-0 sm:justify-items-normal">
+        <div className="flex flex-wrap sm:flex-nowrap gap-x-10 gap-y-5 sm:gap-x-0 sm:gap-y-5 text-second-content justify-center px-4 sm:px-0 sm:justify-items-normal">
           <div className="flex flex-col gap-2 sm:gap-8 w-[auto] sm:w-[191px]">
             <h3 className="text-xl font-semibold text-first-content">
               Company

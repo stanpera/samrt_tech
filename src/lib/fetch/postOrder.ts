@@ -32,6 +32,8 @@ export async function postOrder(
     const data = await response.json();
 
     showSnackbar(data.message, "success");
+
+    return data.orderId;
   } catch (error: unknown) {
     if (error instanceof Error) {
       {

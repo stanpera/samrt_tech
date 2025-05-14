@@ -278,6 +278,8 @@ export async function updateStock(values: [number, number][]): Promise<void> {
     }
     revalidateTag("stock");
     revalidateTag("products");
+    revalidateTag("categories");
+    revalidateTag("brands");
     return;
   } catch {
     throw new Error("Failed to update stock in db");
@@ -307,6 +309,23 @@ export async function createOrder(
     throw new Error("Failed to save order in db");
   }
 }
+export const getOrder = async (id: number): Promise<Order | null> => {
+  try {
+    const order = await prisma.order.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        orderItems: true,
+      },
+    });
+
+    return order;
+  } catch {
+    throw new Error("Failed to upload specific product from db.");
+  }
+};
+
 export async function createOrderItem(
   data: Omit<OrderItem, "id">[]
 ): Promise<number> {

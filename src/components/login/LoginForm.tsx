@@ -116,17 +116,17 @@ const LoginForm = () => {
       <>
         {step === 1 && (
           <Form {...formContact}>
-            <div className="mt-[77px] mb-8">
+            <div className="mt-0 sm:mt-[77px] mb-2 sm:mb-8">
               <Logo />
             </div>
             <form
               onSubmit={formContact.handleSubmit(proceedToPassword)}
               className={cn(
-                " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[448px] gap-8"
+                " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-full sm:w-[448px] gap-8"
               )}
             >
               <FormDescription className="self-start border-special border-b-1 w-full pb-5">
-                Sign In{" "}
+                <h3 className="text-xl sm:text-2xl">Sign In</h3>
               </FormDescription>
               <FormField
                 control={formContact.control}
@@ -167,6 +167,7 @@ const LoginForm = () => {
                   href={"/register"}
                   passHref
                 >
+                  {" "}
                   Register
                 </Link>
               </p>
@@ -175,17 +176,17 @@ const LoginForm = () => {
         )}
         {step === 2 && (
           <Form {...formPassword}>
-            <div className="mt-[77px] mb-8">
+            <div className="mt-0 sm:mt-[77px] mb-2 sm:mb-8">
               <Logo />
             </div>
             <form
               onSubmit={formPassword.handleSubmit(onSubmit)}
               className={cn(
-                " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[448px] gap-8"
+                " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-full sm:w-[448px] gap-8"
               )}
             >
               <FormDescription className="self-start border-special border-b-1 w-full pb-5">
-                Sign In{" "}
+                <h3 className="text-xl sm:text-2xl">Sign In</h3>
               </FormDescription>
               <FormField
                 control={formPassword.control}

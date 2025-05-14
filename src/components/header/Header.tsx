@@ -20,14 +20,14 @@ const Header = () => {
   return (
     <header className="flex w-[100%] max-w-[1440px]">
       <div className="w-full flex flex-col px-2 py-3 sm:py-8 sm:px-10 gap-5 sm:gap-10">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <Link href="/" passHref>
             <Logo />
           </Link>
           {status === "authenticated" && <CartAndUserMenuAvatar />}
           {status === "unauthenticated" && (
             <Link
-              className="py-3.5 px-5 bg-first-content text-background rounded-md hover:bg-highlights font-medium"
+              className="py-2 sm:py-3.5 px-3 sm:px-5 bg-first-content text-background rounded-md hover:bg-highlights font-medium flex items-center"
               href="/login"
               passHref
             >

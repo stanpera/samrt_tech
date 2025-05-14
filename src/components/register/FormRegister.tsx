@@ -113,17 +113,17 @@ const RegisterForm = () => {
   return (
     <>
       <Form {...form}>
-        <div className="mt-[77px] mb-8">
+        <div className="mt-0 sm:mt-[77px] mb-2 sm:mb-8">
           <Logo />
         </div>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className={cn(
-            " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[448px] gap-8"
+            " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[80%] sm:w-[448px] gap-8"
           )}
         >
           <FormDescription className="self-start border-special border-b-1 w-full pb-5">
-            Create Account
+            <h3 className="text-xl sm:text-2xl">Create Account</h3>
           </FormDescription>
           <FormField
             control={form.control}

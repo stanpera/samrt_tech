@@ -891,28 +891,28 @@ export const initialCategories = [
   {
     name: "Monitors",
     description: "High-quality monitors for work and gaming",
-    image: "https://i.ibb.co/7JStjSJf/monitor-banner.png",
+    image: "https://i.ibb.co/0RLxHL9Q/aoc-24g2spaebk-1.png",
     exploreInfo:
       "Explore our monitors featuring high resolution and vivid colors, ideal for gaming, graphic design, and office work.",
   },
   {
     name: "Headphones",
     description: "High-quality sound headphones",
-    image: "https://i.ibb.co/4RqBP8s5/headphones-banner.png",
+    image: "https://i.ibb.co/SX3mndst/jbl-live-770-NC-1.png",
     exploreInfo:
       "Check out our headphones, offering noise cancellation and superior sound quality for an immersive audio experience.",
   },
   {
     name: "Keyboards",
     description: "Mechanical and membrane keyboards",
-    image: "https://i.ibb.co/6Jb3JLjJ/keyboard-banner.png",
+    image: "https://i.ibb.co/JwmCC4mB/pop-keys-logitech-2.png",
     exploreInfo:
       "Choose from our selection of mechanical and membrane keyboards, perfect for gaming or typing with speed and accuracy.",
   },
   {
     name: "Webcams",
     description: "Webcams for remote work",
-    image: "https://i.ibb.co/b5dFq6pK/webcam-banner.png",
+    image: "https://i.ibb.co/BDNc1Gy/logitech-c920-full-hd-1.png",
     exploreInfo:
       "See our high-definition webcams that provide clear video quality for video conferencing, streaming, and online classes.",
   },
