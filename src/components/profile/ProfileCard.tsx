@@ -65,20 +65,20 @@ const ProfileCard: React.FC<AvatarProps> = ({
 
   if (loading) {
     return (
-      <Skeleton className="h-[200px] w-[320px] p-6 gap-6" />
+      <Skeleton className="h-[200px] w-full sm:w-[320px] p-6 gap-6" />
     );
   }
 
   if (error) {
     return (
-      <Card className="h-[200px] w-[320px] items-center justify-center p-6 gap-6 border border-special">
+      <Card className="h-[200px] w-full sm:w-[320px] items-center justify-center p-6 gap-6 border border-special">
         <p className="text-icons">{errorMessage}</p>
       </Card>
     );
   }
   
   return (
-    <Card className="flex flex-col w-[320px] p-6 gap-6 border border-special self-start">
+    <Card className="flex flex-col w-full sm:w-[320px] p-6 gap-6 border border-special self-start">
       <div className="flex justify-center items-center gap-6">
         <Avatar className={cn("w-[72px] h-[72px] relative", {})}>
           {avatar && <AvatarImage src={`${avatar}`} alt="avatar" />}

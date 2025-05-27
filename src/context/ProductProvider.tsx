@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useState } from "react"; 
+import { ReactNode, createContext, useContext, useState } from "react";
 import useProducts from "@/hooks/useProducts";
 import { Product } from "@/types";
 
@@ -14,17 +14,18 @@ interface ProductsContextType {
   limit: number;
   sortOrder: string;
   category: string[];
-  minPrice: number;
-  maxPrice: number;
+  minPrice: string;
+  maxPrice: string;
   setCategory: React.Dispatch<React.SetStateAction<Array<string>>>;
-  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
-  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
+  setMinPrice: React.Dispatch<React.SetStateAction<string>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
   setLimit: (num: number) => void;
   setSortOrder: (value: string) => void;
   setPage: (page: number) => void;
   currentCurrency: string;
   setCurrentCurrency: (value: string) => void;
   setBrand: React.Dispatch<React.SetStateAction<Array<string>>>;
+  setProductId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface ProductsProviderProps {
@@ -51,6 +52,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
     category,
     minPrice,
     maxPrice,
+    brand,
     setCategory,
     setMinPrice,
     setMaxPrice,
@@ -58,6 +60,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
     setSortOrder,
     setPage,
     setBrand,
+    setProductId,
   } = useProducts();
 
   const data = {
@@ -72,6 +75,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
     category,
     minPrice,
     maxPrice,
+    brand,
     currentCurrency,
     setCategory,
     setMinPrice,
@@ -79,8 +83,9 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
     setLimit,
     setSortOrder,
     setPage,
-    setCurrentCurrency,
     setBrand,
+    setProductId,
+    setCurrentCurrency
   };
 
   return (

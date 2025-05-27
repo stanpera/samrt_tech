@@ -88,3 +88,15 @@ h2 {
   line-clamp: 4;
   line-height: 1.2;
 }
+
+.no-inputArrow {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+.no-inputArrow::-webkit-inner-spin-button,
+.no-inputArrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

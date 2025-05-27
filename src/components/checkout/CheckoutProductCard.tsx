@@ -164,10 +164,10 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
     );
     setlocalStorageRefresh((prev) => !prev);
   };
-
-  if (cartProducts.length < 1) {
+  // if (0 === 0) {
+    if (cartProducts.length < 1) {
     return (
-      <Card className="flex w-[839px] h-[186px] border border-special p-6 justify-center items-center">
+      <Card className="flex w-full sm:w-[839px] h-[186px] border border-special p-6 justify-center items-center">
         <CardTitle className="text-icons">No products in cart.</CardTitle>
       </Card>
     );
@@ -175,15 +175,15 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
 
   return (
     <section>
-      <h3 className="mb-4 text-2xl font-medium">Your Order</h3>
+      <h3 className="mb-4 text-2xl font-medium text-center sm:text-left">Your Order</h3>
       <div className="flex flex-col items-start gap-8 ">
         {cartProducts.map((prod) => (
           <Card
             key={prod.stockId}
             className="flex w-full h-auto border border-special p-6"
           >
-            <CardContent className="relative flex gap-8">
-              <div className="w-[172px] p-3 h-[138px] border-1 border-special rounded-md">
+            <CardContent className="relative flex flex-col sm:flex-row gap-8">
+              <div className="w-full sm:w-[172px] p-3 h-[200px] sm:h-[138px] border-1 border-special rounded-md">
                 <div
                   className={cn(
                     {
@@ -207,21 +207,22 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
                 </div>
               </div>
               <div className="flex flex-col flex-1 gap-4">
-                <CardTitle className="text-[20px] font-medium text-icons flex justify-between">
+                <CardTitle className="text-lg sm:text-[20px] font-medium text-icons flex justify-between">
                   {prod.name}
                 </CardTitle>
                 <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start text-sm">
                   {prod.category}
                 </div>
-                <CardFooter className="flex justify-between p-0 text-2xl font-medium text-icons">
-                  <div>
+                <CardFooter className="flex flex-col sm:flex-row justify-between p-0 text-2xl font-medium text-icons sm:gap-0 gap-4">
+                  <div className="flex justify-between w-full text-lg sm:text-2xl">
+                    <p className="block sm:hidden">Price:</p>
                     {currency.currentCurrency === "EUR"
                       ? `\u20AC${(currency.EUR * prod.price).toFixed(2)}`
                       : currency.currentCurrency === "GBP"
                       ? `\u00A3${(currency.GBP * prod.price).toFixed(2)}`
                       : `\u0024${(currency.USD * prod.price).toFixed(2)}`}
                   </div>
-                  <div className="flex items-center gap-6">
+                  <div className="flex w-full justify-between items-center gap-6">
                     <Button
                       className={cn("flex gap-2 items-center", {
                         "text-success": prod.message,

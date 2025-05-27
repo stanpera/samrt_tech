@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import {
   Breadcrumb,
@@ -9,84 +9,82 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import useSingleProduct from "@/hooks/useSingleProduct";
-import { usePathname } from "next/navigation";
-
 import AddToCart from "@/components/productDetails/AddToCart";
 import ProductInfo from "@/components/productDetails/ProductInfo";
-import { useEffect, useState } from "react";
+import { Product } from "@/types";
 
-interface convertionProps {
-  rate: number;
-  symbol: "\u0024" | "\u20AC" | "\u00A3";
-}
+// import type { Metadata } from "next";
 
-const ProductDetails = () => {
-  const pathname = usePathname();
-  const parts = pathname.split("/");
-  const productId: string = parts[parts.length - 1];
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { id: string };
+// }): Promise<Metadata> {
+//   return {
+//     title: `Product ${params.id}`,
+//   };
+// }
 
-  const { product, loading, error, errorMessage } = useSingleProduct(productId);
+export default async function ProductDetails({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-  const [convertion, setConvertion] = useState<convertionProps>({
-    rate: 1,
-    symbol: "\u0024",
-  });
+  try {
+    console.log(id);
+    const response = await fetch(`http://localhost:3000/api/products/${id}`); // najpierw z await!
 
-  useEffect(() => {
-    const currency = localStorage.getItem("currentCurrency");
-    if (currency) {
-      const currencyData = JSON.parse(currency);
-      const currentCurrency = currencyData.currentCurrency;
-      const rate = parseFloat(currencyData[currentCurrency]);
-
-      const symbol =
-        currentCurrency === "USD"
-          ? "\u0024"
-          : currentCurrency === "EUR"
-          ? "\u20AC"
-          : "\u00A3";
-
-      setConvertion({ rate: rate, symbol: symbol });
+    if (!response.ok) {
+      return (
+        <main className="flex flex-col w-full h-full items-center justify-center max-w-[1440px] ">
+          <p className="text-icons">
+            Error while downloading specific product data.
+          </p>
+        </main>
+      );
     }
-  }, []);
 
-  if (error) {
+    const data: Product = await response.json();
+
     return (
-      <main
-        className="flex flex-1 items-center justify-center
-  "
-      >
-        <div>{errorMessage}</div>
+      <main className="flex flex-col w-full max-w-[1440px] ">
+        <div className="self-center sm:self-start px-5 sm:px-10 py-2.5">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/products-menu">Products</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{data?.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <div className="flex flex-col xl:flex-row gap-8 p-5 sm:p-10 items-center lx:items-start">
+          <ProductInfo product={data} />
+          <AddToCart product={data} />
+        </div>
       </main>
     );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return (
+        <p className="text-icons">
+          An error occurred while loading specific product data -{" "}
+          {error.message}.
+        </p>
+      );
+    } else {
+      return (
+        <p className="text-icons">
+          An error occurred while loading specific product data.
+        </p>
+      );
+    }
   }
+}
 
-  return (
-    <main className="flex flex-col w-full max-w-[1440px] ">
-      <div className="self-center sm:self-start px-5 sm:px-10 py-2.5">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/products-menu">Products</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{product?.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-      <div className="flex flex-col xl:flex-row gap-8 p-5 sm:p-10 items-center lx:items-start">
-        <ProductInfo
-          product={product}
-          convertion={convertion}
-          loading={loading}
-        />
-        <AddToCart product={product} convertion={convertion} />
-      </div>
-    </main>
-  );
-};
-
-export default ProductDetails;
+// export default ProductDetails;

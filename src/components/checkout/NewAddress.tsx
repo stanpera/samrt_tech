@@ -149,7 +149,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-8 text-icons"
       >
-        <div className="flex gap-10">
+        <div className="flex gap-5 sm:gap-10">
           <FormField
             control={form.control}
             name="country"
@@ -176,7 +176,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
                     type="text"
                     placeholder="Your State"
                     {...field}
-                    className="py-3.5 px-5 h-13.5"
+                    className="py-3.5 px-5 h-13.5 text-sm sm:text-base"
                     defaultValue={field.value || localAddress?.state}
                   />
                 </FormControl>
@@ -185,7 +185,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
             )}
           />
         </div>
-        <div className="flex gap-10">
+        <div className="flex gap-5 sm:gap-10">
           <FormField
             control={form.control}
             name="city"
@@ -196,7 +196,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
                     type="text"
                     placeholder="Your City"
                     {...field}
-                    className="py-3.5 px-5 h-13.5"
+                    className="py-3.5 px-5 h-13.5 text-sm sm:text-base"
                     defaultValue={field.value || localAddress?.city}
                   />
                 </FormControl>
@@ -214,7 +214,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
                     type="string"
                     placeholder="Your Post Code"
                     {...field}
-                    className="py-3.5 px-5 h-13.5 text-normal"
+                    className="py-3.5 px-3 h-13.5 text-sm sm:text-base"
                     defaultValue={field.value || localAddress?.postCode}
                   />
                 </FormControl>
@@ -232,7 +232,7 @@ const NewAddress: React.FC<AddressProps> = ({ setRefresh }) => {
                 <Textarea
                   placeholder="Your Street"
                   {...field}
-                  className="py-3.5 px-5 w-full bg-cards border border-special rounded-md text-icons h-[130px]"
+                  className="py-3.5 px-5 w-full bg-cards border border-special rounded-md text-icons h-[130px] text-sm sm:text-base"
                   defaultValue={field.value || localAddress?.street}
                 />
               </FormControl>

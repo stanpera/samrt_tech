@@ -3,16 +3,9 @@ import { hashPassword } from "@/lib/passwordHasher";
 import { createAddress, createUser, getUser } from "@/lib/queries";
 import { RegisterUserProps } from "@/types";
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 
 export async function POST(req: NextRequest) {
   try {
-    const token = await getToken({ req });
-
-    if (!token) {
-      return NextResponse.json({ error: "No authorization" }, { status: 403 });
-    }
-
     const { email, mobileNumber, password, country }: RegisterUserProps =
       await req.json();
 

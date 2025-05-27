@@ -37,7 +37,7 @@ const Checkout = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="flex gap-12 mt-10 w-[1360px]">
+      <div className="flex flex-col sm:flex-row gap-12 mt-10 max-w-[1360px] sm:w-[1360px] items-center mx-5 sm:mx-0">
         <div className="flex flex-col gap-10">
           <CheckoutProductCard setRefresh={setRefresh} />
           <CheckoutAddressCard setRefresh={setRefresh} />

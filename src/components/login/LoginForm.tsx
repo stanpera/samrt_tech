@@ -92,7 +92,8 @@ const LoginForm = () => {
         callbackUrl: "/",
       });
 
-      if (!singInToApp?.error) {
+      if (singInToApp) {
+        console.log("singInToApp", singInToApp);
         showSnackbar("You have been successfully logged in.", "success");
       } else {
         showSnackbar(

@@ -8,16 +8,17 @@ import {
 } from "@/components/ui/select";
 import CurrencyInput from "react-currency-input-field";
 import { Button } from "../ui/button";
-import { ArrowDown, ArrowUp } from "lucide-react";
 import { FC, useState } from "react";
 import useCurrency from "@/hooks/useCurrency";
+import ArrowUp from "../icons/ArrowUp";
+import ArrowDown from "../icons/ArrowDown";
 
 interface PriceHandlerProps {
-  minPrice: number;
-  maxPrice: number;
+  minPrice: string;
+  maxPrice: string;
   currentCurrency: string;
-  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
-  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
+  setMinPrice: React.Dispatch<React.SetStateAction<string>>;
+  setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
   setCurrentCurrency: (currentCurrency: string) => void;
 }
 
@@ -29,7 +30,7 @@ const PriceHandler: FC<PriceHandlerProps> = ({
   setMaxPrice,
   setCurrentCurrency,
 }) => {
-  const [isPriceVisible, setIsPriceVisible] = useState(true);
+  const [isPriceVisible, setIsPriceVisible] = useState(false);
   const { currency } = useCurrency();
 
   const handlePrice = () => {
@@ -38,14 +39,16 @@ const PriceHandler: FC<PriceHandlerProps> = ({
 
   const handleMinPrice = (value: string | undefined) => {
     if (value) {
-      const parsedValue = parseFloat(value.replace("€", ""));
-      setMinPrice(parsedValue);
+      setMinPrice(value.replace("€", ""));
+    } else {
+      setMinPrice("");
     }
   };
   const handleMaxPrice = (value: string | undefined) => {
     if (value) {
-      const parsedValue = parseFloat(value.replace("€", ""));
-      setMaxPrice(parsedValue);
+      setMaxPrice(value.replace("€", ""));
+    } else {
+      setMaxPrice("");
     }
   };
 
@@ -72,14 +75,14 @@ const PriceHandler: FC<PriceHandlerProps> = ({
   return (
     <div className="flex flex-col px-2.5 gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Price</h2>
+        <h2 className="text-lg sm:text-xl font-semibold">Price</h2>
         {isPriceVisible ? (
           <Button onClick={handlePrice} variant="icon">
-            <ArrowUp className="h-6 w-6 hover:text-highlights cursor-pointer" />
+            <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6 hover:text-highlights cursor-pointer" />
           </Button>
         ) : (
           <Button onClick={handlePrice} variant="icon">
-            <ArrowDown className="h-6 w-6 hover:text-highlights cursor-pointer" />
+            <ArrowDown className="h-5 w-5 sm:h-6 sm:w-6 hover:text-highlights cursor-pointer" />
           </Button>
         )}
       </div>
@@ -151,11 +154,11 @@ const PriceHandler: FC<PriceHandlerProps> = ({
                   : `\u00A3 `
               }
               step={1.0}
-              value={maxPrice > 0 ? maxPrice : ""}
+              value={maxPrice}
               allowNegativeValue={false}
               disableGroupSeparators={true}
               onValueChange={handleMaxPrice}
-              className="bg-cards h-13.5 w-39 border border-r-0 border-special rounded-l-md py-3.5 px-4.5"
+              className="bg-cards h-13.5 w-full sm:w-39 border border-r-0 border-special rounded-l-md py-3.5 px-4.5"
             />
             <Select
               value={currentCurrency}

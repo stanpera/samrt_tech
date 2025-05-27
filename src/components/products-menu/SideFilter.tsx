@@ -30,6 +30,7 @@ const SideFilter = () => {
     currentCurrency,
     minPrice,
     maxPrice,
+    setProductId,
   } = useProductsContext();
 
   useEffect(() => {
@@ -44,17 +45,18 @@ const SideFilter = () => {
     }
   }, [setCurrentCurrency]);
 
-  const [isCheckAllCategory, setIsCheckAllCategory] = useState(true);
+  const [isCheckAllCategory, setIsCheckAllCategory] = useState(false);
   const [isCheckCategory, setIsCheckCategory] = useState<Array<string>>([]);
-  const [isCheckAllBrand, setIsCheckAllBrand] = useState(true);
+  const [isCheckAllBrand, setIsCheckAllBrand] = useState(false);
   const [isCheckBrand, setIsCheckBrand] = useState<Array<string>>([]);
 
   useEffect(() => {
-    setMinPrice(10);
-    setMaxPrice(NaN);
+    setMinPrice("");
+    setMaxPrice("");
   }, [currentCurrency, setMaxPrice, setMinPrice]);
 
   useEffect(() => {
+    setProductId("none");
     if (isCheckAllCategory) {
       setCategory(["all"]);
       setPage(0);
@@ -62,9 +64,11 @@ const SideFilter = () => {
       setCategory(isCheckCategory);
       setPage(0);
     }
-  }, [isCheckAllCategory, isCheckCategory, setCategory, setPage]);
+  }, [isCheckAllCategory, isCheckCategory, setCategory, setPage, setProductId]);
 
   useEffect(() => {
+    setProductId("none");
+
     if (isCheckAllBrand) {
       setBrand(["all"]);
       setPage(0);
@@ -72,7 +76,7 @@ const SideFilter = () => {
       setBrand(isCheckBrand);
       setPage(0);
     }
-  }, [isCheckAllBrand, isCheckBrand, setBrand, setPage]);
+  }, [isCheckAllBrand, isCheckBrand, setBrand, setPage, setProductId]);
 
   useEffect(() => {
     if (paramsCategory) {
@@ -90,7 +94,7 @@ const SideFilter = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col w-[463px] h-full p-10 gap-13 border-r border-special">
+      <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
         <Skeleton className="h-50 w-[283px]" />
         <Skeleton className="h-50 w-[283px]" />
         <Skeleton className="h-50 w-[283px]" />
@@ -99,7 +103,7 @@ const SideFilter = () => {
   }
   if (error) {
     return (
-      <div className="flex flex-col w-[463px] h-full p-10 gap-13 border-r border-special">
+      <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
         <Card className="h-50 w-[283px] justify-center items-center text-icons">
           {errorMessage}
         </Card>
@@ -114,7 +118,7 @@ const SideFilter = () => {
   }
 
   return (
-    <div className="flex flex-col w-full sm:w-[363px] h-auto sm:h-full p-5 sm:p-10 gap-13 sm:border-r sm:border-special ">
+    <div className="flex flex-col w-full sm:w-[363px] h-auto sm:h-full p-5 sm:p-10 gap-5 sm:gap-13 sm:border-r sm:border-special ">
       <OptionsHandler
         categories={categories}
         isCheckAll={isCheckAllCategory}

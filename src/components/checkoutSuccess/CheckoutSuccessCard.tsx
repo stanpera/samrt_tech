@@ -76,7 +76,7 @@ const CheckoutSuccessCard = () => {
     router.push(`/`);
   };
   return (
-    <Card className="h-auto border border-special p-6 font-medium text-icons gap-4">
+    <Card className="h-auto border border-special p-6 font-medium text-icons gap-4 mx-5 sm:mx-0">
       <div className="flex flex-col items-center gap-6">
         <div className="flex items-center justify-center h-15 w-15 border-2 border-first-content rounded-[100%]">
           <Check className="h-[75%] w-[75%] text-first-content" />

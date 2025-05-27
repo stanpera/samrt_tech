@@ -25,20 +25,20 @@ const MainAddress: React.FC<AddressProps> = ({ address, mobileNumber }) => {
           {address?.street}, {address?.city}
         </p>
       </div>
-      <div className="flex justify-between font-medium text-icons">
-        <p className="flex flex-col">
+      <div className="flex flex-col sm:flex-row justify-between font-medium text-icons">
+        <p className="flex flex-row sm:flex-col justify-between">
           <span className="text-second-content">Country</span>
           <span className="text-lg">{address?.country}</span>
         </p>
-        <p className="flex flex-col">
+        <p className="flex flex-row sm:flex-col justify-between">
           <span className="text-second-content">Province</span>
           <span className="text-lg">{address?.state}</span>
         </p>
-        <p className="flex flex-col">
+        <p className="flex flex-row sm:flex-col justify-between">
           <span className="text-second-content">Phone Number</span>
           <span className="text-lg">+{mobileNumber}</span>
         </p>
-        <p className="flex flex-col">
+        <p className="flex flex-row sm:flex-col justify-between">
           <span className="text-second-content">Poste Code</span>
           <span className="text-lg">{address?.postalCode}</span>
         </p>
