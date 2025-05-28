@@ -33,7 +33,7 @@ const Cart = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-12 mt-5 sm:mt-10 w-full px-5 sm:px-10">
+      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 mt-5 lg:mt-10 w-full px-5 lg:px-10">
         <CartProduct setRefresh={setRefresh} />
         <TotalProduct refresh={refresh} />
       </div>

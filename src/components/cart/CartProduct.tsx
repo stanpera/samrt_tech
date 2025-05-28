@@ -42,7 +42,6 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
   const [checkedProducts, setCheckedProducts] = useState<Array<number | "all">>(
     []
   );
-  console.log("checkedProducts", checkedProducts);
   const [localStorageRefresh, setlocalStorageRefresh] =
     useState<boolean>(false);
 
@@ -186,14 +185,14 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
 
   if (cartProducts.length < 1) {
     return (
-      <Card className="flex w-full sm:w-[839px] h-[186px] border border-special p-6 justify-center items-center">
+      <Card className="flex w-full lg:w-[839px] h-[186px] border border-special p-6 justify-center items-center">
         <CardTitle className="text-icons">No products in cart.</CardTitle>
       </Card>
     );
   }
 
   return (
-    <section className="flex flex-col items-center sm:items-start gap-8 w-full">
+    <section className="flex flex-col items-center lg:items-start gap-8 w-full">
       <div className="flex items-center gap-4 w-full h-6.5">
         <Checkbox
           id="selectAll"
@@ -226,11 +225,11 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
               checkedProducts.includes(prod.stockId) ||
               checkedProducts[0] === "all"
             }
-            className="hidden sm:block"
+            className="hidden lg:block"
           />
           <Card
             key={prod.stockId}
-            className="relative flex w-full sm:w-[839px] h-auto border border-special p-6 overflow-hidden sm:overflow-auto"
+            className="relative flex w-full lg:w-[839px] h-auto border border-special p-6 overflow-hidden sm:overflow-auto"
           >
             <Checkbox
               id={String(prod?.stockId)}
@@ -239,7 +238,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                 checkedProducts.includes(prod.stockId) ||
                 checkedProducts[0] === "all"
               }
-              className="absolute block sm:hidden top-0 left-0 bg-transparent border-l-0 border-t-0 sm: rounded-l-none rounded-t-none"
+              className="absolute block lg:hidden top-0 left-0 bg-transparent border-l-0 border-t-0 sm:rounded-l-none rounded-t-none"
             />
             <CardContent className="relative flex flex-col sm:flex-row gap-8 w-full">
               <div className="w-full sm:w-[172px] p-3 h-[200px] sm:h-[138px] border-1 border-special rounded-md">

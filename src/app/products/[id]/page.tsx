@@ -13,17 +13,6 @@ import AddToCart from "@/components/productDetails/AddToCart";
 import ProductInfo from "@/components/productDetails/ProductInfo";
 import { Product } from "@/types";
 
-// import type { Metadata } from "next";
-
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { id: string };
-// }): Promise<Metadata> {
-//   return {
-//     title: `Product ${params.id}`,
-//   };
-// }
 
 export default async function ProductDetails({
   params,
@@ -34,7 +23,7 @@ export default async function ProductDetails({
 
   try {
     console.log(id);
-    const response = await fetch(`http://localhost:3000/api/products/${id}`); // najpierw z await!
+    const response = await fetch(`${process.env.APP_URL}/api/products/${id}`); // najpierw z await!
 
     if (!response.ok) {
       return (

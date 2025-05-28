@@ -30,8 +30,8 @@ const SortProducts: React.FC = () => {
   }
 
   return (
-    <div className="flex gap-5 sm:gap-15 self-center sm:self-auto sm:justify-start">
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+    <div className="flex gap-5 lg:gap-15 self-center lg:self-auto lg:justify-start">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
         <Label className="text-lg sm:text-xl">Sort by</Label>
         <Select
           value={sortOrder}
@@ -49,8 +49,8 @@ const SortProducts: React.FC = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-        <Label className="text-lg sm:text-xl">Show</Label>
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
+        <Label className="text-lg lg:text-xl">Show</Label>
         <Select
           value={String(limit)}
           onValueChange={(value) => handleLimit(value)}

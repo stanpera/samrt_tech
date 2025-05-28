@@ -23,6 +23,8 @@ const FinalCheckoutProductCard = ({
   currency,
   totalAmount,
 }: FinalCheckoutProductCardProps) => {
+
+  
   if (products === null) {
     return (
       <Card className="flex items-center justify-center gap-2 w-full sm:w-[592px] h-[138px] border border-special p-4">

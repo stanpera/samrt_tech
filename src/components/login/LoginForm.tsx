@@ -85,22 +85,14 @@ const LoginForm = () => {
   const onSubmit = async (value: onSubmitProps): Promise<void> => {
     try {
       const password = value.password;
-      const singInToApp = await signIn("smarttech", {
+      await signIn("smarttech", {
         contact,
         password,
         redirect: true,
         callbackUrl: "/",
       });
 
-      if (singInToApp) {
-        console.log("singInToApp", singInToApp);
-        showSnackbar("You have been successfully logged in.", "success");
-      } else {
-        showSnackbar(
-          "Unexpected error when logging in. Please try again later or contact with support.",
-          "error"
-        );
-      }
+      showSnackbar("You have been successfully logged in.", "success");
     } catch (error: unknown) {
       if (error instanceof Error) {
         showSnackbar(error.message, "error");
@@ -126,8 +118,8 @@ const LoginForm = () => {
                 " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-full sm:w-[448px] gap-8"
               )}
             >
-              <FormDescription className="self-start border-special border-b-1 w-full pb-5">
-                <h3 className="text-xl sm:text-2xl">Sign In</h3>
+              <FormDescription className="self-start border-special border-b-1 w-full pb-5 text-xl sm:text-2xl">
+                Sign In
               </FormDescription>
               <FormField
                 control={formContact.control}
@@ -186,8 +178,8 @@ const LoginForm = () => {
                 " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-full sm:w-[448px] gap-8"
               )}
             >
-              <FormDescription className="self-start border-special border-b-1 w-full pb-5">
-                <h3 className="text-xl sm:text-2xl">Sign In</h3>
+              <FormDescription className="self-start border-special text-xl sm:text-2xl border-b-1 w-full pb-5">
+                Sign In
               </FormDescription>
               <FormField
                 control={formPassword.control}

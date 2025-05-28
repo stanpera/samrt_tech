@@ -1,16 +1,10 @@
 "use server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getRandomProductsFromDb } from "@/lib/queries";
-import { getToken } from "next-auth/jwt";
+// import { getToken } from "next-auth/jwt";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const token = await getToken({ req });
-
-    if (!token) {
-      return NextResponse.json({ error: "No authorization" }, { status: 403 });
-    }
-
     const randomProducts = await getRandomProductsFromDb();
 
     return NextResponse.json(randomProducts);

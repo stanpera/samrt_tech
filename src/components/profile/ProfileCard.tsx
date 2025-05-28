@@ -38,6 +38,7 @@ const ProfileCard: React.FC<AvatarProps> = ({
   const handleLogout = async () => {
     try {
       await signOut();
+      localStorage.clear();
       if (status === "unauthenticated") {
         showSnackbar("You have been successfully logged out.", "success");
         router.push("/login");
@@ -64,9 +65,7 @@ const ProfileCard: React.FC<AvatarProps> = ({
   };
 
   if (loading) {
-    return (
-      <Skeleton className="h-[200px] w-full sm:w-[320px] p-6 gap-6" />
-    );
+    return <Skeleton className="h-[200px] w-full sm:w-[320px] p-6 gap-6" />;
   }
 
   if (error) {
@@ -76,7 +75,7 @@ const ProfileCard: React.FC<AvatarProps> = ({
       </Card>
     );
   }
-  
+
   return (
     <Card className="flex flex-col w-full sm:w-[320px] p-6 gap-6 border border-special self-start">
       <div className="flex justify-center items-center gap-6">

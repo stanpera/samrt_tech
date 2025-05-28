@@ -29,9 +29,7 @@ const useCurrency = () => {
         );
 
         if (!response.ok) {
-          throw new Error(
-            "Failed to load product categories - no server response."
-          );
+          return;
         }
 
         const data = await response.json();

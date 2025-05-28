@@ -52,7 +52,6 @@ const ProductList: React.FC = () => {
     setPage,
   } = useProductsContext();
 
-  console.log("products", products);
   const [convertion, setConvertion] = useState<convertionProps>({
     rate: 1,
     symbol: "\u0024",
@@ -148,7 +147,7 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 sm:p-10 gap-10 w-full h-full items-start">
+    <div className="flex flex-col p-5 lg:p-10 gap-10 w-full h-full items-start">
       <SortProducts />
       {products && products?.length < 1 && !error && !loading && (
         <div className="flex flex-wrap gap-12 h-full items-center justify-center w-full text-icons">
@@ -170,7 +169,7 @@ const ProductList: React.FC = () => {
           {Array.from({ length: limit || 9 }, (_, index) => (
             <Card
               key={index}
-              className=" justify-center items-center w-[300px] h-[386px] text-icons hover:text-highlights hover:border-highlights hover:scale-105 cursor-pointer border border-special gap-6"
+              className=" justify-center items-center w-[300px] h-[386px] text-icons  border border-special gap-6"
             >
               <EmptyImage className="size-30 text-special" />
               <CardTitle className="text-center text-xl text-special">
@@ -183,7 +182,7 @@ const ProductList: React.FC = () => {
 
       {!loading && !error && (
         <>
-          <div className="flex flex-wrap gap-12 justify-center sm:justify-start">
+          <div className="flex flex-wrap gap-12 justify-center lg:justify-start">
             {products?.map((prod) => (
               <Card
                 key={prod.id}

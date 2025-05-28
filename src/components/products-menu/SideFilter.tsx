@@ -118,7 +118,7 @@ const SideFilter = () => {
   }
 
   return (
-    <div className="flex flex-col w-full sm:w-[363px] h-auto sm:h-full p-5 sm:p-10 gap-5 sm:gap-13 sm:border-r sm:border-special ">
+    <div className="flex flex-col w-full sm:w-[363px] h-auto lg:h-full p-5 lg:p-10 gap-5 lg:gap-13 lg:border-r lg:border-special ">
       <OptionsHandler
         categories={categories}
         isCheckAll={isCheckAllCategory}

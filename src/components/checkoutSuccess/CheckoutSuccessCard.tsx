@@ -62,6 +62,7 @@ const CheckoutSuccessCard = () => {
   if (loading) {
     return <Skeleton className="w-[592px] h-[500px]" />;
   }
+  
   if (error) {
     return (
       <Card className="w-[592px] h-[500px] items-center justify-center text-icons gap-2">

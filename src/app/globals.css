@@ -72,8 +72,8 @@ body {
   background: var(--background);
   color: var(--first-content);
   font-family: var(--font-sans);
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   gap: 0.5rem;
 }
 
