@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   const sortBy = searchParams.get("sortBy") || "latest";
   const brand = searchParams.get("brand") || "all";
   const id = searchParams.get("productId") || "none";
-  console.log("XD", minPrice);
+
   const filter = {
     ...(categoryId != "all"
       ? {
@@ -44,7 +44,6 @@ export async function GET(req: NextRequest) {
       : {}),
     price: {
       ...(minPrice ? { gte: minPrice } : {}),
-      // gte: minPrice,
       ...(maxPrice ? { lte: maxPrice } : {}),
     },
     ...(brand != "all"

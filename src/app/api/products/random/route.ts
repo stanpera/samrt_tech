@@ -1,7 +1,6 @@
 "use server";
 import { NextResponse } from "next/server";
 import { getRandomProductsFromDb } from "@/lib/queries";
-// import { getToken } from "next-auth/jwt";
 
 export async function GET() {
   try {

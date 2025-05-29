@@ -9,24 +9,15 @@ interface Currency {
   rates: object;
 }
 const useCurrency = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const [currency, setCurrency] = useState<Currency>();
   const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchCategories = async () => {
-      setLoading(true);
-      setError(false);
-      setErrorMessage("");
       try {
-        const response = await fetch(
-          "https://api.currencyfreaks.com/v2.0/rates/latest?apikey=f4e207c12d584a9f8fa2e7977e78fece&symbols=GBP,USD,EUR",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch("api/currency", {
+          method: "GET",
+        });
 
         if (!response.ok) {
           return;
@@ -38,26 +29,13 @@ const useCurrency = () => {
           throw new Error(data.error);
         }
         setCurrency(data);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          {
-            showSnackbar(error.message, "error");
-          }
-        } else {
-          showSnackbar(
-            "An unexpected error occurred while retrieving product category data.",
-            "error"
-          );
-        }
-        setError(true);
-        setErrorMessage("Data is currently unavailable");
-      } finally {
-        setLoading(false);
+      } catch {
+        return;
       }
     };
     fetchCategories();
   }, [showSnackbar]);
-  return { currency, loading, error, errorMessage };
+  return { currency };
 };
 
 export default useCurrency;

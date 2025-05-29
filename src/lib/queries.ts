@@ -309,6 +309,25 @@ export async function createOrder(
     throw new Error("Failed to save order in db");
   }
 }
+
+export async function updateOrder(
+  id: number,
+  updatedData: {
+    [key: string]: string;
+  }
+): Promise<void> {
+  try {
+    await prisma.order.update({
+      where: { id: id },
+      data: updatedData,
+    });
+    revalidateTag("order");
+    return;
+  } catch {
+    throw new Error("Failed to update order in db");
+  }
+}
+
 export const getOrder = async (id: number): Promise<Order | null> => {
   try {
     const order = await prisma.order.findUnique({

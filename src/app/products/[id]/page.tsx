@@ -13,7 +13,6 @@ import AddToCart from "@/components/productDetails/AddToCart";
 import ProductInfo from "@/components/productDetails/ProductInfo";
 import { Product } from "@/types";
 
-
 export default async function ProductDetails({
   params,
 }: {
@@ -22,8 +21,9 @@ export default async function ProductDetails({
   const { id } = await params;
 
   try {
-    console.log(id);
-    const response = await fetch(`${process.env.APP_URL}/api/products/${id}`); // najpierw z await!
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+    
+    const response = await fetch(`${baseUrl}/api/products/${id}`); 
 
     if (!response.ok) {
       return (
@@ -76,4 +76,3 @@ export default async function ProductDetails({
   }
 }
 
-// export default ProductDetails;

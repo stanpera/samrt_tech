@@ -123,7 +123,6 @@ const AddToCart: FC<AddToCartProps> = ({ product }) => {
       const allAvailableProductStocks = product?.stocks?.map(
         (stock) => stock.id
       );
-      console.log(allAvailableProductStocks);
 
       const myCartProducts = cartItemsArray.map((p) => p.stockId);
       const stocksToCount = myCartProducts.filter((stockId) =>

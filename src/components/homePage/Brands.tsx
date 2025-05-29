@@ -72,14 +72,14 @@ const Brands = () => {
                     {typeof brand.logoUrl === "string" && (
                       <>
                         <Image
-                          className="hidden sm:block"
+                          className="hidden sm:block w-auto h-auto"
                           src={brand.logoUrl}
                           alt={`logo ${brand.name}`}
                           width={46}
                           height={46}
                         />
                         <Image
-                          className="block sm:hidden"
+                          className="block sm:hidden w-auto h-auto"
                           src={brand.logoUrl}
                           alt={`logo ${brand.name}`}
                           width={26}

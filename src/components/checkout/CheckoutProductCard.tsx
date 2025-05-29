@@ -164,7 +164,6 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
     );
     setlocalStorageRefresh((prev) => !prev);
   };
-  // if (0 === 0) {
     if (cartProducts.length < 1) {
     return (
       <Card className="flex w-full sm:w-[839px] h-[186px] border border-special p-6 justify-center items-center">

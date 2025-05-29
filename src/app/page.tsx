@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import Brands from "@/components/homePage/Brands";
 import CategoryList from "@/components/homePage/CategoryList";

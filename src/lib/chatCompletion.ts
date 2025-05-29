@@ -44,7 +44,6 @@ const chatCompletion = async (
       }
     )}. After searching the product database, only return a comma-separated list of products ids as numbers, without any additional text or explanation. You must never write anything except numbers `,
   };
-  console.log("products", contextMessage);
 
   const fullMessageHistory = [contextMessage, ...messageHistory];
 

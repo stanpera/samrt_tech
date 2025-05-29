@@ -1,39 +1,23 @@
-interface OrderItemType {
-  stockId: number;
-  productId: number;
-  quantity: number;
-  message: string;
-  productProtection: boolean;
-  paymentMethod: string;
-  shippingMethod: string;
-}
 type Snackbar = (
   message: string,
   variant: "success" | "error" | "warning" | "info"
 ) => void;
 
-export async function postOrder(
-  products: OrderItemType[],
-  showSnackbar: Snackbar
-) {
+export async function updateOrder(orderId: number, showSnackbar: Snackbar) {
   try {
-    const response = await fetch(`/api/orderItem`, {
-      method: "POST",
+    const response = await fetch(`/api/orders/paid?orderId=${orderId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(products),
     });
 
     if (!response.ok) {
       throw new Error(`Network error: ${response.status}`);
     }
-
     const data = await response.json();
 
     showSnackbar(data.message, "success");
-
-    return data.orderId;
   } catch (error: unknown) {
     if (error instanceof Error) {
       {
@@ -47,7 +31,3 @@ export async function postOrder(
     }
   }
 }
-
-
-
-

@@ -94,7 +94,6 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
       );
     } else {
       cartProducts[indexOfProduct].totalAmount = totalProductAmount;
-      console.log("else", cartProducts[indexOfProduct]);
 
       localStorage.setItem(
         "cartItems",
@@ -127,7 +126,6 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
   };
 
   const handleCheckProduct = (id: number | "all") => {
-    console.log("ID", id);
     if (typeof id === "number") {
       setCheckedProducts((prev) =>
         prev.includes(id) ? prev.filter((el) => el !== id) : [...prev, id]

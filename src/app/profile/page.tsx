@@ -16,7 +16,7 @@ const Profile = () => {
   const { user, error, errorMessage, loading} = useUser("?userData=profile");
 
   return (
-    <main className="flex flex-col w-full max-w-[1440px] h-full">
+    <main className="flex flex-col w-full max-w-[1440px] h-auto">
       <div className="self-start mx-10 my-2.5">
         <Breadcrumb>
           <BreadcrumbList>

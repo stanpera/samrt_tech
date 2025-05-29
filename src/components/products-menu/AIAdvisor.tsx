@@ -28,7 +28,6 @@ const AiAdvisor = () => {
     setMessage("");
     setMessages(completions.messages);
     setProductId(completions.messages[completions.messages.length - 1].content);
-    console.log("JOŁ", completions.messages);
   };
 
   return (

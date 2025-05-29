@@ -43,7 +43,6 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
   };
 
   const handleClick = (id: string) => {
-    console.log("raz");
     setIsCheck((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );

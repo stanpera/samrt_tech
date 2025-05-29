@@ -10,7 +10,6 @@ import { Skeleton } from "../ui/skeleton";
 const ProfileTransactions = () => {
   const { orders, error, errorMessage, loading } =
     useOrders("?ordersData=orders");
-  console.log("orders", orders);
 
   if (loading) {
     return <Skeleton className="w-full gap-4 p-4 " />;
@@ -25,7 +24,7 @@ const ProfileTransactions = () => {
     );
   }
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full h-[100%]">
       <div className="w-full sm:w-[50%] mb-8">
         <h3 className="text-lg font-semibold mb-3 text-center">Transactions</h3>
         <Separator className="border-2" />
