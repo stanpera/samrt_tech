@@ -19,7 +19,7 @@ const useBrands = () => {
       try {
         const response = await fetch(`/api/brands`, {
           method: "GET",
-          cache: "force-cache",
+          // cache: "force-cache",
         });
 
         if (!response.ok) {
@@ -27,6 +27,7 @@ const useBrands = () => {
         }
 
         const data = await response.json();
+        
         if (data.error) {
           throw new Error(data.error);
         }

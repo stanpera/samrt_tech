@@ -55,7 +55,7 @@ const Brands = () => {
       </section>
     );
   }
-  
+
   return (
     <section className="w-full flex flex-col items-start px-0 sm:px-10">
       <div className="w-full flex justify-between">

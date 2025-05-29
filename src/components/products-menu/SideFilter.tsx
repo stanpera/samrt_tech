@@ -100,22 +100,22 @@ const SideFilter = () => {
   if (loadingCategories) {
     return (
       <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
-        <Skeleton className="h-50 w-[283px]" />
-        <Skeleton className="h-50 w-[283px]" />
-        <Skeleton className="h-50 w-[283px]" />
+        <Skeleton className="h-50 w-[250px]" />
+        <Skeleton className="h-50 w-[250px]" />
+        <Skeleton className="h-50 w-[250px]" />
       </div>
     );
   }
   if (errorCategories || errorBrands) {
     return (
-      <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
-        <Card className="h-50 w-[283px] justify-center items-center text-icons">
+      <div className="flex flex-col w-auto h-full p-10 gap-13 border-r border-special">
+        <Card className="h-50 w-[250px] justify-center items-center text-icons">
           {errorMessageCategories}
         </Card>
-        <Card className="h-50 w-[283px] justify-center items-center text-icons">
+        <Card className="h-50 w-[250px] justify-center items-center text-icons">
           {errorMessageCategories}
         </Card>
-        <Card className="h-50 w-[283px] justify-center items-center text-icons">
+        <Card className="h-50 w-[250px] justify-center items-center text-icons">
           {errorMessageCategories}
         </Card>
       </div>
