@@ -17,8 +17,13 @@ const SideFilter = () => {
   const paramsCategory = searchParams.get("category");
   const paramsBrand = searchParams.get("brand");
 
-  const { categories, loading, error, errorMessage } = useCategories();
-  const { brands } = useBrands();
+  const {
+    categories,
+    loading: loadingCategories,
+    error: errorCategories,
+    errorMessage: errorMessageCategories,
+  } = useCategories();
+  const { brands, loading: loadingBrands, error: errorBrands } = useBrands();
 
   const {
     setCategory,
@@ -92,7 +97,7 @@ const SideFilter = () => {
     }
   }, [paramsBrand, paramsCategory, setBrand, setCategory]);
 
-  if (loading) {
+  if (loadingCategories) {
     return (
       <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
         <Skeleton className="h-50 w-[283px]" />
@@ -101,17 +106,17 @@ const SideFilter = () => {
       </div>
     );
   }
-  if (error) {
+  if (errorCategories || errorBrands) {
     return (
       <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
         <Card className="h-50 w-[283px] justify-center items-center text-icons">
-          {errorMessage}
+          {errorMessageCategories}
         </Card>
         <Card className="h-50 w-[283px] justify-center items-center text-icons">
-          {errorMessage}
+          {errorMessageCategories}
         </Card>
         <Card className="h-50 w-[283px] justify-center items-center text-icons">
-          {errorMessage}
+          {errorMessageCategories}
         </Card>
       </div>
     );
@@ -127,14 +132,16 @@ const SideFilter = () => {
         setIsCheck={setIsCheckCategory}
         name="Category"
       />
-      <OptionsHandler
-        categories={brands}
-        isCheckAll={isCheckAllBrand}
-        isCheck={isCheckBrand}
-        setIsCheckAll={setIsCheckAllBrand}
-        setIsCheck={setIsCheckBrand}
-        name="Brand"
-      />
+      {!loadingBrands && (
+        <OptionsHandler
+          categories={brands}
+          isCheckAll={isCheckAllBrand}
+          isCheck={isCheckBrand}
+          setIsCheckAll={setIsCheckAllBrand}
+          setIsCheck={setIsCheckBrand}
+          name="Brand"
+        />
+      )}
       <PriceHandler
         minPrice={minPrice}
         maxPrice={maxPrice}

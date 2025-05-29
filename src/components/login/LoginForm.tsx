@@ -26,7 +26,6 @@ import { Checkbox } from "../ui/checkbox";
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 const contactSchema = z.object({
   contact: z.string().min(4, {
@@ -40,7 +39,6 @@ const passwordSchema = z.object({
 });
 
 const LoginForm = () => {
-  const router = useRouter();
   const { showSnackbar } = useSnackbar();
   const [step, setStep] = useState<number>(1);
   const [contact, setContact] = useState<string>("");
@@ -83,22 +81,23 @@ const LoginForm = () => {
   type onSubmitProps = {
     password: string;
   };
-
   const onSubmit = async (value: onSubmitProps): Promise<void> => {
     try {
       const password = value.password;
-      const isSigned = await signIn("smarttech", {
+      const result = await signIn("smarttech", {
         contact,
         password,
         redirect: false,
+        // callbackUrl: "/",
       });
 
-      if (isSigned && !isSigned.ok) {
-        showSnackbar("Invalid login details.", "warning");
+      if (!result?.ok) {
+        showSnackbar("Inavlid login data", "error");
+        window.location.href = "/";
+      } else {
+        showSnackbar("You have been successfully logged in.", "success");
+        window.location.href = "/";
       }
-
-      showSnackbar("You have been successfully logged in.", "success");
-      router.push("/");
     } catch (error: unknown) {
       if (error instanceof Error) {
         showSnackbar(error.message, "error");
