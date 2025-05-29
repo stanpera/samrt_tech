@@ -1,15 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 
 export async function GET(req: NextRequest) {
-  const token = await getToken({ req });
-
-  if (!token) {
-    return NextResponse.json({ error: "No authorization" }, { status: 403 });
-  }
-
   const { searchParams } = new URL(req.url);
 
   const categoryId = searchParams.get("category") || "all";

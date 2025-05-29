@@ -1,14 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getAllBrands } from "@/lib/queries";
-import { getToken } from "next-auth/jwt";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const token = await getToken({ req });
-
-    if (!token) {
-      return NextResponse.json({ error: "No authorization" }, { status: 403 });
-    }
     const brands = await getAllBrands();
     return NextResponse.json(brands);
   } catch (error: unknown) {
