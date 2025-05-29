@@ -16,7 +16,7 @@ const Pay = () => {
   const stripePromise = loadStripe(publishKey ? publishKey : "");
 
   const { order, error, loading } = useOrderData();
-  const [totalPriceToPay, setTotalPriceToPay] = useState<number>(10000000);
+  const [totalPriceToPay, setTotalPriceToPay] = useState<number>(1);
 
   useEffect(() => {
     const totalProdPrice = order?.orderItems

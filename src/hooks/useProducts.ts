@@ -64,7 +64,7 @@ const useProducts = () => {
       } catch (error: unknown) {
         if (error instanceof Error) {
           {
-            showSnackbar("error.message", "error");
+            showSnackbar(`${error.message}`, "error");
           }
         } else {
           showSnackbar(
