@@ -13,6 +13,9 @@ NEXTAUTH_SECRET==
 
 OPENAI_API_KEY=
 
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+
 POSTGRES_USER_DOCKER_COMPOSE=
 SMART_TECH_PASSWORD_DOCKER_COMPOSE=
 POSTGRES_DB_DOCKER_COMPOSE=
@@ -27,4 +30,4 @@ W wersji poprawionej dodano:
 
 2. Bramka płatności STRIPE. W danych do płatności, tj. karta należy podać dane testowe. Np. nr konta: 4242424242424242, CVC [trzy dowolne cyfry], data [dowolna data w przód].
 
-3. Subiektywnie, największy problem, jeśli chodzi o bugi, które zostały wykryte to optymalizacja strony pod względem prędkości. Pozostałe błędy zostały namierzone i mam nadzieję w większym stopniu usunięte.
+3. Subiektywnie, największy problem, jeśli chodzi o bugi, które zostały wykryte to optymalizacja strony pod względem prędkości. Kwestia użycia use server oraz use clien w pewnych miejscach pozostaje niejasna. Pozostałe błędy zostały namierzone i mam nadzieję w większym stopniu usunięte.
