@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import AiAdvisor from "@/components/products-menu/AIAdvisor";
 import ProductList from "@/components/products-menu/ProductsList";
