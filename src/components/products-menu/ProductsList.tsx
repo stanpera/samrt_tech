@@ -98,7 +98,7 @@ const ProductList: React.FC = () => {
         showSnackbar("Product sold out!", "warning");
         return;
       }
-      
+
       const productToCart = {
         stockId: avaliableStock.id,
         productId: prod.id,
@@ -155,7 +155,7 @@ const ProductList: React.FC = () => {
         </div>
       )}
       {loading && (
-        <div className="flex flex-wrap gap-12">
+        <div className="flex flex-wrap gap-12 justify-center">
           {Array.from({ length: limit || 9 }, (_, index) => (
             <Skeleton
               key={index}
@@ -165,7 +165,7 @@ const ProductList: React.FC = () => {
         </div>
       )}
       {error && (
-        <div className="flex flex-wrap gap-12">
+        <div className="flex flex-wrap gap-12 justify-center">
           {Array.from({ length: limit || 9 }, (_, index) => (
             <Card
               key={index}
@@ -180,7 +180,7 @@ const ProductList: React.FC = () => {
         </div>
       )}
 
-      {!loading && !error && (
+      {!error && !error && (
         <>
           <div className="flex flex-wrap gap-12 justify-center lg:justify-start">
             {products?.map((prod) => (

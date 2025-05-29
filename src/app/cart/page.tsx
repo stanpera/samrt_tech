@@ -17,7 +17,7 @@ const Cart = () => {
 
   return (
     <main
-      className="flex flex-col items-center pb-20 w-full max-w-[1440px] h-full
+      className="flex flex-col items-center pb-20 w-full max-w-[1440px] h-auto
     "
     >
       <div className="self-center sm:self-start px-5 sm:px-10 py-2.5">
