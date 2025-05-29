@@ -4,7 +4,6 @@ import AiAdvisor from "@/components/products-menu/AIAdvisor";
 import ProductList from "@/components/products-menu/ProductsList";
 import SideFilter from "@/components/products-menu/SideFilter";
 import { ProductsProvider } from "@/context/ProductProvider";
-import { Suspense } from "react";
 
 const ProductMenu = () => {
   return (
