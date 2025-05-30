@@ -14,9 +14,11 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useState } from "react";
+import useUser from "@/hooks/useUser";
 
 const Checkout = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
+  const { user, error, errorMessage, loading } = useUser("?userData=address");
 
   return (
     <main className="flex flex-col items-center pb-20 w-full max-w-[1440px]">
@@ -40,11 +42,20 @@ const Checkout = () => {
       <div className="flex flex-col sm:flex-row gap-12 mt-10 max-w-[1360px] sm:w-[1360px] items-center mx-5 sm:mx-0">
         <div className="flex flex-col gap-10">
           <CheckoutProductCard setRefresh={setRefresh} />
-          <CheckoutAddressCard setRefresh={setRefresh} />
+          <CheckoutAddressCard
+            setRefresh={setRefresh}
+            user={user ?? undefined}
+            error={error}
+            errorMessage={errorMessage}
+            loading={loading}
+          />
           <ShippingMethod setRefresh={setRefresh} />
           <PaymentMethod setRefresh={setRefresh} />
         </div>
-        <CheckoutTotalPriceCard refresh={refresh} />
+        <CheckoutTotalPriceCard
+          refresh={refresh}
+          address={user?.address?.[0] ?? undefined}
+        />
       </div>
     </main>
   );

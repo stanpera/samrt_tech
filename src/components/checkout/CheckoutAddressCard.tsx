@@ -5,21 +5,28 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { useState } from "react";
 import MainAddress from "./MainAddress";
-import useUser from "@/hooks/useUser";
 import NewAddress from "./NewAddress";
 import { Skeleton } from "../ui/skeleton";
+import { User } from "@/types";
 
 type ActiveAddressType = "newAddress" | "existingAddress";
 
 interface CheckoutAddressCardProps {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  user: User | undefined;
+  error: boolean;
+  errorMessage: string;
+  loading: boolean;
 }
 
 const CheckoutAddressCard: React.FC<CheckoutAddressCardProps> = ({
   setRefresh,
+  user,
+  error,
+  errorMessage,
+  loading,
 }) => {
-  const { user, error, errorMessage, loading } = useUser("?userData=address");
-
+  // const { user, error, errorMessage, loading } = useUser("?userData=address");
   const [activeAddress, setActiveAddress] =
     useState<ActiveAddressType>("existingAddress");
 
@@ -40,7 +47,9 @@ const CheckoutAddressCard: React.FC<CheckoutAddressCardProps> = ({
   }
   return (
     <section>
-      <h3 className="text-2xl  font-medium mb-4 text-center sm:text-left">Address</h3>
+      <h3 className="text-2xl  font-medium mb-4 text-center sm:text-left">
+        Address
+      </h3>
       <div className="flex flex-col items-start gap-8 ">
         <Card className="flex w-full sm:w-[839px] h-auto border border-special p-6 gap-8">
           <div className="flex w-full">

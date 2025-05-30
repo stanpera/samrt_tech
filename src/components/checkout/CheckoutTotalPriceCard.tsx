@@ -9,6 +9,7 @@ import { useSnackbar } from "@/context/SnackbarContext";
 import { updateShippingAddress } from "@/lib/fetch/updateShippingAddress";
 import { updateStock } from "@/lib/fetch/updateStock";
 import { postOrder } from "@/lib/fetch/postOrder";
+import { Address } from "@/types";
 
 interface CartItemsProps {
   stockId: number;
@@ -42,9 +43,11 @@ interface CurrentCurrencyProps {
 
 interface CheckoutTotalPriceCardProps {
   refresh: boolean;
+  address: Address | undefined;
 }
 const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
   refresh,
+  address,
 }) => {
   const router = useRouter();
   const { showSnackbar } = useSnackbar();
@@ -128,41 +131,55 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
 
   const handlePayNow = async () => {
     try {
-      const paymentMethodItem = localStorage.getItem("paymentMethod");
-      const shippingItem = localStorage.getItem("shipping");
-
-      const productsOrder = cartProducts?.map((p) => ({
-        stockId: p.stockId,
-        productId: p.productId,
-        quantity: p.quantity,
-        message: p.message ?? "",
-        productProtection: p.productProtection,
-        paymentMethod: paymentMethodItem ?? "",
-        shippingMethod: shippingItem ?? "",
-      }));
-
-      const orderId = await postOrder(productsOrder, showSnackbar);
-
-      localStorage.setItem("orderId", orderId);
-
-      const productsAmount = cartProducts?.map((p) => ({
-        stockId: p.stockId,
-        quantity: p.quantity,
-      }));
-
-      await updateStock(productsAmount, showSnackbar);
-
       const addressItem = localStorage.getItem("address");
-      if (addressItem) {
-        const parsedAddress: AddressUpdateProps = JSON.parse(addressItem);
+      if (
+        addressItem ||
+        (address?.city &&
+          address?.country &&
+          address?.state &&
+          address?.postalCode &&
+          address?.street)
+      ) {
+        const paymentMethodItem = localStorage.getItem("paymentMethod");
+        const shippingItem = localStorage.getItem("shipping");
 
-        await updateShippingAddress(parsedAddress, showSnackbar);
-        localStorage.removeItem("address");
+        const productsOrder = cartProducts?.map((p) => ({
+          stockId: p.stockId,
+          productId: p.productId,
+          quantity: p.quantity,
+          message: p.message ?? "",
+          productProtection: p.productProtection,
+          paymentMethod: paymentMethodItem ?? "",
+          shippingMethod: shippingItem ?? "",
+        }));
+
+        const orderId = await postOrder(productsOrder, showSnackbar);
+
+        localStorage.setItem("orderId", orderId);
+
+        const productsAmount = cartProducts?.map((p) => ({
+          stockId: p.stockId,
+          quantity: p.quantity,
+        }));
+
+        await updateStock(productsAmount, showSnackbar);
+
+        if (addressItem) {
+          const parsedAddress: AddressUpdateProps = JSON.parse(addressItem);
+
+          await updateShippingAddress(parsedAddress, showSnackbar);
+          localStorage.removeItem("address");
+        }
+        localStorage.removeItem("cartItems");
+        localStorage.removeItem("paymentMethod");
+        localStorage.removeItem("shipping");
+        router.push(`/checkout/payment`);
+      } else {
+        showSnackbar(
+          "You can't continue. No valid shipping address.",
+          "warning"
+        );
       }
-      localStorage.removeItem("cartItems");
-      localStorage.removeItem("paymentMethod");
-      localStorage.removeItem("shipping");
-      router.push(`/checkout/payment`);
     } catch {
       return;
     }

@@ -164,7 +164,8 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
     );
     setlocalStorageRefresh((prev) => !prev);
   };
-    if (cartProducts.length < 1) {
+  
+  if (cartProducts.length < 1) {
     return (
       <Card className="flex w-full sm:w-[839px] h-[186px] border border-special p-6 justify-center items-center">
         <CardTitle className="text-icons">No products in cart.</CardTitle>
@@ -174,7 +175,9 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
 
   return (
     <section>
-      <h3 className="mb-4 text-2xl font-medium text-center sm:text-left">Your Order</h3>
+      <h3 className="mb-4 text-2xl font-medium text-center sm:text-left">
+        Your Order
+      </h3>
       <div className="flex flex-col items-start gap-8 ">
         {cartProducts.map((prod) => (
           <Card
@@ -209,8 +212,28 @@ const CheckoutProductCard: React.FC<CheckoutProductCardProps> = ({
                 <CardTitle className="text-lg sm:text-[20px] font-medium text-icons flex justify-between">
                   {prod.name}
                 </CardTitle>
-                <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start text-sm">
-                  {prod.category}
+                <div className="flex gap-4">
+                  <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start text-sm">
+                    {prod.category}
+                  </div>
+                  <div
+                    className={cn(
+                      "relative flex w-8 h-8 sm:w-8 sm:h-8 rounded-md items-center justify-center border border-special",
+                      {
+                        "bg-product-black": prod.color === "black",
+                        "bg-product-gray": prod.color === "gray",
+                        "bg-product-white": prod.color === "white",
+                        "bg-product-orange": prod.color === "orange",
+                        "bg-product-red": prod.color === "red",
+                        "bg-product-yellow": prod.color === "yellow",
+                        "bg-product-pink": prod.color === "pink",
+                        "bg-product-blue": prod.color === "blue",
+                        "bg-product-silver": prod.color === "silver",
+                        "bg-conic-150/increasing from-violet-700 via-lime-300 to-violet-700":
+                          prod.color === "multicolor",
+                      }
+                    )}
+                  ></div>
                 </div>
                 <CardFooter className="flex flex-col sm:flex-row justify-between p-0 text-2xl font-medium text-icons sm:gap-0 gap-4">
                   <div className="flex justify-between w-full text-lg sm:text-2xl">
