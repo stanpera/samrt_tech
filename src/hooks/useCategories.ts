@@ -19,6 +19,7 @@ const useCategories = () => {
       try {
         const response = await fetch(`/api/categories`, {
           method: "GET",
+          cache: "force-cache",
         });
 
         if (!response.ok) {

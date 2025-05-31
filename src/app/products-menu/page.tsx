@@ -1,20 +1,19 @@
-"use server";
+"use client";
 
+import AiAdvisor from "@/components/products-menu/AIAdvisor";
 import ProductList from "@/components/products-menu/ProductsList";
 import SideFilter from "@/components/products-menu/SideFilter";
 import { ProductsProvider } from "@/context/ProductProvider";
-import { Suspense } from "react";
 
 const ProductMenu = () => {
   return (
     <ProductsProvider>
-      <main className="w-full flex flex-col flex-1 items-center max-w-[1440px]">
-        <div className="hidden sm:block h-10 w-full border-b-1 border-special"></div>
+      <main className="w-full flex flex-col flex-1 items-center ">
+        <AiAdvisor />
+        <div className="hidden lg:block h-1 w-full border-b-1 border-special"></div>
         <div className="flex flex-col flex-1 items-center pb-5 w-full max-w-[1440px]">
-          <div className="flex flex-col sm:flex-row w-full items-center sm:items-start ">
-            <Suspense fallback={null}>
-              <SideFilter />
-            </Suspense>
+          <div className="flex flex-col lg:flex-row w-full items-center lg:items-start justify-center ">
+            <SideFilter />
             <ProductList />
           </div>
         </div>

@@ -10,10 +10,9 @@ import {
 } from "@/components/ui/select";
 import { Label } from "../ui/label";
 import { useProductsContext } from "@/context/ProductProvider";
-import { Skeleton } from "../ui/skeleton";
 
 const SortProducts: React.FC = () => {
-  const { loading, error, limit, sortOrder, setPage, setLimit, setSortOrder } =
+  const { error, limit, sortOrder, setPage, setLimit, setSortOrder } =
     useProductsContext();
 
   const handleSortOrder = (value: string) => {
@@ -26,23 +25,19 @@ const SortProducts: React.FC = () => {
     setPage(0);
   };
 
-  if (loading) {
-    return <Skeleton className="h-9 w-[450px]" />;
-  }
-
   if (error) {
     return;
   }
 
   return (
-    <div className="flex gap-5 sm:gap-15 justify-center sm:justify-start">
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Label className="text-xl">Sort by</Label>
+    <div className="flex gap-5 lg:gap-15 self-center lg:self-auto lg:justify-start">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
+        <Label className="text-lg sm:text-xl">Sort by</Label>
         <Select
           value={sortOrder}
           onValueChange={(value) => handleSortOrder(value)}
         >
-          <SelectTrigger className="w-[126px] border-special text-sm text-icons bg-cards">
+          <SelectTrigger className="w-auto gap-2 px-2 border-special text-sm text-icons bg-cards">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -54,8 +49,8 @@ const SortProducts: React.FC = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Label className="text-xl">Show</Label>
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
+        <Label className="text-lg lg:text-xl">Show</Label>
         <Select
           value={String(limit)}
           onValueChange={(value) => handleLimit(value)}
@@ -65,15 +60,10 @@ const SortProducts: React.FC = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <>
-                {Array.from({ length: 10 }, (_, i) => (i + 1) * 3).map(
-                  (value) => (
-                    <SelectItem key={value} value={value.toString()}>
-                      {value}
-                    </SelectItem>
-                  )
-                )}
-              </>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="20">20</SelectItem>
+                <SelectItem value="50">30</SelectItem>
+                <SelectItem value="100">100</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

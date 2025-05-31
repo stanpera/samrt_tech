@@ -17,8 +17,13 @@ const SideFilter = () => {
   const paramsCategory = searchParams.get("category");
   const paramsBrand = searchParams.get("brand");
 
-  const { categories, loading, error, errorMessage } = useCategories();
-  const { brands } = useBrands();
+  const {
+    categories,
+    loading: loadingCategories,
+    error: errorCategories,
+    errorMessage: errorMessageCategories,
+  } = useCategories();
+  const { brands, loading: loadingBrands, error: errorBrands } = useBrands();
 
   const {
     setCategory,
@@ -30,6 +35,7 @@ const SideFilter = () => {
     currentCurrency,
     minPrice,
     maxPrice,
+    setProductId,
   } = useProductsContext();
 
   useEffect(() => {
@@ -44,17 +50,18 @@ const SideFilter = () => {
     }
   }, [setCurrentCurrency]);
 
-  const [isCheckAllCategory, setIsCheckAllCategory] = useState(true);
+  const [isCheckAllCategory, setIsCheckAllCategory] = useState(false);
   const [isCheckCategory, setIsCheckCategory] = useState<Array<string>>([]);
-  const [isCheckAllBrand, setIsCheckAllBrand] = useState(true);
+  const [isCheckAllBrand, setIsCheckAllBrand] = useState(false);
   const [isCheckBrand, setIsCheckBrand] = useState<Array<string>>([]);
 
   useEffect(() => {
-    setMinPrice(10);
-    setMaxPrice(NaN);
+    setMinPrice("");
+    setMaxPrice("");
   }, [currentCurrency, setMaxPrice, setMinPrice]);
 
   useEffect(() => {
+    setProductId("none");
     if (isCheckAllCategory) {
       setCategory(["all"]);
       setPage(0);
@@ -62,9 +69,11 @@ const SideFilter = () => {
       setCategory(isCheckCategory);
       setPage(0);
     }
-  }, [isCheckAllCategory, isCheckCategory, setCategory, setPage]);
+  }, [isCheckAllCategory, isCheckCategory, setCategory, setPage, setProductId]);
 
   useEffect(() => {
+    setProductId("none");
+
     if (isCheckAllBrand) {
       setBrand(["all"]);
       setPage(0);
@@ -72,7 +81,7 @@ const SideFilter = () => {
       setBrand(isCheckBrand);
       setPage(0);
     }
-  }, [isCheckAllBrand, isCheckBrand, setBrand, setPage]);
+  }, [isCheckAllBrand, isCheckBrand, setBrand, setPage, setProductId]);
 
   useEffect(() => {
     if (paramsCategory) {
@@ -88,33 +97,33 @@ const SideFilter = () => {
     }
   }, [paramsBrand, paramsCategory, setBrand, setCategory]);
 
-  if (loading) {
+  if (loadingCategories) {
     return (
-      <div className="flex flex-col w-[463px] h-full p-10 gap-13 border-r border-special">
-        <Skeleton className="h-50 w-[283px]" />
-        <Skeleton className="h-50 w-[283px]" />
-        <Skeleton className="h-50 w-[283px]" />
+      <div className="flex flex-col w-full h-full p-10 gap-13 border-r border-special">
+        <Skeleton className="h-50 w-[250px]" />
+        <Skeleton className="h-50 w-[250px]" />
+        <Skeleton className="h-50 w-[250px]" />
       </div>
     );
   }
-  if (error) {
+  if (errorCategories || errorBrands) {
     return (
-      <div className="flex flex-col w-[463px] h-full p-10 gap-13 border-r border-special">
-        <Card className="h-50 w-[283px] justify-center items-center text-icons">
-          {errorMessage}
+      <div className="flex flex-col w-auto h-full p-10 gap-13 border-r border-special">
+        <Card className="h-50 w-[250px] justify-center items-center text-icons">
+          {errorMessageCategories}
         </Card>
-        <Card className="h-50 w-[283px] justify-center items-center text-icons">
-          {errorMessage}
+        <Card className="h-50 w-[250px] justify-center items-center text-icons">
+          {errorMessageCategories}
         </Card>
-        <Card className="h-50 w-[283px] justify-center items-center text-icons">
-          {errorMessage}
+        <Card className="h-50 w-[250px] justify-center items-center text-icons">
+          {errorMessageCategories}
         </Card>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col w-full sm:w-[363px] h-auto sm:h-full p-5 sm:p-10 gap-13 sm:border-r sm:border-special ">
+    <div className="flex flex-col w-full sm:w-[363px] h-auto lg:h-[100%] p-5 lg:p-10 gap-5 lg:gap-13 lg:border-r lg:border-special">
       <OptionsHandler
         categories={categories}
         isCheckAll={isCheckAllCategory}
@@ -123,14 +132,16 @@ const SideFilter = () => {
         setIsCheck={setIsCheckCategory}
         name="Category"
       />
-      <OptionsHandler
-        categories={brands}
-        isCheckAll={isCheckAllBrand}
-        isCheck={isCheckBrand}
-        setIsCheckAll={setIsCheckAllBrand}
-        setIsCheck={setIsCheckBrand}
-        name="Brand"
-      />
+      {!loadingBrands && (
+        <OptionsHandler
+          categories={brands}
+          isCheckAll={isCheckAllBrand}
+          isCheck={isCheckBrand}
+          setIsCheckAll={setIsCheckAllBrand}
+          setIsCheck={setIsCheckBrand}
+          name="Brand"
+        />
+      )}
       <PriceHandler
         minPrice={minPrice}
         maxPrice={maxPrice}

@@ -65,15 +65,16 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
 }
+
 body {
   font-size: var(--font-size-base);
   background: var(--background);
   color: var(--first-content);
   font-family: var(--font-sans);
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   gap: 0.5rem;
 }
 
@@ -87,4 +88,16 @@ h2 {
   -webkit-line-clamp: 4;
   line-clamp: 4;
   line-height: 1.2;
+}
+
+.no-inputArrow {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+.no-inputArrow::-webkit-inner-spin-button,
+.no-inputArrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

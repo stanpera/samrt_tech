@@ -255,7 +255,7 @@ const ProfileForm = () => {
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className={cn(
-            " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-[448px] gap-8"
+            " flex flex-col mb-[77px] items-center text-icons bg-cards p-6 rounded-md border border-special w-full sm:w-[448px] gap-8"
           )}
         >
           <FormDescription className="self-start border-special border-b-1 w-full pb-5">

@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import DeliveryDate from "@/components/ui/DeliveryDate";
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import Quality from "@/components/icons/Quality";
 import { Product } from "@/types";
@@ -17,30 +16,43 @@ import { FC } from "react";
 import { useEffect, useState } from "react";
 import EmptyImage from "../icons/EmptyImage";
 
-interface ConvertionProps {
+interface convertionProps {
   rate: number;
-  symbol: string;
+  symbol: "\u0024" | "\u20AC" | "\u00A3";
 }
 
 interface ProductInfoProps {
   product: Product | undefined;
-  loading: boolean;
-  convertion: ConvertionProps;
 }
 
-const ProductInfo: FC<ProductInfoProps> = ({
-  product,
-  loading,
-  convertion,
-}) => {
-  const [mainImage, setMainImage] = useState<string>("none");
+const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
+  const [mainImage, setMainImage] = useState<string>(
+    product?.images ? product.images[0]?.url ?? "" : ""
+  );
   const [viewMore, setViewMore] = useState(false);
+  const [convertion, setConvertion] = useState<convertionProps>({
+    rate: 1,
+    symbol: "\u0024",
+  });
 
   useEffect(() => {
-    if (!loading) {
-      setMainImage(product?.images ? product?.images[0]?.url : "none");
+    const currency = localStorage.getItem("currentCurrency");
+    if (currency) {
+      const currencyData = JSON.parse(currency);
+      const currentCurrency = currencyData.currentCurrency;
+      const rate = parseFloat(currencyData[currentCurrency]);
+
+      const symbol =
+        currentCurrency === "USD"
+          ? "\u0024"
+          : currentCurrency === "EUR"
+          ? "\u20AC"
+          : "\u00A3";
+
+      setConvertion({ rate: rate, symbol: symbol });
     }
-  }, [loading, product?.images]);
+  }, []);
+
 
   const handleImages = (imgUrl: string) => {
     setMainImage(imgUrl);
@@ -53,74 +65,62 @@ const ProductInfo: FC<ProductInfoProps> = ({
   return (
     <Card className="flex-col lg:flex-row  bg-transparent gap-12 rounded-none border-b border-special pb-12">
       <div className="flex flex-col gap-8">
-        {loading && (
-          <Skeleton className="w-full h-[300px] sm:w-[422px] sm:h-[341px] " />
-        )}
-        {!loading && (
-          <Card
-            className={cn(
-              "w- h-[300px] sm:w-[422px] sm:h-[341px] p-3 bg-cards border border-special"
-            )}
+        <Card
+          className={cn(
+            "w- h-[300px] sm:w-[422px] sm:h-[341px] p-3 bg-cards border border-special"
+          )}
+        >
+          <CardContent
+            className={cn("w-full h-full rounded-md", {
+              "bg-icons": !mainImage || mainImage === "none",
+              "bg-white-content": mainImage && mainImage !== "none",
+            })}
           >
-            <CardContent
-              className={cn("w-full h-full rounded-md", {
-                "bg-icons": !mainImage || mainImage === "none",
-                "bg-white-content": mainImage && mainImage !== "none",
-              })}
+            <div
+              className={"w-full h-full flex justify-center items-center"}
+              style={{
+                backgroundImage: mainImage ? `url("${mainImage}")` : "none",
+                backgroundSize: "70%",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             >
-              <div
-                className={"w-full h-full flex justify-center items-center"}
-                style={{
-                  backgroundImage: mainImage ? `url("${mainImage}")` : "none",
-                  backgroundSize: "70%",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              >
-                {!mainImage && (
-                  <EmptyImage className="size-20 sm:size-30 text-special self-center " />
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        )}
+              {!mainImage && (
+                <EmptyImage className="size-20 sm:size-30 text-special self-center " />
+              )}
+            </div>
+          </CardContent>
+        </Card>
         <div className="flex gap-4">
-          {loading &&
-            Array.from({ length: 3 }, (_, index) => (
-              <Skeleton key={index} className="w-[130px] h-[99px]"></Skeleton>
-            ))}
-          {!loading &&
-            product?.images?.map((img) => (
-              <>
-                <Card
-                  key={product.id}
-                  className={cn("w-[100px] h-[70px] sm:w-[130px] sm:h-[99px]")}
-                  onClick={() => handleImages(img.url)}
-                >
-                  <CardContent
-                    className={cn("w-full h-full rounded-md cursor-pointer", {
-                      "bg-icons": !img.url,
-                      "bg-white-content": img.url,
-                      "border-2 border-highlights": img.url === mainImage,
-                      "opacity-50": img.url !== mainImage,
-                    })}
-                  >
-                    <div
-                      className={"w-full h-full"}
-                      style={{
-                        backgroundImage: img.url ? `url("${img.url}")` : "none",
-                        backgroundSize: "70%",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    ></div>
-                    {!img.url && (
-                      <EmptyImage className="sm:size-30 size-20 text-special" />
-                    )}
-                  </CardContent>
-                </Card>
-              </>
-            ))}
+          {product?.images?.map((img) => (
+            <Card
+              key={img.id}
+              className={cn("w-[100px] h-[70px] sm:w-[130px] sm:h-[99px]")}
+              onClick={() => handleImages(img.url)}
+            >
+              <CardContent
+                className={cn("w-full h-full rounded-md cursor-pointer", {
+                  "bg-icons": !img.url,
+                  "bg-white-content": img.url,
+                  "border-2 border-highlights": img.url === mainImage,
+                  "opacity-50": img.url !== mainImage,
+                })}
+              >
+                <div
+                  className={"w-full h-full"}
+                  style={{
+                    backgroundImage: img.url ? `url("${img.url}")` : "none",
+                    backgroundSize: "70%",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                ></div>
+                {!img.url && (
+                  <EmptyImage className="sm:size-30 size-20 text-special" />
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
       <Card className="bg-transparent justify-center sm:justify-start items-start w-full sm:w-[427]">
@@ -131,7 +131,9 @@ const ProductInfo: FC<ProductInfoProps> = ({
               {product?.category?.name}
             </div>
           </CardTitle>
-          <CardTitle className={cn("text-icons text-xl sm:text-[32px] font-medium")}>
+          <CardTitle
+            className={cn("text-icons text-xl sm:text-[32px] font-medium")}
+          >
             {`${convertion?.symbol}${
               product?.price ? (product.price * convertion?.rate).toFixed(2) : 0
             }`}

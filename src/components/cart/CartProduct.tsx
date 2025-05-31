@@ -94,7 +94,6 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
       );
     } else {
       cartProducts[indexOfProduct].totalAmount = totalProductAmount;
-      console.log("else", cartProducts[indexOfProduct]);
 
       localStorage.setItem(
         "cartItems",
@@ -184,15 +183,14 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
 
   if (cartProducts.length < 1) {
     return (
-      <Card className="flex w-[839px] h-[186px] border border-special p-6 justify-center items-center">
+      <Card className="flex w-full lg:w-[839px] h-[186px] border border-special p-6 justify-center items-center">
         <CardTitle className="text-icons">No products in cart.</CardTitle>
       </Card>
     );
   }
 
-
   return (
-    <section className="flex flex-col items-center sm:items-start gap-8 ">
+    <section className="flex flex-col items-center lg:items-start gap-8 w-full">
       <div className="flex items-center gap-4 w-full h-6.5">
         <Checkbox
           id="selectAll"
@@ -217,7 +215,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
         )}
       </div>
       {cartProducts.map((prod) => (
-        <div key={prod.stockId} className="flex items-center gap-6">
+        <div key={prod.stockId} className="flex items-center gap-6 w-full">
           <Checkbox
             id={String(prod?.stockId)}
             onClick={() => handleCheckProduct(prod.stockId)}
@@ -225,13 +223,23 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
               checkedProducts.includes(prod.stockId) ||
               checkedProducts[0] === "all"
             }
+            className="hidden lg:block"
           />
           <Card
             key={prod.stockId}
-            className="flex w-full sm:w-[839px] h-auto border border-special p-6"
+            className="relative flex w-full lg:w-[839px] h-auto border border-special p-6 overflow-hidden sm:overflow-auto"
           >
-            <CardContent className="relative flex flex-col sm:flex-row gap-8">
-              <div className="w-full sm:w-[172px] p-3 h-[138px] border-1 border-special rounded-md">
+            <Checkbox
+              id={String(prod?.stockId)}
+              onClick={() => handleCheckProduct(prod.stockId)}
+              isChecked={
+                checkedProducts.includes(prod.stockId) ||
+                checkedProducts[0] === "all"
+              }
+              className="absolute block lg:hidden top-0 left-0 bg-transparent border-l-0 border-t-0 sm:rounded-l-none rounded-t-none"
+            />
+            <CardContent className="relative flex flex-col sm:flex-row gap-8 w-full">
+              <div className="w-full sm:w-[172px] p-3 h-[200px] sm:h-[138px] border-1 border-special rounded-md">
                 <div
                   className={cn(
                     {
@@ -255,28 +263,60 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-1 gap-4">
-                <CardTitle className="text-[20px] font-medium text-icons flex justify-between">
-                  {prod.name}
+                <CardTitle className="text-lg w-full sm:text-[20px] font-medium text-icons flex justify-between">
+                  <p> {prod.name}</p>
                   <Button
                     variant="trash"
                     size="trash"
                     onClick={() => handleDeleteSingleProduct(prod.stockId)}
+                    className="hidden sm:block"
                   >
                     <Trash />
                   </Button>
                 </CardTitle>
-                <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start text-sm">
-                  {prod.category}
+                <div className="flex justify-between">
+                  <div className="flex gap-4">
+                    <div className="py-1.5 px-2.5 bg-first-content text-cards rounded-md self-start text-sm">
+                      {prod.category}
+                    </div>
+                    <div
+                      className={cn(
+                        "relative flex w-8 h-8 sm:w-8 sm:h-8 rounded-md items-center justify-center border border-special",
+                        {
+                          "bg-product-black": prod.color === "black",
+                          "bg-product-gray": prod.color === "gray",
+                          "bg-product-white": prod.color === "white",
+                          "bg-product-orange": prod.color === "orange",
+                          "bg-product-red": prod.color === "red",
+                          "bg-product-yellow": prod.color === "yellow",
+                          "bg-product-pink": prod.color === "pink",
+                          "bg-product-blue": prod.color === "blue",
+                          "bg-product-silver": prod.color === "silver",
+                          "bg-conic-150/increasing from-violet-700 via-lime-300 to-violet-700":
+                            prod.color === "multicolor",
+                        }
+                      )}
+                    ></div>
+                  </div>
+                  <Button
+                    variant="trash"
+                    size="trash"
+                    onClick={() => handleDeleteSingleProduct(prod.stockId)}
+                    className="block sm:hidden"
+                  >
+                    <Trash />
+                  </Button>
                 </div>
-                <CardFooter className="flex justify-between p-0 text-2xl font-medium text-icons">
-                  <div>
+                <CardFooter className="flex flex-col sm:flex-row gap-2 justify-between p-0 text-xl sm:text-2xl font-medium text-icons">
+                  <div className="flex justify-between w-full">
+                    <p className="sm:hidden">Price:</p>
                     {currency.currentCurrency === "EUR"
                       ? `\u20AC${(currency.EUR * prod.price).toFixed(2)}`
                       : currency.currentCurrency === "GBP"
                       ? `\u00A3${(currency.GBP * prod.price).toFixed(2)}`
                       : `\u0024${(currency.USD * prod.price).toFixed(2)}`}
                   </div>
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-6 w-full sm:w-auto justify-between">
                     <Button
                       className={cn("flex gap-2 items-center", {
                         "text-success": prod.message,
@@ -334,7 +374,7 @@ const CartProduct: React.FC<CartProductProps> = ({ setRefresh }) => {
                   )}
               </div>
               {activeNoteId === prod.stockId && (
-                <div className="  absolute flex justify-end w-[60%] h-full left-[50%] translate-x-[-50%] text-icons">
+                <div className="  absolute flex justify-end w-full sm:w-[60%] h-full left-[50%] translate-x-[-50%] text-icons">
                   <Button
                     variant="icon"
                     size="icon"

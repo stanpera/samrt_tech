@@ -55,6 +55,7 @@ const Brands = () => {
       </section>
     );
   }
+
   return (
     <section className="w-full flex flex-col items-start px-0 sm:px-10">
       <div className="w-full flex justify-between">
@@ -71,14 +72,14 @@ const Brands = () => {
                     {typeof brand.logoUrl === "string" && (
                       <>
                         <Image
-                          className="hidden sm:block"
+                          className="hidden sm:block w-auto h-auto"
                           src={brand.logoUrl}
                           alt={`logo ${brand.name}`}
                           width={46}
                           height={46}
                         />
                         <Image
-                          className="block sm:hidden"
+                          className="block sm:hidden w-auto h-auto"
                           src={brand.logoUrl}
                           alt={`logo ${brand.name}`}
                           width={26}

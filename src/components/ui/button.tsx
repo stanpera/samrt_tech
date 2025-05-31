@@ -19,7 +19,7 @@ const buttonVariants = cva("disabled:opacity-50 disabled:cursor-auto duration-30
       banner: "opacity-40 sm:opacity-100 bg-first-content hover:bg-highlights text-background",
       dot: "bg-special rounded-full",
       seeAll: "border-none bg-none hover:text-highlights ",
-      shop: "sm:bg-cards bg-highlights hover:bg-second-content",
+      shop: "bg-cards hover:bg-second-content",
       trash: "bg-none hover:bg-none hover:text-error text-errorIcon",
       icon: "bg-none hover:bg-none",
       form: "bg-first-content text-cards font-medium hover:bg-highlights duration-300 rounded-md disabled:hover:bg-first-content ",

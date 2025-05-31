@@ -9,6 +9,7 @@ import { useSnackbar } from "@/context/SnackbarContext";
 import { updateShippingAddress } from "@/lib/fetch/updateShippingAddress";
 import { updateStock } from "@/lib/fetch/updateStock";
 import { postOrder } from "@/lib/fetch/postOrder";
+import { Address } from "@/types";
 
 interface CartItemsProps {
   stockId: number;
@@ -42,9 +43,11 @@ interface CurrentCurrencyProps {
 
 interface CheckoutTotalPriceCardProps {
   refresh: boolean;
+  address: Address | undefined;
 }
 const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
   refresh,
+  address,
 }) => {
   const router = useRouter();
   const { showSnackbar } = useSnackbar();
@@ -128,53 +131,67 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
 
   const handlePayNow = async () => {
     try {
-      const paymentMethodItem = localStorage.getItem("paymentMethod");
-      const shippingItem = localStorage.getItem("shipping");
-
-      const productsOrder = cartProducts?.map((p) => ({
-        stockId: p.stockId,
-        productId: p.productId,
-        quantity: p.quantity,
-        message: p.message ?? "",
-        productProtection: p.productProtection,
-        paymentMethod: paymentMethodItem ?? "",
-        shippingMethod: shippingItem ?? "",
-      }));
-
-      const orderId = await postOrder(productsOrder, showSnackbar);
-
-      localStorage.setItem("orderId", orderId);
-
-      const productsAmount = cartProducts?.map((p) => ({
-        stockId: p.stockId,
-        quantity: p.quantity,
-      }));
-
-      await updateStock(productsAmount, showSnackbar);
-
       const addressItem = localStorage.getItem("address");
-      if (addressItem) {
-        const parsedAddress: AddressUpdateProps = JSON.parse(addressItem);
+      if (
+        addressItem ||
+        (address?.city &&
+          address?.country &&
+          address?.state &&
+          address?.postalCode &&
+          address?.street)
+      ) {
+        const paymentMethodItem = localStorage.getItem("paymentMethod");
+        const shippingItem = localStorage.getItem("shipping");
 
-        await updateShippingAddress(parsedAddress, showSnackbar);
-        localStorage.removeItem("address");
+        const productsOrder = cartProducts?.map((p) => ({
+          stockId: p.stockId,
+          productId: p.productId,
+          quantity: p.quantity,
+          message: p.message ?? "",
+          productProtection: p.productProtection,
+          paymentMethod: paymentMethodItem ?? "",
+          shippingMethod: shippingItem ?? "",
+        }));
+
+        const orderId = await postOrder(productsOrder, showSnackbar);
+
+        localStorage.setItem("orderId", orderId);
+
+        const productsAmount = cartProducts?.map((p) => ({
+          stockId: p.stockId,
+          quantity: p.quantity,
+        }));
+
+        await updateStock(productsAmount, showSnackbar);
+
+        if (addressItem) {
+          const parsedAddress: AddressUpdateProps = JSON.parse(addressItem);
+
+          await updateShippingAddress(parsedAddress, showSnackbar);
+          localStorage.removeItem("address");
+        }
+        localStorage.removeItem("cartItems");
+        localStorage.removeItem("paymentMethod");
+        localStorage.removeItem("shipping");
+        router.push(`/checkout/payment`);
+      } else {
+        showSnackbar(
+          "You can't continue. No valid shipping address.",
+          "warning"
+        );
       }
-      localStorage.removeItem("cartItems");
-      localStorage.removeItem("paymentMethod");
-      localStorage.removeItem("shipping");
-      router.push(`/checkout/success`);
     } catch {
       return;
     }
   };
 
   return (
-    <Card className="self-start w-full h-auto border border-special p-6 font-medium text-icons">
+    <Card className="sm:self-start w-full h-auto border border-special p-6 font-medium text-icons">
       <CardTitle className="text-lg mb-4 text-highlights">
         Total Product
       </CardTitle>
       <CardDescription className="flex flex-col justify-between gap-4">
-        <div className="flex justify-between text-base">
+        <div className="flex flex-col sm:flex-row justify-between text-base">
           <p>
             Total Product Price (
             {cartProducts
@@ -190,7 +207,7 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
               : `\u0024${(currency.USD * totalProductPrice).toFixed(2)}`}
           </p>
         </div>
-        <div className="flex justify-between text-base">
+        <div className="flex flex-col sm:flex-row justify-between text-base">
           <p>Total Product Protection</p>
           <p className="text-lg">
             {currency.currentCurrency === "EUR"
@@ -200,7 +217,7 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
               : `\u0024${(currency.USD * totalProductProtection).toFixed(2)}`}
           </p>
         </div>
-        <div className="flex justify-between text-base">
+        <div className="flex flex-col sm:flex-row justify-between text-base">
           <p>Total Shipping Price</p>
           <p className="text-lg">
             {currency.currentCurrency === "EUR"
@@ -210,7 +227,7 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
               : `\u0024${(currency.USD * shippingInsurance).toFixed(2)}`}
           </p>
         </div>
-        <div className="flex justify-between text-base">
+        <div className="flex flex-col sm:flex-row justify-between text-base">
           <p>Shipping Insurance</p>
           <p className="text-lg">
             {currency.currentCurrency === "EUR"
@@ -225,7 +242,7 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
       <CardTitle className="text-lg mb-4 text-highlights">
         Transaction Fees
       </CardTitle>
-      <div className="flex justify-between text-base">
+      <div className="flex flex-col sm:flex-row justify-between text-base">
         <p>Service Fees</p>
         <p className="text-lg">
           {currency.currentCurrency === "EUR"
@@ -236,7 +253,7 @@ const CheckoutTotalPriceCard: React.FC<CheckoutTotalPriceCardProps> = ({
         </p>
       </div>
       <Separator orientation="horizontal" className="h-[1px] bg-special my-4" />
-      <div className="flex justify-between text-base mt-4 mb-8">
+      <div className="flex flex-col sm:flex-row justify-between text-base mt-4 mb-8">
         <p>Grand total</p>
         <p className="text-lg">
           {currency.currentCurrency === "EUR"

@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         orderId: orderId,
-        message: `Order successfully completed - items amount: ${itemsAmount}`,
+        message: `Order accepted - items amount: ${itemsAmount}`,
       },
       { status: 200 }
     );

@@ -23,24 +23,26 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
   setIsCheck,
   name,
 }) => {
-  const [isCategoryVisible, setIsCategoryVisible] = useState(true);
+  const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isRestCategoriesVisible, setIsRestCategoriesVisible] = useState(false);
 
   const handleCategories = () => {
-    console.log("RRR", categories);
     setIsCategoryVisible((prev) => !prev);
   };
   const handleMoreCategories = () => {
     setIsRestCategoriesVisible((prev) => !prev);
   };
 
-  const handleSelectAll = () => {
-    setIsCheck([]);
+  const handleSelectAll = (value: Array<string>) => {
+    if (!isCheckAll) {
+      setIsCheck(value);
+    } else {
+      setIsCheck([]);
+    }
     setIsCheckAll((prev) => !prev);
   };
 
   const handleClick = (id: string) => {
-    console.log("raz");
     setIsCheck((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
@@ -49,15 +51,15 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
 
   return (
     <div className="flex flex-col px-2.5 gap-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">{name}</h2>
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-lg sm:text-xl font-semibold">{name}</h2>
         {isCategoryVisible ? (
           <Button onClick={handleCategories} variant="icon">
-            <ArrowUp className="h-6 w-6 hover:text-highlights cursor-pointer" />
+            <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6 hover:text-highlights cursor-pointer" />
           </Button>
         ) : (
           <Button onClick={handleCategories} variant="icon">
-            <ArrowDown className="h-6 w-6 hover:text-highlights cursor-pointer" />
+            <ArrowDown className="h-5 w-5 sm:h-6 sm:w-6 hover:text-highlights cursor-pointer" />
           </Button>
         )}
       </div>
@@ -67,8 +69,10 @@ const OptionsHandler: FC<OptionsHandlerProps> = ({
             <Checkbox
               id="all"
               name="all"
-              onChange={handleSelectAll}
-              isChecked={isCheckAll || isCheck.length === 0}
+              onCheckedChange={() =>
+                handleSelectAll(categories?.map((cat) => String(cat.id)) || [])
+              }
+              isChecked={isCheckAll}
             />
             <label htmlFor="all" className="font-medium">
               All

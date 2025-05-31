@@ -7,9 +7,9 @@ import Logo from "./ui/Logo";
 
 const Footer = () => {
   return (
-    <footer className="flex w-full h-[auto] sm:h-[494px] bg-cards justify-center">
-      <div className="flex flex-col sm:flex-row justify-between items-center w-full h-full max-w-[1440px] bg-cards py-2 sm:py-35 px-0 sm:px-15 gap-4 sm:gap-0">
-        <div className="flex flex-col gap-1 sm:gap-6 items-center sm:items-start h-full mb-5 sm:mb-0">
+    <footer className="flex w-full h-[auto] lg:h-[494px] bg-cards justify-center">
+      <div className="flex flex-col lg:flex-row justify-between items-center w-full h-full max-w-[1440px] bg-cards py-10 lg:py-35 px-0 lg:px-15 gap-8 lg:gap-0">
+        <div className="flex flex-col gap-1 lg:gap-6 items-center lg:items-start h-full mb-5 lg:mb-0">
           <Logo />
           <p className="text-second-content">
             © 2023 SmartTech. All rights reserved.
@@ -22,18 +22,18 @@ const Footer = () => {
             <GooglePay className="h-8 text-icons" />
           </div>
         </div>
-        <div className="flex flex-wrap sm:flex-nowrap gap-x-10 gap-y-5 sm:gap-x-0 sm:gap-y-5 text-second-content justify-center px-4 sm:px-0 sm:justify-items-normal">
-          <div className="flex flex-col gap-2 sm:gap-8 w-[auto] sm:w-[191px]">
+        <div className="flex flex-wrap lg:flex-nowrap gap-x-10 gap-y-5 lg:gap-x-0 lg:gap-y-5 text-second-content  px-4 lg:px-0 lg:justify-items-normal">
+          <div className="flex flex-col gap-2 lg:gap-8 w-[auto] lg:w-[191px]">
             <h3 className="text-xl font-semibold text-first-content">
               Company
             </h3>
-            <ul className="flex flex-col gap-2 sm:gap-4">
+            <ul className="flex flex-col gap-2 lg:gap-4">
               <li>About US</li>
               <li>Contact</li>
               <li>Partner</li>
             </ul>
           </div>
-          <div className="flex flex-col gap-2 sm:gap-8 w-[auto] sm:w-[191px]">
+          <div className="flex flex-col gap-2 lg:gap-8 w-[auto] lg:w-[191px]">
             <h3 className="text-xl font-semibold text-first-content">Social</h3>
             <ul className="flex flex-col gap-4">
               <li>Instagram US</li>
@@ -42,7 +42,7 @@ const Footer = () => {
               <li>Linkedin</li>
             </ul>
           </div>
-          <div className="flex flex-col gap-2 sm:gap-8 w-[auto] sm:w-[191px]">
+          <div className="flex flex-col gap-2 lg:gap-8 w-[auto] lg:w-[191px]">
             <h3 className="text-xl font-semibold text-first-content">FAQ</h3>
             <ul className="flex flex-col gap-4">
               <li>Account</li>
@@ -51,7 +51,7 @@ const Footer = () => {
               <li>Payments</li>
             </ul>
           </div>
-          <div className="flex flex-col gap-2 sm:gap-8 w-[auto] sm:w-[191px]">
+          <div className="flex flex-col gap-2 lg:gap-8 w-[auto] lg:w-[191px]">
             <h3 className="text-xl font-semibold text-first-content">
               Resources
             </h3>

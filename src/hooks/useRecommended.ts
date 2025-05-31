@@ -19,6 +19,7 @@ const useRecommended = () => {
       try {
         const response = await fetch(`/api/products/random`, {
           method: "GET",
+          cache: "default",
         });
 
         if (!response.ok) {

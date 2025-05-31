@@ -27,7 +27,7 @@ const CustomNotification = () => {
   return (
     <div
       className={cn(
-        `w-full max-w-[1360px] flex justify-between items-center p-1 sm:p-4.5 my-1 mx-0 sm:my-3 sm:mx-10 transform transition-opacity duration-300 bg-${snackbar.variant} text-white rounded-none sm:rounded-md`,
+        `w-full max-w-[1360px] flex justify-between items-center px-4.5 py-1 sm:py-4.5 my-1 mx-0 sm:my-3 sm:mx-10 transform transition-opacity duration-300 bg-${snackbar.variant} text-white rounded-none sm:rounded-md`,
         {
           "opacity-100 visible": snackbar.show,
           "opacity-0 invisible": !snackbar.show,
@@ -35,7 +35,7 @@ const CustomNotification = () => {
       )}
     >
       <div className="flex gap-2 items-center">
-        <SnackbarInfo className="size-7.5" variant={snackbar.variant} />
+        <SnackbarInfo className="size-5 sm:size-7.5" variant={snackbar.variant} />
         <p className="text-xs sm:text-xl font-medium text-white-content">{snackbar.message}</p>
       </div>
       <div

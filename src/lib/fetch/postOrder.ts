@@ -17,7 +17,7 @@ export async function postOrder(
   showSnackbar: Snackbar
 ) {
   try {
-    const response = await fetch(`/api//orderItem`, {
+    const response = await fetch(`/api/orderItem`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,9 +41,13 @@ export async function postOrder(
       }
     } else {
       showSnackbar(
-        "An unexpected error occurred while paying for your order.",
+        "An unexpected error occurred while accepting your order.",
         "error"
       );
     }
   }
 }
+
+
+
+

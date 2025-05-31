@@ -20,9 +20,24 @@ const CartAndUserMenuAvatar = () => {
   };
 
   if (error || loading) {
-    return;
+    <div className="relative flex items-center gap-3 sm:gap-7">
+      <Link href="/cart" passHref>
+        <ShoppingCard
+          className={cn("text-first-content hover:text-highlights w-6 h-6")}
+        />
+      </Link>
+      <Avatar
+        className={cn("relative cursor-pointer hover:opacity-80 duration-300")}
+        onClick={handleUserMenu}
+      >
+          <AvatarFallback>
+            <DefaultAvatar />
+          </AvatarFallback>
+      </Avatar>
+      <UserMenu isUserPanelVisible={isUserPanelVisible} />
+    </div>;
   }
-  
+
   return (
     <div className="relative flex items-center gap-3 sm:gap-7">
       <Link href="/cart" passHref>

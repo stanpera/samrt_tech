@@ -16,7 +16,7 @@ const Profile = () => {
   const { user, error, errorMessage, loading} = useUser("?userData=profile");
 
   return (
-    <main className="flex flex-col w-full max-w-[1440px] h-full">
+    <main className="flex flex-col w-full max-w-[1440px] h-auto">
       <div className="self-start mx-10 my-2.5">
         <Breadcrumb>
           <BreadcrumbList>
@@ -30,7 +30,7 @@ const Profile = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="flex my-12 mx-10 gap-12">
+      <div className="flex flex-col sm:flex-row my-12 sm:mx-10 gap-12 mx-5">
         <ProfileCard
           avatar={user?.avatarUrl ?? undefined}
           firstName={user?.firstName ?? undefined}

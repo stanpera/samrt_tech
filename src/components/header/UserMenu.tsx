@@ -13,7 +13,7 @@ const UserMenu = ({ isUserPanelVisible }: { isUserPanelVisible: boolean }) => {
   const handleLogout = async () => {
     try {
       await signOut();
-
+      localStorage.clear()
       showSnackbar("You have been successfully logged out.", "success");
       router.push("/login");
     } catch (error: unknown) {

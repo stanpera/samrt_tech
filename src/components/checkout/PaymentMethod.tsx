@@ -30,8 +30,8 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ setRefresh }) => {
 
   return (
     <section>
-      <h3 className="text-2xl font-medium mb-4">Payment Method</h3>
-      <Card className="flex flex-row h-auto border border-special text-icons">
+      <h3 className="text-2xl font-medium mb-4 text-center sm:text-left">Payment Method</h3>
+      <Card className="flex flex-col sm:flex-row h-auto border border-special text-icons">
         <div
           className={cn(
             "flex gap-3 items-center py-6 pl-6 pr-4 cursor-pointer hover:bg-highlights hover:text-cards",

@@ -16,37 +16,126 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import ShoppingCard from "../icons/ShoppingCard";
 import { useSnackbar } from "@/context/SnackbarContext";
-
-interface ConvertionProps {
-  rate: number;
-  symbol: string;
-}
+import { Input } from "../ui/input";
+import Exit from "../icons/Exit";
 
 interface AddToCartProps {
   product: Product | undefined;
-  convertion: ConvertionProps;
 }
 
-const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
-  const [isMouseDown, setIsMouseDown] = useState<string>("none");
+interface CartItemsProps {
+  stockId: number;
+  productId: number;
+  color: string;
+  quantity: number;
+  category: string;
+  name: string;
+  price: number;
+  totalAmount: number;
+  image: string;
+}
+
+interface convertionProps {
+  rate: number;
+  symbol: "\u0024" | "\u20AC" | "\u00A3";
+}
+
+const AddToCart: FC<AddToCartProps> = ({ product }) => {
   const [activeStockId, setActiveStockId] = useState<number>();
-  const [activeStockColor, serActiveStockColor] = useState<string>();
+  const [activeStockColor, setActiveStockColor] = useState<string>();
   const [activeStockAmount, setActiveStockAmount] = useState<number>(0);
   const [addedProduct, setAddedProduct] = useState<number>(1);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
-
+  const [iseInputEdit, setIsInputEdit] = useState<boolean>(false);
+  const [stockColors, setStockColors] =
+    useState<Array<Array<number> | null> | null>();
   const { showSnackbar } = useSnackbar();
 
-  const productInStock: number | undefined = product?.stocks
-    ?.map((stock) => stock.amount)
-    ?.reduce((acc, current) => acc && current && acc + current);
+  const [convertion, setConvertion] = useState<convertionProps>({
+    rate: 1,
+    symbol: "\u0024",
+  });
+
+    useEffect(() => {
+    const currency = localStorage.getItem("currentCurrency");
+    if (currency) {
+      const currencyData = JSON.parse(currency);
+      const currentCurrency = currencyData.currentCurrency;
+      const rate = parseFloat(currencyData[currentCurrency]);
+
+      const symbol =
+        currentCurrency === "USD"
+          ? "\u0024"
+          : currentCurrency === "EUR"
+          ? "\u20AC"
+          : "\u00A3";
+
+      setConvertion({ rate: rate, symbol: symbol });
+    }
+  }, []);
 
   useEffect(() => {
-    setSubtotal(product?.price || 0);
-    setAddedProduct(1);
-    setActiveStockAmount(productInStock ? productInStock : 0);
-  }, [product, productInStock]);
+    const productInStock: number | undefined = product?.stocks
+      ?.map((stock) => stock.amount)
+      .reduce<number>((acc, current) => acc + (current ?? 0), 0);
+
+    const cartItems = localStorage.getItem("cartItems");
+
+    if (cartItems) {
+      const cartItemsArray: CartItemsProps[] = JSON.parse(cartItems);
+
+      const allAvailableProductStocks = product?.stocks?.map(
+        (stock) => stock.id
+      );
+      const myCartProducts = cartItemsArray.map((p) => p.stockId);
+      const stocksToCount = myCartProducts.filter((stockId) =>
+        allAvailableProductStocks?.includes(stockId)
+      );
+
+      const qunatity = stocksToCount.map((id) => {
+        const findProduct = cartItemsArray.find((c) => c.stockId === id);
+        return findProduct ? findProduct.quantity : 0;
+      });
+
+      const cartQuantity = qunatity.reduce((acc, val) => acc + val, 0);
+
+      const quantityAfterAddToCart = productInStock
+        ? productInStock - cartQuantity
+        : 0;
+
+      setActiveStockAmount(quantityAfterAddToCart);
+      setAddedProduct(quantityAfterAddToCart < 1 ? 0 : 1);
+      setSubtotal(quantityAfterAddToCart < 1 ? product?.price || 0 : 0);
+    } else {
+      setActiveStockAmount(productInStock ? productInStock : 0);
+      setAddedProduct(1);
+      setSubtotal(product?.price || 0);
+    }
+  }, [product]);
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cartItems");
+
+    if (cartItems) {
+      const cartItemsArray: CartItemsProps[] = JSON.parse(cartItems);
+
+      const allAvailableProductStocks = product?.stocks?.map(
+        (stock) => stock.id
+      );
+
+      const myCartProducts = cartItemsArray.map((p) => p.stockId);
+      const stocksToCount = myCartProducts.filter((stockId) =>
+        allAvailableProductStocks?.includes(stockId)
+      );
+
+      const inStockColors = stocksToCount.map((id) => {
+        const findProduct = cartItemsArray.find((c) => c.stockId === id);
+        return findProduct ? [findProduct.stockId, findProduct.quantity] : null;
+      });
+      setStockColors(inStockColors);
+    }
+  }, [product, activeStockAmount]);
 
   const handleStock = ({
     id,
@@ -57,25 +146,44 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
     color: string;
     amount: number;
   }) => {
-    if (amount > 0) {
+    const cartItems = localStorage.getItem("cartItems");
+    if (cartItems) {
+      const cartItemsArray: CartItemsProps[] = JSON.parse(cartItems);
+
+      const index = cartItemsArray.findIndex((cart) => cart.stockId === id);
+
+      if (index !== -1) {
+        const isEmpty =
+          cartItemsArray[index].totalAmount === cartItemsArray[index].quantity;
+
+        const actualTotalAmount =
+          cartItemsArray[index].totalAmount - cartItemsArray[index].quantity;
+
+        setActiveStockAmount(isEmpty ? 0 : actualTotalAmount);
+        setActiveStockId(id);
+        setActiveStockColor(color);
+        setAddedProduct(isEmpty ? 0 : 1);
+      } else if (amount > 0) {
+        setActiveStockId(id);
+        setActiveStockColor(color);
+        setActiveStockAmount(amount);
+        setAddedProduct(1);
+      } else if (amount < 1) {
+        setActiveStockId(id);
+        setActiveStockColor(color);
+        setActiveStockAmount(amount);
+        setAddedProduct(0);
+      }
+    } else if (amount > 0) {
       setActiveStockId(id);
-      serActiveStockColor(color);
+      setActiveStockColor(color);
       setActiveStockAmount(amount);
-    }
-  };
-
-  const handleMouseDownPlus = () => {
-    if (
-      typeof productInStock !== "undefined" &&
-      addedProduct < productInStock
-    ) {
-      setIsMouseDown("plus");
-    }
-  };
-
-  const handleMouseDownMinus = () => {
-    if (addedProduct > 0) {
-      setIsMouseDown("minus");
+      setAddedProduct(1);
+    } else if (amount < 1) {
+      setActiveStockId(id);
+      setActiveStockColor(color);
+      setActiveStockAmount(amount);
+      setAddedProduct(0);
     }
   };
 
@@ -94,28 +202,6 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
     }
   };
 
-  const handleMouseUp = () => {
-    setIsMouseDown("none");
-  };
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    if (isMouseDown === "plus") {
-      interval = setInterval(() => {
-        setAddedProduct((prev) => prev + 1);
-      }, 300);
-    } else if (isMouseDown === "minus") {
-      interval = setInterval(() => {
-        setAddedProduct((prev) => prev - 1);
-      }, 300);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isMouseDown, product?.price]);
-
   useEffect(() => {
     const totalAmount = parseFloat(
       (product?.price ? product?.price * addedProduct : 0).toFixed(2)
@@ -124,21 +210,17 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
   }, [addedProduct, product?.price]);
 
   const handleCart = () => {
-    if (
-      !activeStockId ||
-      addedProduct < 1 ||
-      typeof subtotal !== "number"
-    ) {
+    if (!activeStockId || addedProduct < 1 || typeof subtotal !== "number") {
       setError(true);
     } else {
-      const productToCart = {
+      const productToCart: CartItemsProps = {
         stockId: activeStockId,
-        productId: product?.id,
-        color: activeStockColor,
+        productId: product?.id || NaN,
+        color: activeStockColor || "",
         quantity: addedProduct,
-        category: product?.category?.name,
-        name: product?.name,
-        price: product?.price,
+        category: product?.category?.name || "",
+        name: product?.name || "",
+        price: product?.price || NaN,
         totalAmount: activeStockAmount,
         image: product?.images ? product?.images[0]?.url : "",
       };
@@ -146,15 +228,77 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
       const cartItems = localStorage.getItem("cartItems");
 
       if (cartItems) {
-        let cartItemsArray = JSON.parse(cartItems);
+        const cartItemsArray: CartItemsProps[] = JSON.parse(cartItems);
 
-        cartItemsArray = [...cartItemsArray, productToCart];
-        localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
+        const index = cartItemsArray.findIndex(
+          (cart) => cart.stockId === productToCart.stockId
+        );
+
+        if (index !== -1) {
+          const itemExist = cartItemsArray[index];
+          if (productToCart.quantity <= productToCart.totalAmount) {
+            cartItemsArray[index] = {
+              ...itemExist,
+              quantity: itemExist.quantity + productToCart.quantity,
+            };
+            localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
+            setActiveStockAmount(
+              productToCart.totalAmount - productToCart.quantity
+            );
+            showSnackbar(
+              `${addedProduct} ${
+                addedProduct > 1 ? "products" : "product"
+              } added to cart`,
+              "success"
+            );
+          } else {
+            showSnackbar("Available quantity exceeded", "warning");
+          }
+        } else if (index === -1) {
+          cartItemsArray.push(productToCart);
+          localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
+          setActiveStockAmount(
+            productToCart.totalAmount - productToCart.quantity
+          );
+          showSnackbar(
+            `${addedProduct} ${
+              addedProduct > 1 ? "products" : "product"
+            } added to cart`,
+            "success"
+          );
+        }
       } else {
         const cartItemsArray = [productToCart];
         localStorage.setItem("cartItems", JSON.stringify(cartItemsArray));
+        setActiveStockAmount(
+          productToCart.totalAmount - productToCart.quantity
+        );
+        showSnackbar("Product added to cart", "success");
       }
-      showSnackbar("Product added to cart", "success");
+    }
+    if (activeStockAmount === 0) {
+      setActiveStockAmount(0);
+    }
+  };
+  useEffect(() => {
+    if (addedProduct > activeStockAmount) {
+      setAddedProduct(activeStockAmount);
+    }
+  }, [activeStockAmount, addedProduct]);
+
+  const handleInputEdit = () => {
+    setIsInputEdit(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsInputEdit(false);
+  };
+
+  const handleInputProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+
+    if (value <= activeStockAmount) {
+      setAddedProduct(value);
     }
   };
 
@@ -170,7 +314,7 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                 handleStock({
                   id: stock.id,
                   color: stock?.color || "black",
-                  amount: stock?.amount || 1,
+                  amount: stock?.amount || 0,
                 })
               }
               className={cn(
@@ -187,7 +331,12 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                   "bg-product-silver": stock.color === "silver",
                   "bg-conic-150/increasing from-violet-700 via-lime-300 to-violet-700":
                     stock.color === "multicolor",
-                  "opacity-30": stock.amount && stock.amount < 1,
+                  "cursor-pointer":
+                    stock.amount &&
+                    stock.amount -
+                      (stockColors?.find((arr) => arr?.[0] === stock.id)?.[1] ||
+                        0) >
+                      0,
                 }
               )}
             >
@@ -207,8 +356,11 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                 </Tooltip>
               </TooltipProvider>
               {activeStockId === stock.id &&
-                stock.amount &&
-                stock.amount > 0 && (
+              stock.amount &&
+              stock.amount -
+                (stockColors?.find((arr) => arr?.[0] === stock.id)?.[1] || 0) >
+                0 ? (
+                <>
                   <Check
                     className={cn(
                       "w-6 h-6 absolute text-background font-bold self-center",
@@ -217,7 +369,33 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
                       }
                     )}
                   />
-                )}
+                </>
+              ) : (
+                <p></p>
+              )}
+              {!stock.amount ||
+              (stock.amount &&
+                stock.amount -
+                  (stockColors?.find((arr) => arr?.[0] === stock.id)?.[1] ||
+                    0) <
+                  1) ? (
+                <>
+                  <div
+                    className="absolute w-full h-full"
+                    onClick={() =>
+                      showSnackbar("Product out of stock", "warning")
+                    }
+                  >
+                    <Exit
+                      className={cn("text-background opacity-40 font-bold", {
+                        "text-special": stock.color === "black",
+                      })}
+                    />
+                  </div>
+                </>
+              ) : (
+                <p></p>
+              )}
             </div>
           ))}
         </div>
@@ -227,13 +405,10 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
       </div>
       <div className="flex flex-col gap-3.5 w-full">
         <p className="font-medium text-lg">Quantity</p>
-        <div className="flex items-center gap-4">
-          <div className="flex border border-special items-center justify-center rounded-md py-3.5 px-5 gap-3.5">
+        <div className="flex items-center  justify-start gap-4">
+          <div className="flex border border-special items-center justify-center rounded-md py-3.5 px-5 gap-3.5 h-13 w-35">
             <Button
               onClick={handleMinus}
-              onMouseDown={handleMouseDownMinus}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
               variant="icon"
               size="icon"
               className={cn(
@@ -245,12 +420,25 @@ const AddToCart: FC<AddToCartProps> = ({ product, convertion }) => {
             >
               <Minus className="w-4 h-4" />
             </Button>
-            <p className="font-medium">{addedProduct}</p>
+            {iseInputEdit ? (
+              <Input
+                type="number"
+                value={String(addedProduct)}
+                onChange={handleInputProduct}
+                onBlur={handleInputBlur}
+                className="no-inputArrow border-none w- p-0 m-0 w-10 text-center"
+                autoFocus
+              />
+            ) : (
+              <div
+                onClick={handleInputEdit}
+                className="font-medium cursor-pointer"
+              >
+                {addedProduct}
+              </div>
+            )}
             <Button
               onClick={handlePlus}
-              onMouseDown={handleMouseDownPlus}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
               variant="icon"
               size="icon"
               className={cn(

@@ -3,21 +3,31 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "@/context/SnackbarContext";
 import { Product } from "@/types";
+import { useSearchParams } from "next/navigation";
 
 const useProducts = () => {
+  const searchParams = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+  const brandFromUrl = searchParams.get("brand");
+
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [products, setProducts] = useState<Product[] | undefined>([]);
-  const [category, setCategory] = useState<string[]>(["all"]);
-  const [minPrice, setMinPrice] = useState<number>(10);
-  const [maxPrice, setMaxPrice] = useState<number>(NaN);
-  const [limit, setLimit] = useState<number>(9);
+  const [category, setCategory] = useState<string[]>(
+    categoryFromUrl ? [categoryFromUrl] : ["all"]
+  );
+  const [minPrice, setMinPrice] = useState<string>("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
+  const [limit, setLimit] = useState<number>(10);
   const [sortOrder, setSortOrder] = useState<string>("latest");
   const [page, setPage] = useState<number>(0);
   const [totalProducts, setTotalProducts] = useState<number>(NaN);
-  const [brand, setBrand] = useState<string[]>(["all"]);
+  const [brand, setBrand] = useState<string[]>(
+    brandFromUrl ? [brandFromUrl] : ["all"]
+  );
+  const [productId, setProductId] = useState<string>("none");
   const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -33,9 +43,10 @@ const useProducts = () => {
         const response = await fetch(
           `/api/products?category=${categoryToString}&brand=${brandToString}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}&offset=${
             page * limit
-          }&sortBy=${sortOrder}`,
+          }&sortBy=${sortOrder}&productId=${productId}`,
           {
             method: "GET",
+            cache: "force-cache",
           }
         );
 
@@ -53,7 +64,7 @@ const useProducts = () => {
       } catch (error: unknown) {
         if (error instanceof Error) {
           {
-            showSnackbar("error.message", "error");
+            showSnackbar(`${error.message}`, "error");
           }
         } else {
           showSnackbar(
@@ -68,7 +79,17 @@ const useProducts = () => {
       }
     };
     fetchProducts();
-  }, [sortOrder, category, minPrice, maxPrice, page, limit, brand, showSnackbar]);
+  }, [
+    sortOrder,
+    category,
+    minPrice,
+    maxPrice,
+    page,
+    limit,
+    brand,
+    showSnackbar,
+    productId,
+  ]);
 
   return {
     products,
@@ -90,6 +111,7 @@ const useProducts = () => {
     setSortOrder,
     setPage,
     setBrand,
+    setProductId,
   };
 };
 

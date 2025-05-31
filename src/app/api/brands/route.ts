@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "No authorization" }, { status: 403 });
     }
     const brands = await getAllBrands();
+    console.log("brands", brands)
     return NextResponse.json(brands);
   } catch (error: unknown) {
     if (error instanceof Error) {

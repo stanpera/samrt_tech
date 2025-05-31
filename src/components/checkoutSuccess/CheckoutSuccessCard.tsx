@@ -12,6 +12,8 @@ import SadError from "../icons/sadError";
 import { useEffect, useState } from "react";
 import { Product } from "@/types";
 import { useRouter } from "next/navigation";
+import { useSnackbar } from "@/context/SnackbarContext";
+import { updateOrder } from "@/lib/fetch/updateOrder";
 
 interface CurrentCurrencyProps {
   EUR: number;
@@ -22,7 +24,7 @@ interface CurrentCurrencyProps {
 
 const CheckoutSuccessCard = () => {
   const router = useRouter();
-
+  const { showSnackbar } = useSnackbar();
   const { order, error, loading } = useOrderData();
   const defaultCurrency: CurrentCurrencyProps = {
     EUR: 0.88315,
@@ -38,6 +40,7 @@ const CheckoutSuccessCard = () => {
   const [totalProductProtection, setTotalProductProtection] =
     useState<number>(0);
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [orderId, setOrderId] = useState<number>(0);
 
   useEffect(() => {
     const currentCurrency = localStorage.getItem("currentCurrency");
@@ -57,11 +60,13 @@ const CheckoutSuccessCard = () => {
     setTotalProductPrice(totalProdPrice ? totalProdPrice : 0);
     setTotalProductProtection(totalProdProtect ? totalProdProtect : 0);
     setProducts(order?.products ?? null);
+    setOrderId(order?.id || 0);
   }, [order]);
 
   if (loading) {
     return <Skeleton className="w-[592px] h-[500px]" />;
   }
+
   if (error) {
     return (
       <Card className="w-[592px] h-[500px] items-center justify-center text-icons gap-2">
@@ -71,12 +76,15 @@ const CheckoutSuccessCard = () => {
     );
   }
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    await updateOrder(orderId, showSnackbar);
+
     localStorage.removeItem("orderId");
     router.push(`/`);
   };
+
   return (
-    <Card className="h-auto border border-special p-6 font-medium text-icons gap-4">
+    <Card className="h-auto border border-special p-6 font-medium text-icons gap-4 mx-5 sm:mx-0">
       <div className="flex flex-col items-center gap-6">
         <div className="flex items-center justify-center h-15 w-15 border-2 border-first-content rounded-[100%]">
           <Check className="h-[75%] w-[75%] text-first-content" />

@@ -18,7 +18,7 @@ const Header = () => {
   const { status } = useSession();
 
   return (
-    <header className="flex w-[100%] max-w-[1440px]">
+    <header className="flex w-full max-w-[1440px]">
       <div className="w-full flex flex-col px-2 py-3 sm:py-8 sm:px-10 gap-5 sm:gap-10">
         <div className="flex justify-between items-center">
           <Link href="/" passHref>
